@@ -35,7 +35,8 @@ CREATE TABLE `appointment` (
 	`date` varchar(255) NOT NULL,
 	`timeslot` varchar(255) NOT NULL,
 	`isactive` varchar(255) NOT NULL,
-	`lastmoddate` varchar(255) NOT NULL
+	`lastmoddate` varchar(255) NOT NULL,
+	PRIMARY KEY (`appointmentid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 ALTER TABLE `appointment` AUTO_INCREMENT=5000;
@@ -68,6 +69,7 @@ CREATE TABLE `doctors` (
 	`isactive` varchar(255) NOT NULL,
 	`lastmoddate` varchar(255) NOT NULL,
 	`userid` int,
+	PRIMARY KEY (`doctorid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 ALTER TABLE `doctors` AUTO_INCREMENT=1000;
@@ -110,7 +112,8 @@ CREATE TABLE `hospitals` (
 	`email` varchar(255) NOT NULL,
 	`approvalstatus` varchar(255) NOT NULL,
 	`isactive` varchar(255) NOT NULL,
-	`lastmoddate` varchar(255) NOT NULL
+	`lastmoddate` varchar(255) NOT NULL,
+	PRIMARY KEY (`hospitalid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 ALTER TABLE `hospitals` AUTO_INCREMENT=2000;
@@ -141,7 +144,8 @@ CREATE TABLE `affiliation` (
     `hospitalid` int NOT NULL,
     `appointmentschedule` varchar(255) NOT NULL,
     `isactive` varchar(255) NOT NULL,
-    `lastmoddate` varchar(255) NOT NULL
+    `lastmoddate` varchar(255) NOT NULL,
+	PRIMARY KEY (`affiliaitionid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 ALTER TABLE `affiliation` AUTO_INCREMENT=3000;
@@ -192,7 +196,8 @@ CREATE TABLE `users` (
 	`password` varchar(255) NOT NULL,
 	`phone` varchar(255) NOT NULL,
 	`isactive` varchar(255) NOT NULL,
-	`lastmoddate` varchar(255) NOT NULL
+	`lastmoddate` varchar(255) NOT NULL,
+	PRIMARY KEY (`userid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 ALTER TABLE `users` AUTO_INCREMENT=7000;
