@@ -5,5 +5,5 @@ constants = {
     "host": "localhost",
     "user": "root",
     "password": "",
-    "database": "donationsystem"
+    "database": "wolfCare"
 }

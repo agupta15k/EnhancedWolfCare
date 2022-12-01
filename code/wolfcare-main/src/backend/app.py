@@ -268,3 +268,6 @@ def app_getHospitalSearch():
             return jsonify({"status": 200, "data": {}, "message": data})
 
     return jsonify({"status": 200, "data": {}, "message": ""})
+
+if __name__ == '__main__':
+    app.run(debug=True, host='localhost', port=5001)

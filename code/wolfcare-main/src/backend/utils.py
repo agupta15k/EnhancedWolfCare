@@ -5,7 +5,7 @@ import ast
 import re
 import mysql.connector
 from ast import literal_eval as make_tuple
-from src.backend.dbconfig import constants
+from  src.backend.dbconfig import constants
 import datetime
 
 try:
@@ -115,19 +115,20 @@ def addAffiliation(doctorid, hospitalid, appointmentschedule):
     try:
         lastmoddate = str(datetime.datetime.today()).split()[0]
         isactive = "TRUE"
+        print(doctorid, hospitalid, appointmentschedule, isactive, lastmoddate)
         cursor = connection.cursor(dictionary=True)
-        sql_insert_query = "INSERT INTO affiliation (doctorid, hospitalid, appointmentschedule, isactive, lastmoddate) VALUES (%s, %s, %s, %s, %s, %s)"
+        sql_insert_query = "INSERT INTO affiliation (doctorid, hospitalid, appointmentschedule, isactive, lastmoddate) VALUES (%s, %s, %s, %s, %s)"
         cursor.execute(sql_insert_query, (doctorid, hospitalid, appointmentschedule, isactive, lastmoddate))
         connection.commit()
         cursor.close()
-        return True
+        return True, "bla bal"
     except mysql.connector.Error as error:
         print("some error occurred in addAffiliation: {}".format(error))
         print(error)
-        return False
+        return False,  str(error)
     except Exception as e:
         print("some error occurred in addAffiliation: {}".format(e))
-        return False
+        return False,  str(e)
 
 
 def updateAffiliation(data):
@@ -148,9 +149,9 @@ def updateAffiliation(data):
     try:
         lastmoddate = str(datetime.datetime.today()).split()[0]
         cursor = connection.cursor(dictionary=True)
-        mysql_update_query = """UPDATE affilfiation set appointmentschedule = %s, isactive=%s, lastmoddate=%s WHERE affiliationid = %s """
+        mysql_update_query = """UPDATE affiliation set appointmentschedule = %s, isactive=%s, lastmoddate=%s WHERE affiliationid = %s """
 
-        input_data = (str(data['appointmentschedule']), str(data['isactive']), lastmoddate)
+        input_data = (str(data['appointmentschedule']), str(data['isactive']), lastmoddate, int(data['affiliationid']))
         cursor.execute(mysql_update_query, input_data)
         connection.commit()
 
@@ -189,7 +190,7 @@ def getDoctorSearch(keyword):
         cursor = connection.cursor(dictionary=True)
         finalData = []
         cursor.execute(
-            'SELECT doc.doctorid, doc.firstname, doc.lastname, doc.primaryspecialty, doc.secondaryspecialty FROM doctor doc where doc.firstname = %s or doc.lastname = %s or doc.primaryspecialty = %s or doc.secondaryspecialty= %s', (str(keyword)),(str(keyword)),(str(keyword)),(str(keyword)))
+            'SELECT doc.doctorid, doc.firstname, doc.lastname, doc.primaryspecialty, doc.secondaryspecialty FROM doctors doc where doc.firstname = %s or doc.lastname = %s or doc.primaryspecialty = %s or doc.secondaryspecialty= %s', (str(keyword),str(keyword),str(keyword),str(keyword)))
         data = cursor.fetchall()
         for record in data:
             finalData.append({"doctorid": record["doctorid"], "firstname": record["firstname"], "lastname": record["lastname"], "primaryspecialty": record["primaryspecialty"], "secondaryspecialty": record["secondaryspecialty"]})
@@ -224,7 +225,7 @@ def getHospitalSearch(keyword):
         cursor = connection.cursor(dictionary=True)
         finalData = []
         cursor.execute(
-            'SELECT hosp.hospitalid, hosp.name, hosp.addressline1, hosp.addressline2, hosp.city, hosp.state, hosp.zipcode FROM hospital hosp where hosp.name = %s or hosp.addressline1 = %s or hosp.addressline2 = %s or hosp.city= %s or hosp.state = %s or hosp.zipcode= %s', str(keyword),str(keyword),str(keyword),str(keyword),str(keyword))
+            'SELECT hosp.hospitalid, hosp.name, hosp.addressline1, hosp.addressline2, hosp.city, hosp.state, hosp.zipcode FROM hospitals hosp where hosp.name = %s or hosp.addressline1 = %s or hosp.addressline2 = %s or hosp.city= %s or hosp.state = %s or hosp.zipcode= %s', (str(keyword),str(keyword),str(keyword),str(keyword),str(keyword),str(keyword)))
         data = cursor.fetchall()
         for record in data:
             finalData.append({"hospitalid": record["hospitalid"], "name": record["name"], "addressline1": record["addressline1"], "addressline2": record["addressline2"], "city": record["city"], "state": record["state"]})
@@ -267,15 +268,15 @@ def addAppointment(userid, doctorid, hospitalid, date, timeslot):
         lastmoddate = str(datetime.datetime.today()).split()[0]
         isactive = "TRUE"
         cursor = connection.cursor(dictionary=True)
-        sql_insert_query = "INSERT INTO appointment (userid, doctorid, hospitalid, date, timeslot, isactive, lastmoddate) VALUES (%s, %s, %s, %s, %s, %s)"
+        sql_insert_query = "INSERT INTO appointment (userid, doctorid, hospitalid, date, timeslot, isactive, lastmoddate) VALUES (%s, %s, %s, %s, %s, %s, %s)"
         cursor.execute(sql_insert_query, (userid, doctorid, hospitalid, date, timeslot, isactive, lastmoddate))
         connection.commit()
         cursor.close()
-        return True
+        return True, "Record added successsfully"
     except mysql.connector.Error as error:
         print("some error occurred in addAppointment: {}".format(error))
         print(error)
-        return False
+        return False, error
     except Exception as e:
         print("some error occurred in addAppointment: {}".format(e))
-        return False
+        return False, e
