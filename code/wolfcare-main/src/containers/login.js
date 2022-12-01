@@ -2,7 +2,7 @@
 
 import { connect } from 'react-redux';
 import LoginUser from '../components/login';
-import onSubmitLoginAPI from '../API/login';
+import onSubmitLoginAPI from '../api/login';
 
 /**
  * Map actions to props for login component
