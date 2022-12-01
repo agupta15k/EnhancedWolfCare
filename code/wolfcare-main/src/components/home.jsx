@@ -13,6 +13,8 @@ import LoginUser from './login';
 import RegisterUser from './register';
 import MainPage from './main';
 import DoctorList from './doctorList';
+import AboutUs from './about';
+import ContactUs from './contact';
 
 
 /**
@@ -101,6 +103,10 @@ class Home extends React.Component {
 				return <MainPage />;
 			case 'doctors':
 				return <DoctorList />;
+			case 'about':
+				return <AboutUs />;
+			case 'contact':
+				return <ContactUs />;
 			default:
 				return <MainPage />;
 		}
