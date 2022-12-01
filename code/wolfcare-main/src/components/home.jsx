@@ -100,7 +100,7 @@ class Home extends React.Component {
 	renderContent = () => {
 		switch (this.state.tab) {
 			case 'home':
-				return <MainPage />;
+				return <MainPage setTab={this.setTab} redirectToPath={this.redirectToPath} setRegisterClicked={this.setRegisterClicked}/>;
 			case 'doctors':
 				return <DoctorList />;
 			case 'about':
@@ -108,7 +108,7 @@ class Home extends React.Component {
 			case 'contact':
 				return <ContactUs />;
 			default:
-				return <MainPage />;
+				return <MainPage setTab={this.setTab} redirectToPath={this.redirectToPath} setRegisterClicked={this.setRegisterClicked}/>;
 		}
 	};
 
