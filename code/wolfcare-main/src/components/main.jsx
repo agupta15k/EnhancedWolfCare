@@ -10,16 +10,16 @@ class MainPage extends React.Component {
 					indicators={false}
 					interval={null}
 					keyboard={true}
-					prevIcon={<span aria-hidden="true" className="carousel-control-prev-icon" style={{marginLeft: '-10em'}}/>}
-					nextIcon={<span aria-hidden="true" className="carousel-control-next-icon" style={{marginLeft: '10em'}}/>}
+					prevIcon={<span aria-hidden='true' className='carousel-control-prev-icon' style={{marginLeft: '-10em'}}/>}
+					nextIcon={<span aria-hidden='true' className='carousel-control-next-icon' style={{marginLeft: '10em'}}/>}
 				>
 					<Carousel.Item style={{height: '650px'}}>
 						<div>
 							<img src='../slider5.jpeg' alt='first-slider' style={{width: '100%', height: '650px', opacity: '40%'}}></img>
-							<div className="container" style={{position: 'absolute', width: '42%', height: '50%', top: '25%', right: '50%', opacity: '90%'}}>
+							<div className='container' style={{position: 'absolute', width: '42%', height: '50%', top: '25%', right: '50%', opacity: '90%'}}>
 								<div>
 									<div style={{width: '250px', marginTop: '80px', marginLeft: '30px', float: 'left'}}>
-										<figure><img src="../doc2.jpg" alt="sign in" /></figure>
+										<figure><img src='../doc2.jpg' alt='sign in' /></figure>
 									</div>
 									<div style={{marginTop: '110px', marginLeft: '20px', float: 'left', width: '280px'}}>
 										<h2>Looking for a doctor?</h2>
@@ -32,10 +32,10 @@ class MainPage extends React.Component {
 					<Carousel.Item style={{height: '650px'}}>
 						<div>
 							<img src='../slider6.jpg' alt='first-slider' style={{width: '100%', height: '650px', opacity: '40%'}}></img>
-							<div className="container" style={{position: 'absolute', width: '42%', height: '50%', top: '25%', right: '50%', opacity: '90%'}}>
+							<div className='container' style={{position: 'absolute', width: '42%', height: '50%', top: '25%', right: '50%', opacity: '90%'}}>
 								<div>
 									<div style={{width: '250px', marginTop: '80px', marginLeft: '30px', float: 'left'}}>
-										<figure><img src="../hospital1.jpg" alt="sign in" /></figure>
+										<figure><img src='../hospital1.jpg' alt='sign in' /></figure>
 									</div>
 									<div style={{marginTop: '110px', marginLeft: '20px', float: 'left', width: '280px'}}>
 										<h2>Looking for a hospital?</h2>
@@ -48,10 +48,10 @@ class MainPage extends React.Component {
 					<Carousel.Item style={{height: '650px'}}>
 						<div>
 							<img src='../slider4.jpg' alt='first-slider' style={{width: '100%', height: '650px', opacity: '40%'}}></img>
-							<div className="container" style={{position: 'absolute', width: '42%', height: '50%', top: '25%', right: '50%', opacity: '90%'}}>
+							<div className='container' style={{position: 'absolute', width: '42%', height: '50%', top: '25%', right: '50%', opacity: '90%'}}>
 								<div>
 									<div style={{width: '250px', marginTop: '60px', marginLeft: '30px', float: 'left'}}>
-										<figure><img src="../appointment.jpg" alt="sign in" style={{height: '200px', marginLeft: '10px', float: 'left'}}/></figure>
+										<figure><img src='../appointment.jpg' alt='sign in' style={{height: '200px', marginLeft: '10px', float: 'left'}}/></figure>
 									</div>
 									<div style={{marginTop: '110px', marginLeft: '20px', float: 'left', width: '280px'}}>
 										<h2>Book an appointment anytime, anywhere</h2>
@@ -64,10 +64,10 @@ class MainPage extends React.Component {
 					<Carousel.Item style={{height: '650px'}}>
 						<div>
 							<img src='../slider1.jpg' alt='first-slider' style={{width: '100%', height: '650px', opacity: '40%'}}></img>
-							<div className="container" style={{position: 'absolute', width: '42%', height: '50%', top: '25%', right: '30%', opacity: '90%'}}>
+							<div className='container' style={{position: 'absolute', width: '42%', height: '50%', top: '25%', right: '30%', opacity: '90%'}}>
 								<div>
 									<div style={{width: '250px', marginTop: '60px', marginLeft: '30px', float: 'left'}}>
-										<figure><img src="../doc1.jpg" alt="sign in" style={{width: '180px', height: '180px'}}/></figure>
+										<figure><img src='../doc1.jpg' alt='sign in' style={{width: '180px', height: '180px'}}/></figure>
 									</div>
 									<div style={{marginTop: '80px', marginLeft: '20px', float: 'left', width: '280px'}}>
 										<h2>Are you a Doctor?</h2>
@@ -81,10 +81,10 @@ class MainPage extends React.Component {
 					<Carousel.Item style={{height: '650px'}}>
 						<div>
 							<img src='../slider3.jpg' alt='first-slider' style={{width: '100%', height: '650px', opacity: '40%'}}></img>
-							<div className="container" style={{position: 'absolute', width: '42%', height: '50%', top: '25%', right: '20%', opacity: '90%'}}>
+							<div className='container' style={{position: 'absolute', width: '42%', height: '50%', top: '25%', right: '20%', opacity: '90%'}}>
 								<div>
 									<div style={{width: '250px', marginTop: '80px', marginLeft: '30px', float: 'left'}}>
-										<figure><img src="../hospital.jpg" alt="sign in" /></figure>
+										<figure><img src='../hospital.jpg' alt='sign in' /></figure>
 									</div>
 									<div style={{marginTop: '80px', marginLeft: '20px', float: 'left', width: '280px'}}>
 										<h2>Represent a hospital?</h2>

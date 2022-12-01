@@ -82,22 +82,22 @@ class LoginUser extends React.Component {
 	render() {
 		return (
 			<section>
-				<div className="signin-content">
-					<div className="signin-image">
-						<figure><img src="../signin-image.jpg" alt="sign in" /></figure>
+				<div className='signin-content'>
+					<div className='signin-image'>
+						<figure><img src='../signin-image.jpg' alt='sign in' /></figure>
 					</div>
-					<div className="signin-form">
-						<form className="register-form" id="login-form">
-							<div className="form-group">
-								<img src="../signup-email.png" alt="signin email" />
-								<input autoFocus type="email" name="email" id="email" placeholder="Your Email" value={ this.state.email } onChange={ this.handleInput } required />
+					<div className='signin-form'>
+						<form className='register-form' id='login-form'>
+							<div className='form-group'>
+								<img src='../signup-email.png' alt='signin email' />
+								<input autoFocus type='email' name='email' id='email' placeholder='Your Email' value={ this.state.email } onChange={ this.handleInput } required />
 							</div>
-							<div className="form-group">
-								<img src="../signup-pass.png" alt="signin password" />
-								<input type="password" name="pass" id="pass" placeholder="Password" value={ this.state.pass } onChange={ this.handleInput } required />
+							<div className='form-group'>
+								<img src='../signup-pass.png' alt='signin password' />
+								<input type='password' name='pass' id='pass' placeholder='Password' value={ this.state.pass } onChange={ this.handleInput } required />
 							</div>
-							<div className="form-group form-button">
-								{ this.state.loading ? <Spinner /> : <input type="submit" onClick={ this.handleSubmit } name="signin" id="signin" className="form-submit" value="Log in" /> }
+							<div className='form-group form-button'>
+								{ this.state.loading ? <Spinner /> : <input type='submit' onClick={ this.handleSubmit } name='signin' id='signin' className='form-submit' value='Log in' /> }
 							</div>
 						</form>
 					</div>

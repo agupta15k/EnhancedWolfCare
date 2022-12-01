@@ -190,27 +190,27 @@ class RegisterUser extends React.Component {
 		];
 		const animatedComponents = makeAnimated();
 		return (
-			<div className="signup-content">
-				<div className="signup-form">
-					<form className="register-form" id="register-form">
-						<div className="form-group">
-							<img src="../signup-name.png" alt='signup name' />
-							<input autoFocus type="text" name="name" id="name" placeholder="Your Name" value={ this.state.name } onChange={ this.handleInput } required />
+			<div className='signup-content'>
+				<div className='signup-form'>
+					<form className='register-form' id='register-form'>
+						<div className='form-group'>
+							<img src='../signup-name.png' alt='signup name' />
+							<input autoFocus type='text' name='name' id='name' placeholder='Your Name' value={ this.state.name } onChange={ this.handleInput } required />
 						</div>
-						<div className="form-group">
-							<img src="../signup-email.png" alt='signup enail' />
-							<input type="email" name="email" id="email" placeholder="Your Email" value={ this.state.email } onChange={ this.handleInput } required />
+						<div className='form-group'>
+							<img src='../signup-email.png' alt='signup enail' />
+							<input type='email' name='email' id='email' placeholder='Your Email' value={ this.state.email } onChange={ this.handleInput } required />
 						</div>
-						<div className="form-group">
-							<img src="../signup-pass.png" alt='signup password' />
-							<input type="password" name="pass" id="pass" placeholder="Password" value={ this.state.pass } onChange={ this.handleInput } required />
+						<div className='form-group'>
+							<img src='../signup-pass.png' alt='signup password' />
+							<input type='password' name='pass' id='pass' placeholder='Password' value={ this.state.pass } onChange={ this.handleInput } required />
 						</div>
-						<div className="form-group">
-							<img src="../signup-repass.png" alt='signup repeat password' />
-							<input type="password" className={ this.state.pass !== this.state.rePass ? 'error' : '' } name="rePass" id="rePass" placeholder="Repeat your password" value={ this.state.rePass } onChange={ this.handleInput } required />
+						<div className='form-group'>
+							<img src='../signup-repass.png' alt='signup repeat password' />
+							<input type='password' className={ this.state.pass !== this.state.rePass ? 'error' : '' } name='rePass' id='rePass' placeholder='Repeat your password' value={ this.state.rePass } onChange={ this.handleInput } required />
 						</div>
-						<div className="form-group" style={ { overflow: 'unset' } }>
-							<img src="../blood-group.png" alt='blood group' />
+						<div className='form-group' style={ { overflow: 'unset' } }>
+							<img src='../blood-group.png' alt='blood group' />
 							<Select
 								closeMenuOnSelect={ false }
 								components={ animatedComponents }
@@ -223,30 +223,30 @@ class RegisterUser extends React.Component {
 								onChange={ (event) => this.handleInput({ values: event, name: 'bloodGroup' }) }
 							/>
 						</div>
-						<div className="form-group">
-							<img src="../phone-number.png" alt='phone number' />
-							<input type="text" name="phoneNumber" id="phoneNumber" placeholder="Your phone number" value={ this.state.phoneNumber } onChange={ this.handleInput } required />
+						<div className='form-group'>
+							<img src='../phone-number.png' alt='phone number' />
+							<input type='text' name='phoneNumber' id='phoneNumber' placeholder='Your phone number' value={ this.state.phoneNumber } onChange={ this.handleInput } required />
 						</div>
 						{
 							this.props.type === 'doctor' ? (
 								<>
-									<div className="form-group">
-										<img src="../experience.png" alt='experience' />
-										<input type="text" name="experience" id="experience" placeholder="Your experience" value={ this.state.experience } onChange={ this.handleInput } required />
+									<div className='form-group'>
+										<img src='../experience.png' alt='experience' />
+										<input type='text' name='experience' id='experience' placeholder='Your experience' value={ this.state.experience } onChange={ this.handleInput } required />
 									</div>
-									<div className="form-group">
-										<img src="../specialization.png" alt='specialization' />
-										<input type="text" name="specialization" id="specialization" placeholder="Your specialization" value={ this.state.specialization } onChange={ this.handleInput } required />
+									<div className='form-group'>
+										<img src='../specialization.png' alt='specialization' />
+										<input type='text' name='specialization' id='specialization' placeholder='Your specialization' value={ this.state.specialization } onChange={ this.handleInput } required />
 									</div></>
 							) : (<></>)
 						}
-						<div className="form-group form-button">
-							{ this.state.loading ? <Spinner /> : <input type="submit" name="signup" id="signup" className="form-submit" value="Register" onClick={ this.handleSubmit } /> }
+						<div className='form-group form-button'>
+							{ this.state.loading ? <Spinner /> : <input type='submit' name='signup' id='signup' className='form-submit' value='Register' onClick={ this.handleSubmit } /> }
 						</div>
 					</form>
 				</div>
-				<div className="signup-image">
-					<figure><img src="../signup-image.png" alt="sign up" /></figure>
+				<div className='signup-image'>
+					<figure><img src='../signup-image.png' alt='sign up' /></figure>
 				</div>
 			</div>
 		);

@@ -14,7 +14,7 @@ const mapDispatchToProps = () => {
 		//         let res = await updateProfieAPI(value)
 		//         if (res.data.success) {
 		//             dispatch({
-		//                 type: "UPDATEPROFILE",
+		//                 type: 'UPDATEPROFILE',
 		//                 payload: res.data.user,
 		//             });
 		//         }
@@ -28,7 +28,7 @@ const mapDispatchToProps = () => {
 		//         let res = await AcceptFollowRequestAPI(value);
 		//         if (res.data.success) {
 		//             dispatch({
-		//                 type: "ACCEPTFOLLOW",
+		//                 type: 'ACCEPTFOLLOW',
 		//                 payload: res.data.followRequests
 		//             })
 		//         }
@@ -42,7 +42,7 @@ const mapDispatchToProps = () => {
 		//         let res = await DeclineFollowRequestAPI(value)
 		//         if (res.data.success) {
 		//             dispatch({
-		//                 type: "DECLINEFOLLOW",
+		//                 type: 'DECLINEFOLLOW',
 		//                 payload: value
 		//             })
 		//         }

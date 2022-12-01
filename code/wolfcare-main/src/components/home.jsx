@@ -175,7 +175,7 @@ class Home extends React.Component {
 				>
 					<RegisterUser setRegisterClicked={ this.setRegisterClicked } parentProps={ this.props } />
 				</Modal>
-				<Layout className="layout">
+				<Layout className='layout'>
 					<Header style={ { backgroundColor: '#DFDFDF', height: '5.5em' } }>
 						<a href='/home' style={ { float: 'left' } }>
 							<img style={ { height: '70px', width: '70px', position: 'relative', float: 'left', marginTop: '0.5em' } } src='../wolf.png' alt='wolf'></img>
@@ -187,7 +187,7 @@ class Home extends React.Component {
 							this.props.userId && this.state.userLogonDetails.signInStatus ? <div
 								style={ { float: 'right' } }>
 								<Dropdown
-									placement="bottom"
+									placement='bottom'
 									menu={ {
 										items: [
 											{
@@ -197,7 +197,7 @@ class Home extends React.Component {
 											{
 												key: 'appointmentHistory',
 												label: (
-													<a rel="noopener noreferrer" href="/home/appointments">
+													<a rel='noopener noreferrer' href='/home/appointments'>
 														Appointment History
 													</a>
 												)
@@ -205,7 +205,7 @@ class Home extends React.Component {
 											{
 												key: 'signout',
 												label: (
-													<a rel="noopener noreferrer" href="/home" onClick={ () => {
+													<a rel='noopener noreferrer' href='/home' onClick={ () => {
 														let userLogonDetails = this.state.userLogonDetails;
 														userLogonDetails.signInStatus = false;
 														localStorage.setItem('userLogonDetails', JSON.stringify(userLogonDetails));
@@ -227,7 +227,7 @@ class Home extends React.Component {
 						}
 						<Menu
 							style={ { backgroundColor: '#DFDFDF', float: 'right', marginRight: '3em', marginTop: '0.5em' } }
-							mode="horizontal"
+							mode='horizontal'
 							items={ items }
 							disabledOverflow={ true }
 							selectedKeys={ [ this.state.tab || 'home' ] }
