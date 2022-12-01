@@ -3,6 +3,8 @@
 const initialState = {
 	loginApiMessage: '',
 	loginApiSuccess: false,
+	registerApiMessage: '',
+	registerApiSuccess: false,
 	user_id: ''
 };
 
@@ -38,6 +40,22 @@ const homeReducer = (state = initialState, action) => {
 				...state,
 				loginApiSuccess: false,
 				loginApiMessage: action.payload.message
+			};
+		}
+		// Success case
+		case 'SUBMITREGISTER': {
+			return {
+				...state,
+				registerApiSuccess: true,
+				registerApiMessage: action.payload.message
+			};
+		}
+		// Failure case
+		case 'REGISTERFAILURE': {
+			return {
+				...state,
+				registerApiSuccess: false,
+				registerApiMessage: action.payload.message
 			};
 		}
 		default: return state;

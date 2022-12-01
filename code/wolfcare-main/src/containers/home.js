@@ -2,7 +2,8 @@
 
 import { connect } from 'react-redux';
 import Home from '../components/home';
-import onSubmitLoginAPI from '../API/login';
+import onSubmitLoginAPI from '../api/login';
+import registerUserApi from '../api/registerUser';
 
 
 /**
@@ -12,22 +13,22 @@ import onSubmitLoginAPI from '../API/login';
 
 const homeMapDispatchToProps = dispatch => {
 	return {
-		// onAddItem: async (value) => {
-		// 	try {
-		// 		let res = await addItemApi(value);
-		// 		dispatch({
-		// 			type: res && res.data && res.data.status === 200 ? 'SUBMITITEM' : 'ITEMADDFAILURE',
-		// 			payload: res.data
-		// 		});
-		// 	} catch (error) {
-		// 		console.error('Some error occurred while calling axios API', error);
-		// 	}
-		// }
 		onSubmitLogin: async (value) => {
 			try {
 				let res = await onSubmitLoginAPI(value);
 				dispatch({
 					type: res && res.data && res.data.status === 200 ? 'SUBMITLOGIN' : 'LOGINFAILURE',
+					payload: res.data
+				});
+			} catch (error) {
+				console.error('Some error occurred while calling axios API', error);
+			}
+		},
+		onSubmitRegister: async (value) => {
+			try {
+				let res = await registerUserApi(value);
+				dispatch({
+					type: res && res.data && res.data.status === 200 ? 'SUBMITREGISTER' : 'REGISTERFAILURE',
 					payload: res.data
 				});
 			} catch (error) {
@@ -46,6 +47,8 @@ const homeMapStateToProps = state => {
 	return ({
 		loginApiStatus: state.home.loginApiSuccess,
 		loginApiMessage: state.home.loginApiMessage,
+		registerApiStatus: state.home.registerApiSuccess,
+		registerApiMessage: state.home.registerApiMessage,
 		userId: localStorageUserInfo && localStorageUserInfo.userId
 	});
 };

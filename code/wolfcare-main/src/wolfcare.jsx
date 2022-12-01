@@ -1,5 +1,4 @@
 import React from 'react';
-import RegisterUser from './containers/registerUser';
 import Home from './containers/home';
 import { Provider } from 'react-redux';
 import store from './app/store';
@@ -30,10 +29,6 @@ class Wolfcare extends React.Component {
 				element: <Home />
 			},
 			{
-				path: '/home/home',
-				element: <Home />
-			},
-			{
 				path: '/home/doctors',
 				element: <Home tab={'doctors'}/>
 			},
@@ -52,10 +47,6 @@ class Wolfcare extends React.Component {
 			{
 				path: '/home/contact',
 				element: <Home tab={'contact'}/>
-			},
-			{
-				path: '/register',
-				element: <RegisterUser />
 			}
 		]);
 

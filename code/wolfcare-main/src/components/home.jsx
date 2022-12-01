@@ -11,6 +11,7 @@ import {
 	UserOutlined
 } from '@ant-design/icons';
 import LoginUser from './login';
+import RegisterUser from './register';
 
 
 /**
@@ -27,7 +28,8 @@ class Home extends React.Component {
 		this.state = {
 			tab: '',
 			userLogonDetails: {},
-			isLoginClicked: false
+			isLoginClicked: false,
+			isRegisterClicked: false
 		};
 	}
 
@@ -41,10 +43,14 @@ class Home extends React.Component {
 		});
 		const url = new URL(document.location.href);
 		const pathWithoutHome = url.pathname.split('/')[2];
-		if (url.pathname === '/home' || url.pathname === '/') {
-			this.redirectToPath('/home/home');
+		if (url.pathname === '/') {
+			this.redirectToPath('/home');
+		} else if (url.pathname === '/home') {
+			this.setState({
+				tab: 'home'
+			});	
 		} else {
-			const paths = ['home', 'doctors', 'hospitals', 'appointments', 'about', 'contact'];
+			const paths = ['doctors', 'hospitals', 'appointments', 'about', 'contact'];
 			if (paths.includes(pathWithoutHome)) {
 				this.setState({
 					tab: pathWithoutHome
@@ -80,6 +86,14 @@ class Home extends React.Component {
 		});
 	};
 
+	setRegisterClicked = (val) => {
+		const userLogonDetails = JSON.parse(localStorage.getItem('userLogonDetails'));
+		this.setState({
+			userLogonDetails: userLogonDetails,
+			isRegisterClicked: val
+		});
+	};
+
 	/**
 	 * Render Login component
 	 * @returns {React.Component} Form with login related HTML tags
@@ -91,8 +105,7 @@ class Home extends React.Component {
 				key: 'home',
 				icon: <HomeOutlined />,
 				label: 'Home',
-				onClick: () => this.redirectToPath('/home/home')
-
+				onClick: () => this.redirectToPath('/home')
 			},
 			{
 				key: 'doctors',
@@ -133,19 +146,31 @@ class Home extends React.Component {
 					onOk={() => this.setLoginClicked(false)}
 					onCancel={() => this.setLoginClicked(false)}
 					width={800}
-					height={600}
+					height={700}
 					footer={null}
 				>
 					<LoginUser setLoginClicked={this.setLoginClicked} parentProps={this.props}/>
 				</Modal>
+				<Modal
+					title={<h2>Sign up</h2>}
+					open={this.state.isRegisterClicked}
+					onOk={() => this.setRegisterClicked(false)}
+					onCancel={() => this.setRegisterClicked(false)}
+					width={800}
+					height={700}
+					style={{top: 20}}
+					footer={null}
+				>
+					<RegisterUser setRegisterClicked={this.setRegisterClicked} parentProps={this.props}/>
+				</Modal>
 				<Layout className="layout">
 					<Header style={{backgroundColor: '#DFDFDF', height: '5.5em'}}>
-						<div style={{float:'left'}}>
+						<a href='/home' style={{float:'left'}}>
 							<img style={{height: '70px',  width: '70px', position: 'relative', float: 'left', marginTop: '0.5em'}} src='../wolf.png' alt='wolf'></img>
 							<b style={{color: 'black', marginLeft: '0.5em', float:'left', fontSize: '25px'}}>WOLF</b><b style={{color: 'red', float: 'left', fontSize: '25px'}}>CARE</b>
 							<br></br>
 							<p style={{color: 'black', float: 'left', fontSize: '15px', marginLeft: '1em', marginTop: '-2.5em'}}>Your pocket doctor</p>
-						</div>
+						</a>
 						{
 							this.props.userId && this.state.userLogonDetails.signInStatus ? <div
 								style={{float: 'right'}}>
@@ -168,11 +193,10 @@ class Home extends React.Component {
 											{
 												key: 'signout',
 												label: (
-													<a rel="noopener noreferrer" href="/home/appointments" onClick={() => {
+													<a rel="noopener noreferrer" href="/home" onClick={() => {
 														let userLogonDetails = this.state.userLogonDetails;
 														userLogonDetails.signInStatus = false;
 														localStorage.setItem('userLogonDetails', JSON.stringify(userLogonDetails));
-														this.redirectToPath('/');
 													}}>
 														Sign Out
 													</a>
@@ -186,7 +210,7 @@ class Home extends React.Component {
 							</div> : <div
 								style={{float: 'right'}}>
 									<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', float: 'left', marginRight: '1em', marginTop: '1.5em'}} onClick={() => this.setLoginClicked(true)}><p style={{float: 'left', marginTop: '0.5em'}}>Login</p></Button>
-									<Button shape='round' size='small' style={{height: '40px', position: 'relative', float: 'left', marginTop: '1.5em'}}><p style={{float: 'left', marginTop: '0.5em'}} onClick={() => this.redirectToPath('/register')}>Join Now</p></Button>
+									<Button shape='round' size='small' style={{height: '40px', position: 'relative', float: 'left', marginTop: '1.5em'}}><p style={{float: 'left', marginTop: '0.5em'}} onClick={() => this.setRegisterClicked(true)}>Join Now</p></Button>
 								</div>
 						}
 						<Menu
