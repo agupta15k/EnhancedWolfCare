@@ -205,10 +205,11 @@ class Home extends React.Component {
 											{
 												key: 'signout',
 												label: (
-													<a rel='noopener noreferrer' href='/home' onClick={ () => {
+													<a rel='noopener noreferrer' onClick={ () => {
 														let userLogonDetails = this.state.userLogonDetails;
 														userLogonDetails.signInStatus = false;
 														localStorage.setItem('userLogonDetails', JSON.stringify(userLogonDetails));
+														location.reload();
 													} }>
 														Sign Out
 													</a>
