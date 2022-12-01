@@ -25,7 +25,7 @@ def empty():
     return jsonify({"status": 200, "data": {}, "message": "Backend working"})
 
 
-@app.route('/addAffiliation', methods=['POST'])
+@app.route('/addAffiliation', methods=['POST', 'OPTIONS'])
 def app_addAffiliation():
     """
     Affiliation is created between an existing doctor and hospital\n
@@ -60,7 +60,7 @@ def app_addAffiliation():
     return jsonify({"status": 200, "data": {}, "message": ""})
 
 
-@app.route('/addAppointment', methods=['POST'])
+@app.route('/addAppointment', methods=['POST', 'OPTIONS'])
 def app_addAppointment():
     """
     Appoitnment is created for a user with a doctor in a hospital on a particular date and timeslot\n
@@ -97,7 +97,7 @@ def app_addAppointment():
     return jsonify({"status": 200, "data": {}, "message": ""})
 
 #updateAffiliation(data)
-@app.route('/updateAffiliation', methods=['PUT'])
+@app.route('/updateAffiliation', methods=['PUT', 'OPTIONS'])
 def app_updateAffiliation():
     """
     Updating an affiliation already exisiting.\n
@@ -130,7 +130,7 @@ def app_updateAffiliation():
     return jsonify({"status": 200, "data": {}, "message": ""})
 
 
-@app.route('/getAfiiliationByDoctor', methods=['GET'])
+@app.route('/getAfiiliationByDoctor', methods=['GET', 'OPTIONS'])
 def app_getAfiiliationByDoctor():
     """
     Gets information for all the hospitals affiliated to a doctor.\n
@@ -165,7 +165,7 @@ def app_getAfiiliationByDoctor():
     return jsonify({"status": 200, "data": {}, "message": ""})
 
 
-@app.route('/getAfiiliationByHospital', methods=['GET'])
+@app.route('/getAfiiliationByHospital', methods=['GET', 'OPTIONS'])
 def app_getAfiiliationByHospital():
     """
     Gets information for all the doctors affiliated to a hospital.\n
@@ -200,7 +200,7 @@ def app_getAfiiliationByHospital():
     return jsonify({"status": 200, "data": {}, "message": ""})
 
 #getDoctorSearch
-@app.route('/getDoctorSearch', methods=['GET'])
+@app.route('/getDoctorSearch', methods=['GET', 'OPTIONS'])
 def app_getDoctorSearch():
     """
     Gives back all doctors that match keyword as firstname, lastname, primaryspecialty or secondaryspecialty.\n
@@ -235,7 +235,7 @@ def app_getDoctorSearch():
     return jsonify({"status": 200, "data": {}, "message": ""})
 
 #getHospitalSearch
-@app.route('/getHospitalSearch', methods=['GET'])
+@app.route('/getHospitalSearch', methods=['GET', 'OPTIONS'])
 def app_getHospitalSearch():
     """
     Gives back all hospitals that match keyword as name or address.\n

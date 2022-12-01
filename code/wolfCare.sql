@@ -57,7 +57,7 @@ CREATE TABLE `doctors` (
 	`doctorid` int NOT NULL AUTO_INCREMENT,
 	`firstname` varchar(255) NOT NULL,
 	`lastname` varchar(255) NOT NULL,
-	`primaryspecality` varchar(255) NOT NULL,
+	`primaryspecialty` varchar(255) NOT NULL,
 	`secondaryspecialty` varchar(255),
 	`type` varchar(255) NOT NULL,
 	`degree` varchar(255) NOT NULL,
@@ -77,7 +77,7 @@ ALTER TABLE `doctors` AUTO_INCREMENT=1000;
 -- Dumping data for table `doctors`
 --
 
-INSERT INTO `doctors` (`doctorid`, `firstname`, `lastname`, `primaryspecality`, `secondaryspecialty`, `type`, `degree`, `phone`, `email`, `gender`, `yoe`, `approvalstatus`, `isactive`, `lastmoddate`,`userid`) VALUES
+INSERT INTO `doctors` (`doctorid`, `firstname`, `lastname`, `primaryspecialty`, `secondaryspecialty`, `type`, `degree`, `phone`, `email`, `gender`, `yoe`, `approvalstatus`, `isactive`, `lastmoddate`,`userid`) VALUES
 (1001,'John','Doe','Dermatology','Family Medicine','Prescriber','MD','9192383821','johndoe@gmail.com','Male','3','TRUE','TRUE','20221129',7002),
 (1002,'Jack','Black','Family Medicine',NULL,'Prescriber','MD','9192383822','jackblack@gmail.com','Male','12','TRUE','TRUE','20221129',NULL),
 (1003,'Ron','Mccarthy','Oncology',NULL,'Prescriber','MBBS','9192383823','ronmccarthy@gmail.com','Male','20','TRUE','TRUE','20221129',NULL),
@@ -139,13 +139,13 @@ INSERT INTO `hospitals` (`hospitalid`, `name`, `type`, `addressline1`, `addressl
 --
 
 CREATE TABLE `affiliation` (
-    `affiliaitionid` int NOT NULL AUTO_INCREMENT,
+    `affiliationid` int NOT NULL AUTO_INCREMENT,
     `doctorid` int NOT NULL,
     `hospitalid` int NOT NULL,
     `appointmentschedule` varchar(255) NOT NULL,
     `isactive` varchar(255) NOT NULL,
     `lastmoddate` varchar(255) NOT NULL,
-	PRIMARY KEY (`affiliaitionid`)
+	PRIMARY KEY (`affiliationid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 ALTER TABLE `affiliation` AUTO_INCREMENT=3000;
@@ -154,7 +154,7 @@ ALTER TABLE `affiliation` AUTO_INCREMENT=3000;
 -- Dumping data for table `affiliation`
 --
 
-INSERT INTO `affiliation` (`affiliaitionid`, `doctorid`, `hospitalid`, `appointmentschedule`, `isactive`, `lastmoddate`) VALUES
+INSERT INTO `affiliation` (`affiliationid`, `doctorid`, `hospitalid`, `appointmentschedule`, `isactive`, `lastmoddate`) VALUES
 (3001,1001,2001,'{"Monday":{"StartTime": "10:00:00", "EndTime":"16:00:00"}, "Tuesday":{"StartTime": "11:00:00", "EndTime":"16:00:00"}}','TRUE','20221129'),
 (3002,1002,2002,'{"Monday":{"StartTime": "10:00:00", "EndTime":"16:00:00"}, "Tuesday":{"StartTime": "11:00:00", "EndTime":"16:00:00"}}','TRUE','20221129'),
 (3003,1003,2003,'{"Monday":{"StartTime": "10:00:00", "EndTime":"16:00:00"}, "Tuesday":{"StartTime": "11:00:00", "EndTime":"16:00:00"}}','TRUE','20221129'),
