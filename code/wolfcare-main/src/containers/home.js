@@ -43,7 +43,7 @@ const homeMapDispatchToProps = dispatch => {
  * @returns  {Object} Props
  */
 const homeMapStateToProps = state => {
-	const localStorageUserInfo = JSON.parse(localStorage.getItem('userLogonDetails'))
+	const localStorageUserInfo = JSON.parse(localStorage.getItem('userLogonDetails'));
 	return ({
 		loginApiStatus: state.home.loginApiSuccess,
 		loginApiMessage: state.home.loginApiMessage,
