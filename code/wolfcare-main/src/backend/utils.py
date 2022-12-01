@@ -5,7 +5,7 @@ import ast
 import re
 import mysql.connector
 from ast import literal_eval as make_tuple
-from  src.backend.dbconfig import constants
+from src.backend.dbconfig import constants
 import datetime
 
 try:
@@ -79,7 +79,7 @@ def getAfiiliationByHospital(ID):
         for record in data:
             finalData.append({"affiliationid": record["affiliationid"], "doctorid": record["doctorid"], "appointmentschedule": record["appointmentschedule"], "firstname": record["firstname"],
                               "lastname": record["lastname"], "primaryspecality": record["primaryspecality"], "secondaryspecialty": record["secondaryspecialty"], "type": record["type"],
-                              "degree": record["degree"], "phone": record["phone"], "email": record["email"], "gender": record["gender"],"yoe": record["yoe"]})
+                              "degree": record["degree"], "phone": record["phone"], "email": record["email"], "gender": record["gender"], "yoe": record["yoe"]})
         cursor.close()
         return True, finalData
     except mysql.connector.Error as error:
@@ -118,7 +118,8 @@ def addAffiliation(doctorid, hospitalid, appointmentschedule):
         print(doctorid, hospitalid, appointmentschedule, isactive, lastmoddate)
         cursor = connection.cursor(dictionary=True)
         sql_insert_query = "INSERT INTO affiliation (doctorid, hospitalid, appointmentschedule, isactive, lastmoddate) VALUES (%s, %s, %s, %s, %s)"
-        cursor.execute(sql_insert_query, (doctorid, hospitalid, appointmentschedule, isactive, lastmoddate))
+        cursor.execute(sql_insert_query, (doctorid, hospitalid,
+                       appointmentschedule, isactive, lastmoddate))
         connection.commit()
         cursor.close()
         return True, "bla bal"
@@ -151,7 +152,8 @@ def updateAffiliation(data):
         cursor = connection.cursor(dictionary=True)
         mysql_update_query = """UPDATE affiliation set appointmentschedule = %s, isactive=%s, lastmoddate=%s WHERE affiliationid = %s """
 
-        input_data = (str(data['appointmentschedule']), str(data['isactive']), lastmoddate, int(data['affiliationid']))
+        input_data = (str(data['appointmentschedule']), str(
+            data['isactive']), lastmoddate, int(data['affiliationid']))
         cursor.execute(mysql_update_query, input_data)
         connection.commit()
 
@@ -190,10 +192,11 @@ def getDoctorSearch(keyword):
         cursor = connection.cursor(dictionary=True)
         finalData = []
         cursor.execute(
-            'SELECT doc.doctorid, doc.firstname, doc.lastname, doc.primaryspecialty, doc.secondaryspecialty FROM doctors doc where doc.firstname = %s or doc.lastname = %s or doc.primaryspecialty = %s or doc.secondaryspecialty= %s', (str(keyword),str(keyword),str(keyword),str(keyword)))
+            'SELECT doc.doctorid, doc.firstname, doc.lastname, doc.primaryspecialty, doc.secondaryspecialty FROM doctors doc where doc.firstname = %s or doc.lastname = %s or doc.primaryspecialty = %s or doc.secondaryspecialty= %s', (str(keyword), str(keyword), str(keyword), str(keyword)))
         data = cursor.fetchall()
         for record in data:
-            finalData.append({"doctorid": record["doctorid"], "firstname": record["firstname"], "lastname": record["lastname"], "primaryspecialty": record["primaryspecialty"], "secondaryspecialty": record["secondaryspecialty"]})
+            finalData.append({"doctorid": record["doctorid"], "firstname": record["firstname"], "lastname": record["lastname"],
+                             "primaryspecialty": record["primaryspecialty"], "secondaryspecialty": record["secondaryspecialty"]})
         cursor.close()
         return True, finalData
     except mysql.connector.Error as error:
@@ -205,6 +208,7 @@ def getDoctorSearch(keyword):
         print("some error occurred in getDoctorSearch: {}".format(e))
         msg = "Failed to get data {}".format(e)
         return False, msg
+
 
 def getHospitalSearch(keyword):
     """
@@ -225,10 +229,11 @@ def getHospitalSearch(keyword):
         cursor = connection.cursor(dictionary=True)
         finalData = []
         cursor.execute(
-            'SELECT hosp.hospitalid, hosp.name, hosp.addressline1, hosp.addressline2, hosp.city, hosp.state, hosp.zipcode FROM hospitals hosp where hosp.name = %s or hosp.addressline1 = %s or hosp.addressline2 = %s or hosp.city= %s or hosp.state = %s or hosp.zipcode= %s', (str(keyword),str(keyword),str(keyword),str(keyword),str(keyword),str(keyword)))
+            'SELECT hosp.hospitalid, hosp.name, hosp.addressline1, hosp.addressline2, hosp.city, hosp.state, hosp.zipcode FROM hospitals hosp where hosp.name = %s or hosp.addressline1 = %s or hosp.addressline2 = %s or hosp.city= %s or hosp.state = %s or hosp.zipcode= %s', (str(keyword), str(keyword), str(keyword), str(keyword), str(keyword), str(keyword)))
         data = cursor.fetchall()
         for record in data:
-            finalData.append({"hospitalid": record["hospitalid"], "name": record["name"], "addressline1": record["addressline1"], "addressline2": record["addressline2"], "city": record["city"], "state": record["state"]})
+            finalData.append({"hospitalid": record["hospitalid"], "name": record["name"], "addressline1": record["addressline1"],
+                             "addressline2": record["addressline2"], "city": record["city"], "state": record["state"]})
         cursor.close()
         return True, finalData
     except mysql.connector.Error as error:
@@ -240,6 +245,7 @@ def getHospitalSearch(keyword):
         print("some error occurred in getHospitalSearch: {}".format(e))
         msg = "Failed to get data {}".format(e)
         return False, msg
+
 
 def addAppointment(userid, doctorid, hospitalid, date, timeslot):
     """
@@ -269,7 +275,8 @@ def addAppointment(userid, doctorid, hospitalid, date, timeslot):
         isactive = "TRUE"
         cursor = connection.cursor(dictionary=True)
         sql_insert_query = "INSERT INTO appointment (userid, doctorid, hospitalid, date, timeslot, isactive, lastmoddate) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-        cursor.execute(sql_insert_query, (userid, doctorid, hospitalid, date, timeslot, isactive, lastmoddate))
+        cursor.execute(sql_insert_query, (userid, doctorid,
+                       hospitalid, date, timeslot, isactive, lastmoddate))
         connection.commit()
         cursor.close()
         return True, "Record added successsfully"
@@ -280,3 +287,329 @@ def addAppointment(userid, doctorid, hospitalid, date, timeslot):
     except Exception as e:
         print("some error occurred in addAppointment: {}".format(e))
         return False, e
+
+
+def updateHospitalStatus(data):
+    """
+    Admin sets hospital status to TRUE.
+    Parameters
+    ----------
+    data : json
+        Contains hospitalid which is needed to change the status.
+    Returns
+    ----------
+    tuple
+        Returns a tuple which contains a bool(checking database staus) and a message for the approval of the status.
+    """
+
+    try:
+        now = datetime.datetime.now()
+        formattedDate = now.strftime("%Y%m%d")
+        cursor = connection.cursor(dictionary=True)
+        mysqlUpdateQuery = "UPDATE hospitals set approvalstatus = %s, lastmoddate = %s where hospitalid = %s"
+        inputData = ("TRUE",
+                     formattedDate, int(data['hospitalid']))
+        cursor.execute(mysqlUpdateQuery, inputData)
+        connection.commit()
+        msg = "Status Approved"
+        cursor.close()
+        return True, msg
+
+    except mysql.connector.Error as error:
+        print("Failed to update into hospitals table {}".format(error))
+        msg = "Failed to update into hospitals table {}".format(error)
+        return False, msg
+
+    except Exception as e:
+        print("Failed to update into hospitals table {}".format(e))
+        msg = "Failed to update into hospitals table {}".format(e)
+        return False, msg
+
+
+def updateDoctorStatus(data):
+    """
+    Admin sets doctors status to TRUE.
+    Parameters
+    ----------
+    data : json
+        Contains doctorid which is needed to change the status.
+    Returns
+    ----------
+    tuple
+        Returns a tuple which contains a bool(checking database staus) and a message for the approval of the status.
+    """
+
+    try:
+        now = datetime.datetime.now()
+        formattedDate = now.strftime("%Y%m%d")
+        cursor = connection.cursor(dictionary=True)
+        mysqlUpdateQuery = "UPDATE doctors set approvalstatus = %s, lastmoddate = %s where doctorid = %s"
+        inputData = ("TRUE",
+                     formattedDate, int(data['doctorid']))
+        cursor.execute(mysqlUpdateQuery, inputData)
+        connection.commit()
+        msg = "Status Approved"
+        cursor.close()
+        return True, msg
+
+    except mysql.connector.Error as error:
+        print("Failed to update into doctors table {}".format(error))
+        msg = "Failed to update into doctors table {}".format(error)
+        return False, msg
+
+    except Exception as e:
+        print("Failed to update into doctors table {}".format(e))
+        msg = "Failed to update into doctors table {}".format(e)
+        return False, msg
+
+
+def getUnapprovedDoctors():
+    """
+    Gets all the unapproved doctors.
+    Parameters
+    ----------
+    None
+    Returns
+    ----------
+    tuple
+        Returns a tuple which contains a bool(checking database staus) and a list of unapproved doctors.
+    """
+
+    try:
+        cursor = connection.cursor(dictionary=True)
+        cursor.execute(
+            "Select * FROM doctors WHERE approvalstatus = %s", ("FALSE",))
+        unapprovedDoctors = cursor.fetchall()
+        finalData = []
+        for record in unapprovedDoctors:
+            finalData.append(record)
+
+        cursor.close()
+        return True, finalData
+
+    except mysql.connector.Error as error:
+        print("Failed to get unapproved Doctors {}".format(error))
+        msg = "Failed to get unapproved Doctors {}".format(error)
+        return False, msg
+
+    except Exception as e:
+        print("some error occurred in getunapprovedDoctors: {}".format(e))
+        msg = "Failed to get unapproved Doctors {}".format(e)
+        return False, msg
+
+
+def getUnapprovedHospitals():
+    """
+    Gets all the unapproved hospitals.
+    Parameters
+    ----------
+    None
+    Returns
+    ----------
+    tuple
+        Returns a tuple which contains a bool(checking database staus) and a list of unapproved hospitals.
+    """
+
+    try:
+        cursor = connection.cursor(dictionary=True)
+        cursor.execute(
+            "Select * FROM hospitals WHERE approvalstatus = %s", ("FALSE",))
+        unapprovedHospitals = cursor.fetchall()
+        finalData = []
+        for record in unapprovedHospitals:
+            finalData.append(record)
+
+        cursor.close()
+        return True, finalData
+
+    except mysql.connector.Error as error:
+        print("Failed to get unapproved Hospitals {}".format(error))
+        msg = "Failed to get unapproved Hospitals {}".format(error)
+        return False, msg
+
+    except Exception as e:
+        print("some error occurred in getunapprovedHospitals: {}".format(e))
+        msg = "Failed to get unapproved Hospitals {}".format(e)
+        return False, msg
+
+
+def checkDuplicateEmail(email):
+    """
+    Checks if an email is present twice in the database.
+    Parameters
+    ----------
+    email : string
+        Email of the user.
+    Returns
+    ----------
+    tuple
+        Returns a tuple with two elements. The first element(a boolean variable) is a check to see if there are two users with the same email. The second element is a status code of whether there is a database error or not.  
+    """
+
+    try:
+        cursor = connection.cursor(dictionary=True)
+        sqlSelectQuery = "SELECT * FROM Users where email = %s"
+        cursor.execute(sqlSelectQuery, (email,))
+        record = cursor.fetchall()
+        print(email)
+        if record:
+            return True, 1
+        else:
+            return False, 1
+
+    except mysql.connector.Error as error:
+        print(error)
+        return (False, 0)
+
+    except Exception as e:
+        print("some error occurred in checkDuplicateEmail: {}".format(e))
+        return (False, 0)
+
+
+def addUser(data):
+    """
+    Adds an user into the database
+    Parameters
+    ----------
+    data : json
+        Information about the user who is going to be added.
+    Returns
+    ----------
+    bool
+        Checks if the user got added to the database or not.
+    """
+
+    try:
+        username = str(data["username"])
+        firstname = str(data["firstname"])
+        lastname = str(data["lastname"])
+        usertype = str(data["usertype"])
+        gender = str(data["gender"])
+        email = str(data["email"])
+        password = str(data["password"])
+        phone = str(data["phone"])
+        isactive = "TRUE"
+        now = datetime.datetime.now()
+        formattedDate = now.strftime("%Y%m%d")
+        cursor = connection.cursor(dictionary=True)
+        sqlInsertQuery = "INSERT INTO users (username, firstname, lastname, usertype, gender, email, password, phone, isactive, lastmoddate) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        cursor.execute(sqlInsertQuery, (username, firstname, lastname,
+                       usertype, gender, email, password, phone, isactive, formattedDate))
+
+        connection.commit()
+        cursor.close()
+        return True
+
+    except mysql.connector.Error as error:
+        print(error)
+        return False
+
+    except Exception as e:
+        print("some error occurred in addUser: {}".format(e))
+        return False
+
+
+def loginCheck(email, password):
+    """
+    Checks if the password and email are matching in the database and returns the user
+    Parameters
+    ----------
+    email : string
+        Email of the user.
+    password : string
+        Password of the user.
+    Returns
+    ----------
+    tuple
+        Returns a tuple with two elements. The first element(a boolean variable) is a check to see if there is a user present with matching password and email. The second element is a status code of whether there is a database error or not.
+    """
+
+    try:
+        cursor = connection.cursor(dictionary=True)
+        cursor.execute(
+            "SELECT userid, username, email, usertype, phone, isactive FROM users WHERE email= %s AND password = %s", (email, password))
+        user = cursor.fetchone()
+        cursor.close()
+        if user:
+            return user, 1
+        else:
+            return [], 1
+
+    except mysql.connector.Error as error:
+        print(error)
+        return False, 0
+
+    except Exception as e:
+        print("some error occurred in loginCheck: {}".format(e))
+        return False, 0
+
+
+def getUserProfileByID(ID):
+    """
+    Get the user information given his ID.
+    Parameters
+    ----------
+    ID : int
+        ID of the user.
+    Returns
+    ----------
+    list
+        Returns a list containing the information of an user given his id.
+    """
+
+    try:
+        cursor = connection.cursor(dictionary=True)
+        cursor.execute(
+            'SELECT username, email, firstname, lastname, gender, password, phone, isactive FROM users where userid = %s', (int(ID),))
+        user = cursor.fetchone()
+
+        cursor.close()
+        return user
+
+    except mysql.connector.Error as error:
+        print(error)
+        return []
+
+    except Exception as e:
+        print("some error occurred in getUserProfileByID: {}".format(e))
+        return []
+
+
+def updateUserProfile(data):
+    """
+    Updates an user in the database.
+    Parameters
+    ----------
+    data : json
+        Updated user information.
+    Returns
+    ----------
+    tuple
+        Returns a tuple with two elements. The first element(a boolean variable) checks to see if the database operations worked correctly. The second element is a message about the same.
+    """
+
+    try:
+        now = datetime.datetime.now()
+        formattedDate = now.strftime("%Y%m%d")
+        cursor = connection.cursor(dictionary=True)
+        sqlUpdateQuery = "UPDATE users set username = %s, email = %s, firstname = %s, lastname = %s, gender = %s, password = %s, phone = %s, isactive = %s, lastmoddate = %s WHERE userid = %s"
+        inputData = (str(data['username']), str(data['email']),
+                     str(data["firstname"]), str(data["lastname"]), str(data["gender"]), str(
+                         data["password"]), str(data["phone"]), str(data["isactive"]), formattedDate, int(data["userid"]))
+        cursor.execute(sqlUpdateQuery, inputData)
+        connection.commit()
+
+        print("Record updated successfully into users table")
+        msg = "Record updated successfully into users table"
+        cursor.close()
+        return True, msg
+
+    except mysql.connector.Error as error:
+        print("Failed to update table {}".format(error))
+        msg = "Failed to update table {}".format(error)
+        return False, msg
+
+    except Exception as e:
+        print("some error occurred in updateUserProfile: {}".format(e))
+        msg = "Failed to update table {}".format(e)
+        return False, msg
