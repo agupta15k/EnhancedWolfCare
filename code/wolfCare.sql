@@ -197,7 +197,8 @@ CREATE TABLE `users` (
 	`phone` varchar(255) NOT NULL,
 	`isactive` varchar(255) NOT NULL,
 	`lastmoddate` varchar(255) NOT NULL,
-	PRIMARY KEY (`userid`)
+	PRIMARY KEY (`userid`),
+	UNIQUE (email)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 ALTER TABLE `users` AUTO_INCREMENT=7000;
