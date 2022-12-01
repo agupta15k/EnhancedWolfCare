@@ -16,81 +16,61 @@ class MainPage extends React.Component {
 					<Carousel.Item style={{height: '650px'}}>
 						<div>
 							<img src='../slider5.jpeg' alt='first-slider' style={{width: '100%', height: '650px', opacity: '40%'}}></img>
-							<div className='container' style={{position: 'absolute', width: '42%', height: '50%', top: '25%', right: '50%', opacity: '90%'}}>
+							<div className='container' style={{position: 'absolute', width: '45%', height: '50%', top: '25%', right: '45%', opacity: '90%'}}>
 								<div>
-									<div style={{width: '250px', marginTop: '80px', marginLeft: '30px', float: 'left'}}>
-										<figure><img src='../doc2.jpg' alt='sign in' /></figure>
-									</div>
-									<div style={{marginTop: '110px', marginLeft: '20px', float: 'left', width: '280px'}}>
-										<h2>Looking for a doctor?</h2>
-										<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', marginTop: '20px', marginLeft: '50px'}} onClick={() => this.redirectToPath('/home/doctors')}><p style={{float: 'left', marginTop: '0.5em'}}>Find doctor</p></Button>
-									</div>
+									<figure style={{width: '50%', marginTop: '8%', marginLeft: '3%', float: 'left'}}><img src='../doc2.jpg' alt='doc2' /></figure>
+									<h2 style={{width:'43%', marginTop: '15%', float: 'right'}}>Looking for a doctor?</h2>
+									<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', marginTop: '2%', marginLeft: '15%'}} onClick={() => this.redirectToPath('/home/doctors')}><p style={{float: 'left', marginTop: '0.5em'}}>Find doctor</p></Button>
 								</div>
 							</div>
 						</div>
 					</Carousel.Item>
 					<Carousel.Item style={{height: '650px'}}>
 						<div>
-							<img src='../slider6.jpg' alt='first-slider' style={{width: '100%', height: '650px', opacity: '40%'}}></img>
-							<div className='container' style={{position: 'absolute', width: '42%', height: '50%', top: '25%', right: '50%', opacity: '90%'}}>
+							<img src='../slider6.jpg' alt='second-slider' style={{width: '100%', height: '650px', opacity: '40%'}}></img>
+							<div className='container' style={{position: 'absolute', width: '45%', height: '50%', top: '25%', right: '45%', opacity: '90%'}}>
 								<div>
-									<div style={{width: '250px', marginTop: '80px', marginLeft: '30px', float: 'left'}}>
-										<figure><img src='../hospital1.jpg' alt='sign in' /></figure>
-									</div>
-									<div style={{marginTop: '110px', marginLeft: '20px', float: 'left', width: '280px'}}>
-										<h2>Looking for a hospital?</h2>
-										<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', marginTop: '20px', marginLeft: '50px'}} onClick={() => this.redirectToPath('/home/hospitals')}><p style={{float: 'left', marginTop: '0.5em'}}>Find hospital</p></Button>
-									</div>
+									<figure style={{width: '50%', marginTop: '8%', marginLeft: '3%', float: 'left'}}><img src='../hospital1.jpg' alt='hospital1' /></figure>
+									<h2 style={{width:'43%', marginTop: '15%', float: 'right'}}>Looking for a hospital?</h2>
+									<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', marginTop: '2%', marginLeft: '15%'}} onClick={() => this.redirectToPath('/home/hospitals')}><p style={{float: 'left', marginTop: '0.5em'}}>Find hospital</p></Button>
 								</div>
 							</div>
 						</div>
 					</Carousel.Item>
 					<Carousel.Item style={{height: '650px'}}>
 						<div>
-							<img src='../slider4.jpg' alt='first-slider' style={{width: '100%', height: '650px', opacity: '40%'}}></img>
-							<div className='container' style={{position: 'absolute', width: '42%', height: '50%', top: '25%', right: '50%', opacity: '90%'}}>
+							<img src='../slider4.jpg' alt='third-slider' style={{width: '100%', height: '650px', opacity: '40%'}}></img>
+							<div className='container' style={{position: 'absolute', width: '45%', height: '50%', top: '25%', right: '45%', opacity: '90%'}}>
 								<div>
-									<div style={{width: '250px', marginTop: '60px', marginLeft: '30px', float: 'left'}}>
-										<figure><img src='../appointment.jpg' alt='sign in' style={{height: '200px', marginLeft: '10px', float: 'left'}}/></figure>
-									</div>
-									<div style={{marginTop: '110px', marginLeft: '20px', float: 'left', width: '280px'}}>
-										<h2>Book an appointment anytime, anywhere</h2>
-										<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', marginTop: '20px', marginLeft: '50px'}} onClick={() => this.redirectToPath('/home/appointments')}><p style={{float: 'left', marginTop: '0.5em'}}>Book appointment</p></Button>
-									</div>
+									<figure style={{width: '50%', marginTop: '8%', marginLeft: '3%', paddingLeft: '5%', float: 'left'}}><img src='../appointment.jpg' alt='appointment' style={{height: '200px', marginLeft: '10px', float: 'left'}}/></figure>
+									<h2 style={{width:'43%', marginTop: '15%', float: 'right'}}>Book an appointment anytime, anywhere</h2>
+									<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', marginTop: '2%', marginLeft: '10%'}} onClick={() => this.redirectToPath('/home/appointments')}><p style={{float: 'left', marginTop: '0.5em'}}>Book appointment</p></Button>
 								</div>
 							</div>
 						</div>
 					</Carousel.Item>
 					<Carousel.Item style={{height: '650px'}}>
 						<div>
-							<img src='../slider1.jpg' alt='first-slider' style={{width: '100%', height: '650px', opacity: '40%'}}></img>
-							<div className='container' style={{position: 'absolute', width: '42%', height: '50%', top: '25%', right: '30%', opacity: '90%'}}>
+							<img src='../slider1.jpg' alt='fourth-slider' style={{width: '100%', height: '650px', opacity: '40%'}}></img>
+							<div className='container' style={{position: 'absolute', width: '45%', height: '50%', top: '25%', right: '25%', opacity: '90%'}}>
 								<div>
-									<div style={{width: '250px', marginTop: '60px', marginLeft: '30px', float: 'left'}}>
-										<figure><img src='../doc1.jpg' alt='sign in' style={{width: '180px', height: '180px'}}/></figure>
-									</div>
-									<div style={{marginTop: '80px', marginLeft: '20px', float: 'left', width: '280px'}}>
-										<h2>Are you a Doctor?</h2>
-										<h1><b>Join our team</b></h1>
-										<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', marginTop: '20px', marginLeft: '50px'}} onClick={() => this.redirectToPath('/register')}><p style={{float: 'left', marginTop: '0.5em'}}>Join as Doctor</p></Button>
-									</div>
+									<figure style={{width: '40%', marginTop: '8%', marginLeft: '3%', float: 'left'}}><img src='../doc1.jpg' alt='doc1' style={{width: '180px', height: '180px'}}/></figure>
+									<h2 style={{width:'43%', marginTop: '15%', float: 'right'}}>Are you a Doctor?</h2>
+									<h1 style={{width:'43%', marginRight: '5%', float: 'right'}}><b>Join our team</b></h1>
+									<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', marginTop: '2%', marginLeft: '20%'}} onClick={() => this.redirectToPath('/register')}><p style={{float: 'left', marginTop: '0.5em'}}>Join as Doctor</p></Button>
 								</div>
 							</div>
 						</div>
 					</Carousel.Item>
 					<Carousel.Item style={{height: '650px'}}>
 						<div>
-							<img src='../slider3.jpg' alt='first-slider' style={{width: '100%', height: '650px', opacity: '40%'}}></img>
-							<div className='container' style={{position: 'absolute', width: '42%', height: '50%', top: '25%', right: '20%', opacity: '90%'}}>
+							<img src='../slider3.jpg' alt='fifth-slider' style={{width: '100%', height: '650px', opacity: '40%'}}></img>
+							<div className='container' style={{position: 'absolute', width: '45%', height: '50%', top: '25%', right: '25%', opacity: '90%'}}>
 								<div>
-									<div style={{width: '250px', marginTop: '80px', marginLeft: '30px', float: 'left'}}>
-										<figure><img src='../hospital.jpg' alt='sign in' /></figure>
-									</div>
-									<div style={{marginTop: '80px', marginLeft: '20px', float: 'left', width: '280px'}}>
-										<h2>Represent a hospital?</h2>
-										<h1><b>Join our team</b></h1>
-										<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', marginTop: '20px', marginLeft: '50px'}} onClick={() => this.redirectToPath('/register')}><p style={{float: 'left', marginTop: '0.5em'}}>Add hospital</p></Button>
-									</div>
+									<figure style={{width: '40%', marginTop: '8%', marginLeft: '3%', float: 'left'}}><img src='../hospital.jpg' alt='sign in' /></figure>
+									<h2 style={{width:'43%', marginTop: '15%', marginRight: '5%', float: 'right'}}>Represent a hospital?</h2>
+									<h1 style={{width:'43%', marginRight: '5%', float: 'right'}}><b>Join our team</b></h1>
+									<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', marginTop: '2%', marginLeft: '20%'}} onClick={() => this.redirectToPath('/register')}><p style={{float: 'left', marginTop: '0.5em'}}>Add hospital</p></Button>
 								</div>
 							</div>
 						</div>
