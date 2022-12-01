@@ -2,7 +2,7 @@
 
 import { connect } from 'react-redux';
 import Home from '../components/home';
-import onSubmitLoginAPI from '../api/login';
+import onSubmitLoginAPI from '../API/login';
 
 
 /**

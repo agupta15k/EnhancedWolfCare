@@ -1,7 +1,7 @@
 <?php
     session_start();
     include 'functions.php';
-    create_database();
+    // create_database();
     $email = $_POST['email'];
     $_SESSION['homepage'] = $email;
     $query = $email;
