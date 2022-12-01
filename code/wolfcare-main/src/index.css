@@ -39,6 +39,10 @@ a:focus, a:active {
 	-o-transition: all 300ms ease 0s;
 	-ms-transition: all 300ms ease 0s; }
 
+a {
+	text-decoration: unset !important;
+}
+
 input, textarea {
 	outline: none;
 	appearance: unset !important;
@@ -79,7 +83,12 @@ input[type=radio] {
 
 img {
 	max-width: 100%;
-	height: auto; }
+	height: auto;
+}
+
+svg {
+	vertical-align: unset !important;
+}
 
 figure {
 	margin: 0; }

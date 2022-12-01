@@ -1,13 +1,14 @@
 import React from 'react';
-import {Button, Layout, Menu, Modal} from 'antd';
+import {Avatar, Button, Dropdown, Layout, Menu, Modal} from 'antd';
 import Carousel from 'react-bootstrap/Carousel';
 import {
-	HomeOutlined,
-	MedicineBoxOutlined,
-	PlusSquareOutlined,
 	CalendarOutlined,
+	HomeOutlined,
 	InfoCircleOutlined,
-	PhoneOutlined
+	MedicineBoxOutlined,
+	PlusSquareOutlined,	
+	PhoneOutlined,
+	UserOutlined
 } from '@ant-design/icons';
 import LoginUser from './login';
 
@@ -72,7 +73,9 @@ class Home extends React.Component {
 	};
 
 	setLoginClicked = (val) => {
+		const userLogonDetails = JSON.parse(localStorage.getItem('userLogonDetails'));
 		this.setState({
+			userLogonDetails: userLogonDetails,
 			isLoginClicked: val
 		});
 	};
@@ -143,10 +146,49 @@ class Home extends React.Component {
 							<br></br>
 							<p style={{color: 'black', float: 'left', fontSize: '15px', marginLeft: '1em', marginTop: '-2.5em'}}>Your pocket doctor</p>
 						</div>
-						<div style={{float: 'right'}}>
-							<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', float: 'left', marginRight: '1em', marginTop: '1.5em'}} onClick={() => this.setLoginClicked(true)}><p style={{float: 'left', marginTop: '0.5em'}}>Login</p></Button>
-							<Button shape='round' size='small' style={{height: '40px', position: 'relative', float: 'left', marginTop: '1.5em'}}><p style={{float: 'left', marginTop: '0.5em'}} onClick={() => this.redirectToPath('/register')}>Join Now</p></Button>
-						</div>
+						{
+							this.props.userId && this.state.userLogonDetails.signInStatus ? <div
+								style={{float: 'right'}}>
+									<Dropdown
+									placement="bottom"
+									menu={{
+										items: [
+											{
+												key: 'profile',
+												label: 'Profile'
+											},
+											{
+												key: 'appointmentHistory',
+												label: (
+													<a rel="noopener noreferrer" href="/home/appointments">
+														Appointment History
+													</a>
+												)
+											},
+											{
+												key: 'signout',
+												label: (
+													<a rel="noopener noreferrer" href="/home/appointments" onClick={() => {
+														let userLogonDetails = this.state.userLogonDetails;
+														userLogonDetails.signInStatus = false;
+														localStorage.setItem('userLogonDetails', JSON.stringify(userLogonDetails));
+														this.redirectToPath('/');
+													}}>
+														Sign Out
+													</a>
+												)
+											}
+										]
+									}}
+								>
+									<Avatar style={{backgroundColor: '#87d068', marginTop: '20px'}} size={50} icon={<UserOutlined />} />
+								</Dropdown>
+							</div> : <div
+								style={{float: 'right'}}>
+									<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', float: 'left', marginRight: '1em', marginTop: '1.5em'}} onClick={() => this.setLoginClicked(true)}><p style={{float: 'left', marginTop: '0.5em'}}>Login</p></Button>
+									<Button shape='round' size='small' style={{height: '40px', position: 'relative', float: 'left', marginTop: '1.5em'}}><p style={{float: 'left', marginTop: '0.5em'}} onClick={() => this.redirectToPath('/register')}>Join Now</p></Button>
+								</div>
+						}
 						<Menu
 							style={{backgroundColor: '#DFDFDF', float: 'right', marginRight: '3em', marginTop: '0.5em'}}
 							mode="horizontal"

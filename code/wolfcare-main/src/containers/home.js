@@ -41,11 +41,14 @@ const homeMapDispatchToProps = dispatch => {
  * Map state to props for user dashboard component
  * @returns  {Object} Props
  */
-const homeMapStateToProps = state => ({
-	loginApiStatus: state.home.loginApiSuccess,
-	loginApiMessage: state.home.loginApiMessage,
-	userId: JSON.parse(localStorage.getItem('userLogonDetails')).userId
-});
+const homeMapStateToProps = state => {
+	const localStorageUserInfo = JSON.parse(localStorage.getItem('userLogonDetails'))
+	return ({
+		loginApiStatus: state.home.loginApiSuccess,
+		loginApiMessage: state.home.loginApiMessage,
+		userId: localStorageUserInfo && localStorageUserInfo.userId
+	});
+};
 
 /**
  * Using connect, subscribe user dashboard component to redux store
