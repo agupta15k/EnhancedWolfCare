@@ -156,12 +156,15 @@ h2 {
 	padding: 10px 0;
 }
 
-.signup-form, .signup-image, .signin-form, .signin-image {
+.signup-form, .signup-image, .signin-form, .signin-image, .appointment-image {
 	width: 50%;
 	overflow: hidden; }
 
 .signup-image {
 	margin: 45px 55px; }
+
+.appointment-image {
+	margin: 0px 55px; }
 
 .form-title {
 	margin-bottom: 33px; }

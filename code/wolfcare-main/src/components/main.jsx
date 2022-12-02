@@ -22,6 +22,18 @@ class MainPage extends React.Component {
 				>
 					<Carousel.Item style={{height: '650px'}}>
 						<div>
+							<img src='../slider4.jpg' alt='third-slider' style={{width: '100%', height: '650px', opacity: '40%'}}></img>
+							<div className='container' style={{position: 'absolute', width: '45%', height: '50%', top: '25%', right: '45%', opacity: '90%'}}>
+								<div>
+									<figure style={{width: '50%', marginTop: '8%', marginLeft: '3%', paddingLeft: '5%', float: 'left'}}><img src='../appointment.jpg' alt='appointment' style={{height: '200px', marginLeft: '10px', float: 'left'}}/></figure>
+									<h2 style={{width:'43%', marginTop: '15%', float: 'right'}}>Book an appointment anytime, anywhere</h2>
+									<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', marginTop: '2%', marginLeft: '10%'}} onClick={() => this.setTab('doctors')}><p style={{float: 'left', marginTop: '0.5em'}}>Book appointment</p></Button>
+								</div>
+							</div>
+						</div>
+					</Carousel.Item>
+					<Carousel.Item style={{height: '650px'}}>
+						<div>
 							<img src='../slider5.jpeg' alt='first-slider' style={{width: '100%', height: '650px', opacity: '40%'}}></img>
 							<div className='container' style={{position: 'absolute', width: '45%', height: '50%', top: '25%', right: '45%', opacity: '90%'}}>
 								<div>
@@ -40,18 +52,6 @@ class MainPage extends React.Component {
 									<figure style={{width: '50%', marginTop: '8%', marginLeft: '3%', float: 'left'}}><img src='../hospital1.jpg' alt='hospital1' /></figure>
 									<h2 style={{width:'43%', marginTop: '15%', float: 'right'}}>Looking for a hospital?</h2>
 									<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', marginTop: '2%', marginLeft: '15%'}} onClick={() => this.setTab('hospitals')}><p style={{float: 'left', marginTop: '0.5em'}}>Find hospital</p></Button>
-								</div>
-							</div>
-						</div>
-					</Carousel.Item>
-					<Carousel.Item style={{height: '650px'}}>
-						<div>
-							<img src='../slider4.jpg' alt='third-slider' style={{width: '100%', height: '650px', opacity: '40%'}}></img>
-							<div className='container' style={{position: 'absolute', width: '45%', height: '50%', top: '25%', right: '45%', opacity: '90%'}}>
-								<div>
-									<figure style={{width: '50%', marginTop: '8%', marginLeft: '3%', paddingLeft: '5%', float: 'left'}}><img src='../appointment.jpg' alt='appointment' style={{height: '200px', marginLeft: '10px', float: 'left'}}/></figure>
-									<h2 style={{width:'43%', marginTop: '15%', float: 'right'}}>Book an appointment anytime, anywhere</h2>
-									<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', marginTop: '2%', marginLeft: '10%'}} onClick={() => this.setTab('appointments')}><p style={{float: 'left', marginTop: '0.5em'}}>Book appointment</p></Button>
 								</div>
 							</div>
 						</div>

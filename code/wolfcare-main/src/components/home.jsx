@@ -12,9 +12,9 @@ import {
 import LoginUser from './login';
 import RegisterUser from './register';
 import MainPage from './main';
-import Doctors from './doctorList';
-import Hospitals from './hospitals';
-import Appointments from './appointments';
+import DoctorsList from './doctorsList';
+import HospitalsList from './hospitalsList';
+import AppointmentsList from './appointmentsList';
 import AboutUs from './about';
 import ContactUs from './contact';
 
@@ -104,11 +104,11 @@ class Home extends React.Component {
 			case 'home':
 				return <MainPage setTab={this.setTab} redirectToPath={this.redirectToPath} setRegisterClicked={this.setRegisterClicked}/>;
 			case 'doctors':
-				return <Doctors />;
+				return <DoctorsList />;
 			case 'hospitals':
-				return <Hospitals />;
+				return <HospitalsList />;
 			case 'appointments':
-				return <Appointments userLogonDetails={this.state.userLogonDetails} setLoginClicked={this.setLoginClicked}/>;
+				return <AppointmentsList userLogonDetails={this.state.userLogonDetails} setLoginClicked={this.setLoginClicked} redirectToPath={this.redirectToPath} parentProps={this.props}/>;
 			case 'about':
 				return <AboutUs />;
 			case 'contact':

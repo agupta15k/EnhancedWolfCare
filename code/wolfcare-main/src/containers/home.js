@@ -45,8 +45,8 @@ const homeMapDispatchToProps = dispatch => {
 const homeMapStateToProps = state => {
 	const localStorageUserInfo = JSON.parse(localStorage.getItem('userLogonDetails'));
 	return ({
-		loginApiStatus: state.home.loginApiSuccess,
-		loginApiMessage: state.home.loginApiMessage,
+		loginApiStatus: state.home.loginApiSuccess || localStorageUserInfo.signInStatus,
+		loginApiMessage: (localStorageUserInfo.signInStatus && 'Logged in Successfully') || state.home.loginApiMessage,
 		registerApiStatus: state.home.registerApiSuccess,
 		registerApiMessage: state.home.registerApiMessage,
 		userId: localStorageUserInfo && localStorageUserInfo.userId

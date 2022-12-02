@@ -1,12 +1,12 @@
 import React from 'react';
 import { Table } from 'antd';
-import { doctorsData, doctorsColumns } from '../constants/doctors';
+import { hospitalsData, hospitalsColumns } from '../constants/hospitals';
 
-class Doctors extends React.Component {
+class HospitalsList extends React.Component {
 	render() {
 		return (
 			<Table
-				columns={ doctorsColumns }
+				columns={ hospitalsColumns }
 				expandable={ {
 					expandedRowRender: (record) => (
 						<p
@@ -19,7 +19,7 @@ class Doctors extends React.Component {
 					),
 					rowExpandable: (record) => record.name !== 'Not Expandable',
 				} }
-				dataSource={ doctorsData }
+				dataSource={ hospitalsData }
 				bordered={ true }
 				showHeader
 				scroll={ {
@@ -34,4 +34,4 @@ class Doctors extends React.Component {
 	}
 }
 
-export default Doctors;
+export default HospitalsList;
