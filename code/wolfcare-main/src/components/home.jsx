@@ -12,7 +12,9 @@ import {
 import LoginUser from './login';
 import RegisterUser from './register';
 import MainPage from './main';
-import DoctorList from './doctorList';
+import Doctors from './doctorList';
+import Hospitals from './hospitals';
+import Appointments from './appointments';
 import AboutUs from './about';
 import ContactUs from './contact';
 
@@ -102,7 +104,11 @@ class Home extends React.Component {
 			case 'home':
 				return <MainPage setTab={this.setTab} redirectToPath={this.redirectToPath} setRegisterClicked={this.setRegisterClicked}/>;
 			case 'doctors':
-				return <DoctorList />;
+				return <Doctors />;
+			case 'hospitals':
+				return <Hospitals />;
+			case 'appointments':
+				return <Appointments />;
 			case 'about':
 				return <AboutUs />;
 			case 'contact':
