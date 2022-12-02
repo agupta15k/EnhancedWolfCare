@@ -44,7 +44,7 @@ class Home extends React.Component {
 	componentDidMount() {
 		const userLogonDetails = JSON.parse(localStorage.getItem('userLogonDetails'));
 		this.setState({
-			userLogonDetails: userLogonDetails
+			userLogonDetails: userLogonDetails || {}
 		});
 		const url = new URL(document.location.href);
 		const pathWithoutHome = url.pathname.split('/')[ 2 ];
@@ -86,7 +86,7 @@ class Home extends React.Component {
 	setLoginClicked = (val) => {
 		const userLogonDetails = JSON.parse(localStorage.getItem('userLogonDetails'));
 		this.setState({
-			userLogonDetails: userLogonDetails,
+			userLogonDetails: userLogonDetails || {},
 			isLoginClicked: val
 		});
 	};
@@ -94,7 +94,7 @@ class Home extends React.Component {
 	setRegisterClicked = (val) => {
 		const userLogonDetails = JSON.parse(localStorage.getItem('userLogonDetails'));
 		this.setState({
-			userLogonDetails: userLogonDetails,
+			userLogonDetails: userLogonDetails || {},
 			isRegisterClicked: val
 		});
 	};
@@ -108,7 +108,7 @@ class Home extends React.Component {
 			case 'hospitals':
 				return <Hospitals />;
 			case 'appointments':
-				return <Appointments />;
+				return <Appointments userLogonDetails={this.state.userLogonDetails} setLoginClicked={this.setLoginClicked}/>;
 			case 'about':
 				return <AboutUs />;
 			case 'contact':
