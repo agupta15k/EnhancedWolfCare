@@ -14,7 +14,7 @@ try:
 except:
     pass
 
-def addDoctor(firstname, lastname, primaryspecialty, secondaryspecialty, type, degree, phone, email, gender, yoe, approvalstatus, isactive, userid):
+def addDoctor(firstname, lastname, primaryspecialty, secondaryspecialty, type, degree, phone, email, gender, yoe, userid):
     """
     Inserts doctor info into the database.
     Parameters
@@ -39,10 +39,6 @@ def addDoctor(firstname, lastname, primaryspecialty, secondaryspecialty, type, d
         Gender of the doctor. For eg. Male, Female etc.
     yoe : string
         Years of experience of the doctor.
-    approvalstatus : string
-        Whether the doctor is approved by the admin. At time of registeration it will be False.
-    isactive : string
-        Whether the doctor is currently working or not. 
     userid : int
         ID of the doctor (Doctor also an user)
     Returns
@@ -53,6 +49,8 @@ def addDoctor(firstname, lastname, primaryspecialty, secondaryspecialty, type, d
 
     try:
         lastmoddate = str(datetime.datetime.today()).split()[0]
+        isactive = "TRUE"
+        approvalstatus = "FALSE"
         cursor = connection.cursor(dictionary=True)
         mysql_insert_query = """INSERT INTO doctors (firstname, lastname, primaryspecialty, secondaryspecialty, type, degree, phone, email, gender, yoe, approvalstatus, isactive, lastmoddate, userid)
                                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) """
@@ -155,7 +153,7 @@ def getDoctorDetails(doctorid):
         return False, msg
 
 
-def addHospital(name, type, addressline1, addressline2, city, state, country, zipcode, phone, email, approvalstatus, isactive):
+def addHospital(name, type, addressline1, addressline2, city, state, country, zipcode, phone, email):
     """
     Inserts doctor info into the database.
     Parameters
@@ -180,10 +178,6 @@ def addHospital(name, type, addressline1, addressline2, city, state, country, zi
         Contact number of the hospital. 
     email : string
         Email id of the hospital. 
-    approvalstatus : string
-        Whether the hospital is approved by the admin. At time of registeration it will be False.
-    isactive : string
-        Whether the hospital is currently working or not. 
     Returns
     ----------
     tuple
@@ -192,6 +186,8 @@ def addHospital(name, type, addressline1, addressline2, city, state, country, zi
 
     try:
         lastmoddate = str(datetime.datetime.today()).split()[0]
+        isactive = "TRUE"
+        approvalstatus = "FALSE"
         cursor = connection.cursor(dictionary=True)
         mysql_insert_query = """INSERT INTO hospitals (name, type, addressline1, addressline2, city, state, country, zipcode, phone, email, approvalstatus, isactive, lastmoddate)
                                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) """

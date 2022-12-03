@@ -55,11 +55,9 @@ def app_addDoctor():
         email = data['email']
         gender = data['gender']
         yoe = data['yoe']
-        approvalstatus = data['approvalstatus']
-        isactive = data['isactive']
         userid = data['userid']
         status, msg = addDoctor(firstname, lastname, primaryspecialty, secondaryspecialty,
-                                type, degree, phone, email, gender, yoe, approvalstatus, isactive, userid)
+                                type, degree, phone, email, gender, yoe, userid)
 
         if status:
             return jsonify({"status": 200, "data": {}, "message": msg})
@@ -162,11 +160,9 @@ def app_addHospital():
         zipcode = data['zipcode']
         phone = data['phone']
         email = data['email']
-        approvalstatus = data['approvalstatus']
-        isactive = data['isactive']
 
         status, msg = addHospital(name, type, addressline1, addressline2, city,
-                                  state, country, zipcode, phone, email, approvalstatus, isactive)
+                                  state, country, zipcode, phone, email)
 
         if status:
             return jsonify({"status": 200, "data": {}, "message": msg})
