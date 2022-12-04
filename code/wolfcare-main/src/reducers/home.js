@@ -9,7 +9,8 @@ const initialState = {
 	updateAppointmentApiSuccess: false,
 	deleteAppointmentApiMessage: '',
 	deleteAppointmentApiSuccess: false,
-	user_id: ''
+	userId: '',
+	userType: ''
 };
 
 /**
@@ -24,10 +25,12 @@ const homeReducer = (state = initialState, action) => {
 		case 'SUBMITLOGIN': {
 			if (action.payload && action.payload.data) {
 				const userId = action.payload.data.ID;
-				localStorage.setItem('userLogonDetails', JSON.stringify({userId, signInTime: new Date(), signInStatus: true}));
+				const userType = action.payload.data.type;
+				localStorage.setItem('userLogonDetails', JSON.stringify({userId, userType, signInTime: new Date(), signInStatus: true}));
 				return {
 					...state,
 					userId,
+					userType,
 					loginApiSuccess: true,
 					loginApiMessage: action.payload.message
 				};

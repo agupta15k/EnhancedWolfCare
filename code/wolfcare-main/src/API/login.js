@@ -15,6 +15,7 @@ const loginAPI = (value) => {
 			message: 'Logged in Successfully',
 			data: {
 				ID: 2,
+				type: 'user',
 				city: [
 					'raleigh',
 					'cary',

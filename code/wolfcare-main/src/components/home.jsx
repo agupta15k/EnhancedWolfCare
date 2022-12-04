@@ -19,6 +19,7 @@ import AppointmentsList from './appointmentsList';
 import SymptomsChecker from './symptomsChecker';
 import AboutUs from './about';
 import ContactUs from './contact';
+import AdminRequests from './adminRequests';
 
 
 /**
@@ -58,7 +59,7 @@ class Home extends React.Component {
 				tab: 'home'
 			});
 		} else {
-			const paths = [ 'doctors', 'hospitals', 'appointments', 'symptoms', 'about', 'contact' ];
+			const paths = [ 'doctors', 'hospitals', 'appointments', 'symptoms', 'about', 'contact', 'requests' ];
 			if (paths.includes(pathWithoutHome)) {
 				this.setState({
 					tab: pathWithoutHome
@@ -114,6 +115,8 @@ class Home extends React.Component {
 				return <AboutUs redirectToPath={this.redirectToPath} setRegisterClicked={this.setRegisterClicked} />;
 			case 'contact':
 				return <ContactUs />;
+			case 'requests':
+				return <AdminRequests userLogonDetails={this.state.userLogonDetails} />;
 			default:
 				return <MainPage redirectToPath={this.redirectToPath} setRegisterClicked={this.setRegisterClicked}/>;
 		}
@@ -125,7 +128,7 @@ class Home extends React.Component {
 	 */
 	render() {
 		const { Header, Content, Footer } = Layout;
-		const items = [
+		let items = [
 			{
 				key: 'home',
 				icon: <HomeOutlined />,
@@ -155,8 +158,10 @@ class Home extends React.Component {
 				icon: <CheckCircleOutlined />,
 				label: 'Symptom checker',
 				onClick: () => this.redirectToPath('/home/symptoms')
-			},
-			{
+			}
+		];
+		if (this.props.userType !== 'admin' || !this.state.userLogonDetails.signInStatus) {
+			items = [...items, {
 				key: 'about',
 				icon: <InfoCircleOutlined />,
 				label: 'About us',
@@ -167,8 +172,15 @@ class Home extends React.Component {
 				icon: <PhoneOutlined />,
 				label: 'Contact us',
 				onClick: () => this.redirectToPath('/home/contact')
-			}
-		];
+			}];
+		} else {
+			items = [...items, {
+				key: 'requests',
+				icon: <InfoCircleOutlined />,
+				label: 'Requests',
+				onClick: () => this.redirectToPath('/home/requests')
+			}];
+		}
 		return (
 			<section>
 				<Modal
@@ -245,7 +257,7 @@ class Home extends React.Component {
 														let userLogonDetails = this.state.userLogonDetails;
 														userLogonDetails.signInStatus = false;
 														localStorage.setItem('userLogonDetails', JSON.stringify(userLogonDetails));
-														location.reload();
+														this.redirectToPath('/home');
 													} }>
 														Sign Out
 													</a>

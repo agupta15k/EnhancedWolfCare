@@ -77,7 +77,8 @@ const homeMapStateToProps = state => {
 		updateAppointmentApiMessage: state.home.updateAppointmentApiMessage,
 		deleteAppointmentApiStatus: state.home.deleteAppointmentApiSuccess,
 		deleteAppointmentApiMessage: state.home.deleteAppointmentApiMessage,
-		userId: localStorageUserInfo && localStorageUserInfo.userId
+		userId: localStorageUserInfo && localStorageUserInfo.userId,
+		userType: localStorageUserInfo && localStorageUserInfo.userType
 	});
 };
 
