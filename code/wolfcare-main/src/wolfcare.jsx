@@ -41,6 +41,10 @@ class Wolfcare extends React.Component {
 				element: <Home tab={'appointments'}/>
 			},
 			{
+				path: '/home/symptoms',
+				element: <Home tab={'symptoms'}/>
+			},
+			{
 				path: '/home/about',
 				element: <Home tab={'about'}/>
 			},

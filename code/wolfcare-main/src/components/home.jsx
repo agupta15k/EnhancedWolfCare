@@ -2,6 +2,7 @@ import React from 'react';
 import { Avatar, Button, Dropdown, Layout, Menu, Modal } from 'antd';
 import {
 	CalendarOutlined,
+	CheckCircleOutlined,
 	HomeOutlined,
 	InfoCircleOutlined,
 	MedicineBoxOutlined,
@@ -15,6 +16,7 @@ import MainPage from './main';
 import DoctorsList from './doctorsList';
 import HospitalsList from './hospitalsList';
 import AppointmentsList from './appointmentsList';
+import SymptomsChecker from './symptomsChecker';
 import AboutUs from './about';
 import ContactUs from './contact';
 
@@ -34,7 +36,8 @@ class Home extends React.Component {
 			tab: '',
 			userLogonDetails: {},
 			isLoginClicked: false,
-			isRegisterClicked: false
+			isRegisterClicked: false,
+			isProfileViewClicked: false
 		};
 	}
 
@@ -55,7 +58,7 @@ class Home extends React.Component {
 				tab: 'home'
 			});
 		} else {
-			const paths = [ 'doctors', 'hospitals', 'appointments', 'about', 'contact' ];
+			const paths = [ 'doctors', 'hospitals', 'appointments', 'symptoms', 'about', 'contact' ];
 			if (paths.includes(pathWithoutHome)) {
 				this.setState({
 					tab: pathWithoutHome
@@ -71,16 +74,6 @@ class Home extends React.Component {
 	redirectToPath = (value) => {
 		const url = new URL(document.location.href);
 		document.location.href = `${url.origin}${value}`;
-	};
-
-	/**
-	 * Change tab based on user input
-	 * @param {String} value Name of the tab to render
-	 */
-	setTab = (value) => {
-		this.setState({
-			tab: value
-		});
 	};
 
 	setLoginClicked = (val) => {
@@ -99,22 +92,30 @@ class Home extends React.Component {
 		});
 	};
 
+	setProfileView = (val) => {
+		this.setState({
+			isProfileViewClicked: val
+		});
+	};
+
 	renderContent = () => {
 		switch (this.state.tab) {
 			case 'home':
-				return <MainPage setTab={this.setTab} redirectToPath={this.redirectToPath} setRegisterClicked={this.setRegisterClicked}/>;
+				return <MainPage redirectToPath={this.redirectToPath} setRegisterClicked={this.setRegisterClicked}/>;
 			case 'doctors':
 				return <DoctorsList />;
 			case 'hospitals':
 				return <HospitalsList />;
 			case 'appointments':
 				return <AppointmentsList userLogonDetails={this.state.userLogonDetails} setLoginClicked={this.setLoginClicked} redirectToPath={this.redirectToPath} parentProps={this.props}/>;
+			case 'symptoms':
+				return <SymptomsChecker />;
 			case 'about':
-				return <AboutUs />;
+				return <AboutUs redirectToPath={this.redirectToPath} setRegisterClicked={this.setRegisterClicked} />;
 			case 'contact':
 				return <ContactUs />;
 			default:
-				return <MainPage setTab={this.setTab} redirectToPath={this.redirectToPath} setRegisterClicked={this.setRegisterClicked}/>;
+				return <MainPage redirectToPath={this.redirectToPath} setRegisterClicked={this.setRegisterClicked}/>;
 		}
 	};
 
@@ -132,6 +133,12 @@ class Home extends React.Component {
 				onClick: () => this.redirectToPath('/home')
 			},
 			{
+				key: 'appointments',
+				icon: <CalendarOutlined />,
+				label: 'Appointments',
+				onClick: () => this.redirectToPath('/home/appointments')
+			},
+			{
 				key: 'doctors',
 				icon: <MedicineBoxOutlined />,
 				label: 'Doctors',
@@ -144,10 +151,10 @@ class Home extends React.Component {
 				onClick: () => this.redirectToPath('/home/hospitals')
 			},
 			{
-				key: 'appointments',
-				icon: <CalendarOutlined />,
-				label: 'Appointments',
-				onClick: () => this.redirectToPath('/home/appointments')
+				key: 'symptoms',
+				icon: <CheckCircleOutlined />,
+				label: 'Symptom checker',
+				onClick: () => this.redirectToPath('/home/symptoms')
 			},
 			{
 				key: 'about',
@@ -187,6 +194,17 @@ class Home extends React.Component {
 				>
 					<RegisterUser setRegisterClicked={ this.setRegisterClicked } parentProps={ this.props } />
 				</Modal>
+				<Modal
+					title={ <h2>Profile</h2> }
+					open={ this.state.isProfileViewClicked }
+					onOk={ () => this.setProfileView(false) }
+					onCancel={ () => this.setProfileView(false) }
+					width={ 800 }
+					height={ 700 }
+					footer={ null }
+				>
+					<RegisterUser setRegisterClicked={ this.setRegisterClicked } parentProps={ this.props } isUpdate={true}/>
+				</Modal>
 				<Layout className='layout'>
 					<Header style={ { backgroundColor: '#DFDFDF', height: '5.5em' } }>
 						<a href='/home' style={ { float: 'left' } }>
@@ -204,7 +222,13 @@ class Home extends React.Component {
 										items: [
 											{
 												key: 'profile',
-												label: 'Profile'
+												label: (
+													<a rel='noopener noreferrer' onClick={ () => {
+														this.setProfileView(true);
+													} }>
+														Profile
+													</a>
+												)
 											},
 											{
 												key: 'appointmentHistory',
@@ -246,10 +270,10 @@ class Home extends React.Component {
 							selectedKeys={ [ this.state.tab || 'home' ] }
 						/>
 					</Header>
-					<Content>
+					<Content style={{height: '650px'}}>
 						{ this.renderContent() }
 					</Content>
-					<Footer style={ { paddingTop: '1em', height: '10px', backgroundColor: '#DFDFDF' } }>Copyright (c) 2022 Group 22</Footer>
+					<Footer style={ { paddingTop: '1em', width: '100%', height: '10px', backgroundColor: '#DFDFDF', bottom:'0.5%', position: 'absolute' } }>Copyright (c) 2022 Group 22</Footer>
 				</Layout>
 			</section>
 		);

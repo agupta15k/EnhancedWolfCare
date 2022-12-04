@@ -5,6 +5,10 @@ const initialState = {
 	loginApiSuccess: false,
 	registerApiMessage: '',
 	registerApiSuccess: false,
+	updateAppointmentApiMessage: '',
+	updateAppointmentApiSuccess: false,
+	deleteAppointmentApiMessage: '',
+	deleteAppointmentApiSuccess: false,
 	user_id: ''
 };
 
@@ -56,6 +60,38 @@ const homeReducer = (state = initialState, action) => {
 				...state,
 				registerApiSuccess: false,
 				registerApiMessage: action.payload.message
+			};
+		}
+		// Success case
+		case 'SUBMITUPDATEAPPOINTMENT': {
+			return {
+				...state,
+				updateAppointmentApiSuccess: true,
+				updateAppointmentApiMessage: action.payload.message
+			};
+		}
+		// Failure case
+		case 'UPDATEAPPOINTMENTFAILURE': {
+			return {
+				...state,
+				updateAppointmentApiSuccess: false,
+				updateAppointmentApiMessage: action.payload.message
+			};
+		}
+		// Success case
+		case 'SUBMITDELETEAPPOINTMENT': {
+			return {
+				...state,
+				deleteAppointmentApiSuccess: true,
+				deleteAppointmentApiMessage: action.payload.message
+			};
+		}
+		// Failure case
+		case 'DELETEAPPOINTMENTFAILURE': {
+			return {
+				...state,
+				deleteAppointmentApiSuccess: false,
+				deleteAppointmentApiMessage: action.payload.message
 			};
 		}
 		default: return state;

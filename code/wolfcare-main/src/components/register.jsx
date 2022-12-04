@@ -26,7 +26,8 @@ class RegisterUser extends React.Component {
 			experience: '',
 			specialization: '',
 			// hospitalLocation: '',
-			loading: false
+			loading: false,
+			isUpdate: props.isUpdate
 		};
 	}
 
@@ -241,7 +242,7 @@ class RegisterUser extends React.Component {
 							) : (<></>)
 						}
 						<div className='form-group form-button'>
-							{ this.state.loading ? <Spinner /> : <input type='submit' name='signup' id='signup' className='form-submit' value='Register' onClick={ this.handleSubmit } /> }
+							{ this.state.loading ? <Spinner /> : <input type='submit' name='signup' id='signup' className='form-submit' value={this.state.isUpdate ? 'Update' : 'Register'} onClick={ this.handleSubmit } /> }
 						</div>
 					</form>
 				</div>

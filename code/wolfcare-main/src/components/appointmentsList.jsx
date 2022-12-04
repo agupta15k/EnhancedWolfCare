@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Space, Modal, Popconfirm, Table } from 'antd';
+import { Button, Space, Popconfirm, Table } from 'antd';
 import { appointmentsData } from '../constants/appointments';
 import DescribeAppointment from './appointmentDescribe';
 
@@ -7,19 +7,48 @@ class AppointmentsList extends React.Component {
 	constructor (props) {
 		super(props);
 		this.state = {
+			loading: false,
 			showAppointmentDescription: false,
 			selectedAppointment: {}
 		};
 	}
 
-	confirmDeletion = (record) => {
+	confirmDeletion = async (record) => {
 		// Delete appointment
-		console.log(record);
+		if (Object.keys(this.props).length > 0 && Object.keys(this.props.parentProps).length > 0) {
+			const apiInput = {
+				appointment: record
+			};
+			this.setState({
+				loading: true
+			});
+			await this.props.parentProps.onAppointmentDelete(apiInput);
+			if (this.props.parentProps.deleteAppointmentApiStatus) {
+				this.setState({
+					loading: false
+				});
+				location.reload();
+				return true;
+			} else {
+				this.setState({
+					loading: false
+				});
+				alert(this.props.parentProps.deleteAppointmentApiMessage || 'Appointment deletion failed. Please try again.');
+				return false;
+			}
+		}
+		return false;
 	};
 
 	setAppointmentDescriptionStatus = (val) => {
 		this.setState({
 			showAppointmentDescription: val
+		});
+	};
+
+	setSelectedAppointment = (val) => {
+		this.setState({
+			selectedAppointment: val
 		});
 	};
 
@@ -38,31 +67,9 @@ class AppointmentsList extends React.Component {
 		}
 		return (
 			<section>
-				<Modal
-					title={ <h2>Edit appointment</h2> }
-					open={ this.state.showAppointmentDescription }
-					onOk={ () => this.setAppointmentDescriptionStatus(false) }
-					onCancel={ () => this.setAppointmentDescriptionStatus(false) }
-					width={ 800 }
-					height={ 700 }
-					footer={ null }
-				>
-					<DescribeAppointment selectedAppointment={this.state.selectedAppointment}/>
-				</Modal>
+				{this.state.showAppointmentDescription ? <DescribeAppointment setAppointmentDescriptionStatus={this.setAppointmentDescriptionStatus} selectedAppointment={this.state.selectedAppointment} parentProps={this.props.parentProps}/> : null}
 				<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', marginTop: '2%', marginBottom: '2%', marginRight: '5%', float: 'right'}} onClick={() => this.props.redirectToPath('/home/doctors')}><p style={{float: 'left', marginTop: '0.5em'}}>Book a new appointment</p></Button>
 				<Table
-					expandable={ {
-						expandedRowRender: (record) => (
-							<p
-								style={ {
-									margin: 0,
-								} }
-							>
-								{ record.description }
-							</p>
-						),
-						rowExpandable: (record) => record.appointDate !== 'Not Expandable',
-					} }
 					dataSource={ appointmentsData }
 					bordered={ true }
 					showHeader
@@ -73,23 +80,28 @@ class AppointmentsList extends React.Component {
 						position: [ 'bottomCenter' ],
 						showQuickJumper: true
 					} }
+					loading={this.state.loading}
 				>
+					<Column title='Id' dataIndex='key' key='key' width='5%' />
 					<Column title="Appointment Date and Time" dataIndex="appointDateTime" key="appointDateTime" />
-					<Column title="Doctor" dataIndex="doctor" key="doctor" />
+					<Column title="Doctor" dataIndex="doctorName" key="doctorName" />
 					<Column title="Appointment Status" dataIndex="appointStatus" key="appointStatus" />
 					<Column
 						title="Action"
 						key="action"
 						render={(_, record) => {
 							return (<Space size="middle">
-								<a className='link' onClick={() => this.setAppointmentDescriptionStatus(true)}>Edit</a>
+								<a className='link' onClick={() => {
+									this.setSelectedAppointment(record);
+									this.setAppointmentDescriptionStatus(true);
+								}}>Edit</a>
 								<Popconfirm
-									title="Are you sure to delete this appointment?"
+									title="Are you sure to cancel this appointment?"
 									onConfirm={() => this.confirmDeletion(record)}
 									okText="Yes"
 									cancelText="No"
 								>
-									<a className='link'>Delete</a>
+									<a className='link'>Cancel</a>
 								</Popconfirm>
 							</Space>);
 						}}

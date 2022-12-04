@@ -10,11 +10,11 @@ import axios from '../axios';
 const registerUserApi = (value) => {
 	// Success dummy response
 	return {
-	    data: {
-	        status: 200,
-	        message: 'You have registered successfully',
-	        data: {}
-	    }
+		data: {
+			status: 200,
+			message: 'You have registered successfully',
+			data: {}
+		}
 	};
 	// Failure dummy response
 	// return {
