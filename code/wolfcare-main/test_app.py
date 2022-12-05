@@ -529,3 +529,171 @@ class TestApp(unittest.TestCase):
 
         expected = {"status": 400, "data": {}, "message": "Hi"}
         assert expected == json.loads(response.get_data(as_text=True))
+    
+    def test_empty(self):
+        tester = app.test_client(self)
+        response = tester.get("/")
+        expected = {'data': {}, 'message': "Backend working", 'status': 200}
+        assert expected == json.loads(response.get_data(as_text=True))
+    
+    @patch('src.backend.app.updateDoctorInfo')
+    def test_update_doctor_post(self, mockupdateDoctorInfo):
+        tester = app.test_client(self)
+        mockupdateDoctorInfo.return_value = 0, "Hi"
+        inpData = {"lastname": "Arun"}
+        response = tester.put("/updateDoctor", data=json.dumps(inpData),
+                               headers={'content-type': 'application/json'})
+
+        expected = {"status": 400, "data": {}, "message": "Hi"}
+        assert expected == json.loads(response.get_data(as_text=True))
+
+    @patch('src.backend.app.updateDoctorInfo')
+    def test_update_doctor_post_1(self, mockupdateDoctorInfo):
+        tester = app.test_client(self)
+        mockupdateDoctorInfo.return_value = 1, "Hi"
+        inpData = {"lastname": "Arun"}
+        response = tester.put("/updateDoctor", data=json.dumps(inpData),
+                               headers={'content-type': 'application/json'})
+
+        expected = {"status": 200, "data": {}, "message": "Hi"}
+        assert expected == json.loads(response.get_data(as_text=True))
+
+    @patch('src.backend.app.getDoctorDetails')
+    def test_get_doctor_info(self, mockgetDoctorDetails):
+        tester = app.test_client(self)
+        mockgetDoctorDetails.return_value = 0, "Hi"
+        response = tester.get("/getDoctorInfo?id=2")
+        expected = {"status": 400, "data": {}, "message": "Hi"}
+        assert expected == json.loads(response.get_data(as_text=True))
+
+    @patch('src.backend.app.getDoctorDetails')
+    def test_get_doctor_info_1(self, mockgetDoctorDetails):
+        tester = app.test_client(self)
+        mockgetDoctorDetails.return_value = 1, []
+        response = tester.get("/getDoctorInfo?id=2")
+        expected = {"status": 200, "data": {}, "message": "No records found"}
+        assert expected == json.loads(response.get_data(as_text=True))
+
+    @patch('src.backend.app.getDoctorDetails')
+    def test_get_doctor_info_2(self, mockgetDoctorDetails):
+        tester = app.test_client(self)
+        mockgetDoctorDetails.return_value = 1, [{"doctorid": 2003}]
+        response = tester.get("/getDoctorInfo?id=2")
+        expected = {"status": 200, "data": [{"doctorid": 2003}], "message": "Records found"}
+        assert expected == json.loads(response.get_data(as_text=True))
+
+    @patch('src.backend.app.getDoctors')
+    def test_get_doctor(self, mockgetDoctors):
+        tester = app.test_client(self)
+        mockgetDoctors.return_value = 0, "Hi"
+        response = tester.get("/getDoctors")
+        expected = {"status": 400, "data": {}, "message": "Hi"}
+        assert expected == json.loads(response.get_data(as_text=True))
+
+    @patch('src.backend.app.getDoctors')
+    def test_get_doctor_1(self, mockgetDoctors):
+        tester = app.test_client(self)
+        mockgetDoctors.return_value = 1, []
+        response = tester.get("/getDoctors")
+        expected = {"status": 200, "data": {}, "message": "No records found"}
+        assert expected == json.loads(response.get_data(as_text=True))
+
+    @patch('src.backend.app.getDoctors')
+    def test_get_doctor_2(self, mockgetDoctors):
+        tester = app.test_client(self)
+        mockgetDoctors.return_value = 1, [{"doctorid": 2003}]
+        response = tester.get("/getDoctors")
+        expected = {"status": 200, "data": [{"doctorid": 2003}], "message": "Records found"}
+        assert expected == json.loads(response.get_data(as_text=True))
+
+    @patch('src.backend.app.getHospitals')
+    def test_get_hospital(self, mockgetHospitals):
+        tester = app.test_client(self)
+        mockgetHospitals.return_value = 0, "Hi"
+        response = tester.get("/getHospitals")
+        expected = {"status": 400, "data": {}, "message": "Hi"}
+        assert expected == json.loads(response.get_data(as_text=True))
+
+    @patch('src.backend.app.getHospitals')
+    def test_get_hospital_1(self, mockgetHospitals):
+        tester = app.test_client(self)
+        mockgetHospitals.return_value = 1, []
+        response = tester.get("/getHospitals")
+        expected = {"status": 200, "data": {}, "message": "No records found"}
+        assert expected == json.loads(response.get_data(as_text=True))
+
+    @patch('src.backend.app.getHospitals')
+    def test_get_hospital_2(self, mockgetHospitals):
+        tester = app.test_client(self)
+        mockgetHospitals.return_value = 1, [{"doctorid": 2003}]
+        response = tester.get("/getHospitals")
+        expected = {"status": 200, "data": [{"doctorid": 2003}], "message": "Records found"}
+        assert expected == json.loads(response.get_data(as_text=True))
+
+    @patch('src.backend.app.getHospitalDetails')
+    def test_get_hospital_info(self, mockgetHospitalDetails):
+        tester = app.test_client(self)
+        mockgetHospitalDetails.return_value = 0, "Hi"
+        response = tester.get("/getHospitalInfo?id=2")
+        expected = {"status": 400, "data": {}, "message": "Hi"}
+        assert expected == json.loads(response.get_data(as_text=True))
+
+    @patch('src.backend.app.getHospitalDetails')
+    def test_get_hospital_info_1(self, mockgetHospitalDetails):
+        tester = app.test_client(self)
+        mockgetHospitalDetails.return_value = 1, []
+        response = tester.get("/getHospitalInfo?id=2")
+        expected = {"status": 200, "data": {}, "message": "No records found"}
+        assert expected == json.loads(response.get_data(as_text=True))
+
+    @patch('src.backend.app.getHospitalDetails')
+    def test_get_hospital_info_2(self, mockgetHospitalDetails):
+        tester = app.test_client(self)
+        mockgetHospitalDetails.return_value = 1, [{"doctorid": 2003}]
+        response = tester.get("/getHospitalInfo?id=2")
+        expected = {"status": 200, "data": [{"doctorid": 2003}], "message": "Records found"}
+        assert expected == json.loads(response.get_data(as_text=True))
+
+    @patch('src.backend.app.addAppointment')
+    def test_add_appointment_post(self, mockaddAppointment):
+        tester = app.test_client(self)
+        mockaddAppointment.return_value = 1, "Hi"
+        inpData = {"userid": 1002,"hospitalid": 2004,"doctorid" : 3004, "date" : "2022", "timeslot" : "2-3"}
+        response = tester.post("/addAppointment", data=json.dumps(inpData),
+                               headers={'content-type': 'application/json'})
+
+        expected = {"status": 200, "data": {}, "message": "Hi"}
+        assert expected == json.loads(response.get_data(as_text=True))
+
+    @patch('src.backend.app.addAppointment')
+    def test_add_appointment_post_1(self, mockaddAppointment):
+        tester = app.test_client(self)
+        mockaddAppointment.return_value = 0, "Hi"
+        inpData = {"userid": 1002,"hospitalid": 2004,"doctorid" : 3004, "date" : "2022", "timeslot" : "2-3"}
+        response = tester.post("/addAppointment", data=json.dumps(inpData),
+                               headers={'content-type': 'application/json'})
+
+        expected = {"status": 400, "data": {}, "message": "Hi"}
+        assert expected == json.loads(response.get_data(as_text=True))
+
+    @patch('src.backend.app.updateAppointmentInfo')
+    def test_update_appointment_post_1(self, mockupdateAppointmentInfo):
+        tester = app.test_client(self)
+        mockupdateAppointmentInfo.return_value = 0, "Hi"
+        inpData = {"userid": 1002,"hospitalid": 2004,"doctorid" : 3004, "date" : "2022", "timeslot" : "2-3"}
+        response = tester.put("/updateAppointment", data=json.dumps(inpData),
+                               headers={'content-type': 'application/json'})
+
+        expected = {"status": 400, "data": {}, "message": "Hi"}
+        assert expected == json.loads(response.get_data(as_text=True))
+
+    @patch('src.backend.app.updateAppointmentInfo')
+    def test_update_appointment_post_2(self, mockupdateAppointmentInfo):
+        tester = app.test_client(self)
+        mockupdateAppointmentInfo.return_value = 1, "Hi"
+        inpData = {"userid": 1002,"hospitalid": 2004,"doctorid" : 3004, "date" : "2022", "timeslot" : "2-3"}
+        response = tester.put("/updateAppointment", data=json.dumps(inpData),
+                               headers={'content-type': 'application/json'})
+
+        expected = {"status": 200, "data": {}, "message": "Hi"}
+        assert expected == json.loads(response.get_data(as_text=True))
