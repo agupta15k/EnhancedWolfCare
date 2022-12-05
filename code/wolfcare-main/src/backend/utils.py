@@ -8,15 +8,13 @@ from ast import literal_eval as make_tuple
 from src.backend.dbconfig import constants
 import datetime
 
-
 def db_connection():
     try:
-        connection = db_connection()
         connection = mysql.connector.connect(
             host=constants["host"], user=constants["user"], password=constants["password"], database=constants["database"])
     # except:
         return connection
-
+        
     except mysql.connector.Error as err:
         if err.errno == mysql.connector.errorcode.ER_ACCESS_DENIED_ERROR:
             print("Something is wrong with your user name or password")
@@ -24,6 +22,8 @@ def db_connection():
             print("Database does not exist")
         else:
             print(err)
+
+
 
 
 def addDoctor(lastname, primaryspecialty, phone, email, yoe, userid, firstname="Dr.", secondaryspecialty=" ", type=" ", degree=" ", gender=" "):
@@ -229,8 +229,8 @@ def getDoctors():
 
         data = cursor.fetchall()
         for record in data:
-            finalData.append({"doctorid": record["doctorid"], "firstname": record["firstname"], "lastname": record["lastname"], "primaryspecialty": record["primaryspecialty"], "secondaryspecialty": record["secondaryspecialty"],  "type": record["type"], "degree": record["degree"],
-                              "phone": record["phone"], "email": record["email"], "gender": record["gender"], "yoe": record["yoe"]})
+            finalData.append({"doctorid": record["doctorid"], "name": record["firstname"] + record["lastname"], "specialization": record["primaryspecialty"],  "type": record["type"], "degree": record["degree"],
+                              "phone": record["phone"], "email": record["email"], "gender": record["gender"], "experience": record["yoe"]})
         cursor.close()
         connection.close()
         return True, finalData
@@ -733,9 +733,9 @@ def updateAppointmentInfo(data):
         lastmoddate = str(datetime.datetime.today()).split()[0]
         cursor = connection.cursor(dictionary=True)
 
-        mysql_update_query = """UPDATE appointment set userid = %s, doctorid = %s, hospitalid = %s, date = %s, timeslot = %s, isactive = %s, lastmoddate = %s WHERE appointmentid = %s """
+        mysql_update_query = """UPDATE appointment set  doctorid = %s, hospitalid = %s, date = %s, timeslot = %s, isactive = %s, lastmoddate = %s WHERE appointmentid = %s """
 
-        input_data = (int(data['userid']), int(data['doctorid']), int(data['hospitalid']), str(
+        input_data = ( int(data['doctorid']), int(data['hospitalid']), str(
             data['date']), str(data['timeslot']), str(data['isactive']), lastmoddate, int(data['appointmentid']))
 
         cursor.execute(mysql_update_query, input_data)
@@ -1045,7 +1045,8 @@ def checkDuplicateEmail(email):
         sqlSelectQuery = "SELECT * FROM Users where email = %s"
         cursor.execute(sqlSelectQuery, (email,))
         record = cursor.fetchall()
-        print(email)
+        cursor.close()
+        connection.close()
         if record:
             return True, 1
         else:
@@ -1266,7 +1267,7 @@ def getAppointmentInfoUserDB(id):
     try:
         connection = db_connection()
         cursor = connection.cursor(dictionary=True)
-        cursor.execute("SELECT hospitals.name, hospitals.addressline1, appointment.userid, appointment.hospitalid, appointment.timeslot, appointment.isactive, appointment.date, doctors.firstname, doctors.lastname, doctors.primaryspecialty, doctors.secondaryspecialty, doctors.type, doctors.degree, doctors.phone, doctors.email, doctors.gender FROM doctors INNER JOIN appointment ON doctors.doctorid = appointment.doctorid INNER JOIN hospitals ON hospitals.hospitalid = appointment.hospitalid  WHERE appointment.userid = %s", (int(id),))
+        cursor.execute("SELECT hospitals.name, hospitals.addressline1, appointment.userid, appointment.appointmentid, appointment.hospitalid, appointment.timeslot, appointment.isactive, appointment.date, doctors.firstname, doctors.lastname, doctors.primaryspecialty, doctors.secondaryspecialty, doctors.type, doctors.doctorid, doctors.degree, doctors.phone, doctors.email, doctors.gender FROM doctors INNER JOIN appointment ON doctors.doctorid = appointment.doctorid INNER JOIN hospitals ON hospitals.hospitalid = appointment.hospitalid  WHERE appointment.userid = %s", (int(id),))
         appointmentInfo = cursor.fetchall()
         finalData = []
         for record in appointmentInfo:
@@ -1302,7 +1303,7 @@ def getAppointmentInfoDoctorDB(id):
     try:
         connection = db_connection()
         cursor = connection.cursor(dictionary=True)
-        cursor.execute("SELECT hospitals.name, hospitals.addressline1, appointment.doctorid, appointment.hospitalid, appointment.isactive, appointment.timeslot, appointment.date, users.firstname FROM users INNER JOIN appointment ON users.userid = appointment.userid INNER JOIN hospitals ON hospitals.hospitalid = appointment.hospitalid WHERE appointment.doctorid = %s", (int(id),))
+        cursor.execute("SELECT hospitals.name, hospitals.addressline1, appointment.doctorid, appointment.appointmentid ,appointment.hospitalid, appointment.isactive, appointment.timeslot, appointment.date, users.firstname FROM users INNER JOIN appointment ON users.userid = appointment.userid INNER JOIN hospitals ON hospitals.hospitalid = appointment.hospitalid WHERE appointment.doctorid = %s", (int(id),))
         appointmentInfo = cursor.fetchall()
         finalData = []
         for record in appointmentInfo:
