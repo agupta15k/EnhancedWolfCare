@@ -1224,11 +1224,20 @@ def updateUserProfile(data):
         connection = db_connection()
         now = datetime.datetime.now()
         formattedDate = now.strftime("%Y%m%d")
+        username = " "
+        firstname = str(data["name"])
+        lastname = " "
+        usertype = str(data["userType"])
+        gender = " "
+        email = str(data["email"])
+        password = str(data["password"])
+        phone = str(data["phoneNumber"])
+        isactive = "TRUE"
+        
         cursor = connection.cursor(dictionary=True)
         sqlUpdateQuery = "UPDATE users set username = %s, email = %s, firstname = %s, lastname = %s, gender = %s, password = %s, phone = %s, isactive = %s, lastmoddate = %s WHERE userid = %s"
-        inputData = (str(data['username']), str(data['email']),
-                     str(data["firstname"]), str(data["lastname"]), str(data["gender"]), str(
-            data["password"]), str(data["phone"]), str(data["isactive"]), formattedDate, int(data["userid"]))
+        inputData = (username,email,
+                     firstname, lastname, gender, password, phone, isactive, formattedDate, int(data["userid"]))
         cursor.execute(sqlUpdateQuery, inputData)
         connection.commit()
 
