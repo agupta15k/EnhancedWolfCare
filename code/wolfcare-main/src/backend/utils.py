@@ -8,11 +8,22 @@ from ast import literal_eval as make_tuple
 from src.backend.dbconfig import constants
 import datetime
 
-try:
-    connection = mysql.connector.connect(
-        host=constants["host"], user=constants["user"], password=constants["password"], database=constants["database"])
-except:
-    pass
+
+def db_connection():
+    try:
+        connection = db_connection()
+        connection = mysql.connector.connect(
+            host=constants["host"], user=constants["user"], password=constants["password"], database=constants["database"])
+    # except:
+        return connection
+
+    except mysql.connector.Error as err:
+        if err.errno == mysql.connector.errorcode.ER_ACCESS_DENIED_ERROR:
+            print("Something is wrong with your user name or password")
+        elif err.errno == mysql.connector.errorcode.ER_BAD_DV_ERROR:
+            print("Database does not exist")
+        else:
+            print(err)
 
 
 def addDoctor(lastname, primaryspecialty, phone, email, yoe, userid, firstname="Dr.", secondaryspecialty=" ", type=" ", degree=" ", gender=" "):
@@ -49,6 +60,7 @@ def addDoctor(lastname, primaryspecialty, phone, email, yoe, userid, firstname="
     """
 
     try:
+        connection = db_connection()
         lastmoddate = str(datetime.datetime.today()).split()[0]
         isactive = "TRUE"
         approvalstatus = "FALSE"
@@ -63,6 +75,7 @@ def addDoctor(lastname, primaryspecialty, phone, email, yoe, userid, firstname="
         print("Record inserted successfully into doctors table")
         msg = "Record inserted successfully into doctors table"
         cursor.close()
+        connection.close()
         return True, msg
 
     except mysql.connector.Error as error:
@@ -92,6 +105,7 @@ def updateDoctorInfo(data):
     """
 
     try:
+        connection = db_connection()
         lastmoddate = str(datetime.datetime.today()).split()[0]
         cursor = connection.cursor(dictionary=True)
         mysql_update_query = """UPDATE doctors set firstname = %s, lastname = %s, primaryspecialty = %s, secondaryspecialty = %s, type = %s, degree = %s, phone = %s, email = %s, gender = %s, yoe = %s, approvalstatus = %s, isactive = %s, lastmoddate = %s WHERE doctorid = %s """
@@ -105,6 +119,7 @@ def updateDoctorInfo(data):
         print("Record updated successfully into doctors table")
         msg = "Record updated successfully into doctors table"
         cursor.close()
+        connection.close()
         return True, msg
 
     except mysql.connector.Error as error:
@@ -132,6 +147,7 @@ def getDoctorDetailsByUserID(userid):
     """
 
     try:
+        connection = db_connection()
         cursor = connection.cursor(dictionary=True)
         finalData = []
         cursor.execute(
@@ -142,6 +158,7 @@ def getDoctorDetailsByUserID(userid):
             finalData.append({"doctorid": record["doctorid"], "firstname": record["firstname"], "lastname": record["lastname"], "primaryspecialty": record["primaryspecialty"], "secondaryspecialty": record["secondaryspecialty"],  "type": record["type"], "degree": record["degree"],
                               "phone": record["phone"], "email": record["email"], "gender": record["gender"], "yoe": record["yoe"], "approvalstatus": record["approvalstatus"], "isactive": record["isactive"], "lastmoddate": record["lastmoddate"], "userid": record["userid"]})
         cursor.close()
+        connection.close()
         return True, finalData
     except mysql.connector.Error as error:
         print("Failed to get data {}".format(error))
@@ -168,6 +185,7 @@ def getDoctorDetails(doctorid):
     """
 
     try:
+        connection = db_connection()
         cursor = connection.cursor(dictionary=True)
         finalData = []
         cursor.execute(
@@ -178,6 +196,7 @@ def getDoctorDetails(doctorid):
             finalData.append({"doctorid": record["doctorid"], "firstname": record["firstname"], "lastname": record["lastname"], "primaryspecialty": record["primaryspecialty"], "secondaryspecialty": record["secondaryspecialty"],  "type": record["type"], "degree": record["degree"],
                               "phone": record["phone"], "email": record["email"], "gender": record["gender"], "yoe": record["yoe"], "approvalstatus": record["approvalstatus"], "isactive": record["isactive"], "lastmoddate": record["lastmoddate"], "userid": record["userid"]})
         cursor.close()
+        connection.close()
         return True, finalData
     except mysql.connector.Error as error:
         print("Failed to get data {}".format(error))
@@ -202,6 +221,7 @@ def getDoctors():
     """
 
     try:
+        connection = db_connection()
         cursor = connection.cursor(dictionary=True)
         finalData = []
         cursor.execute(
@@ -212,6 +232,7 @@ def getDoctors():
             finalData.append({"doctorid": record["doctorid"], "firstname": record["firstname"], "lastname": record["lastname"], "primaryspecialty": record["primaryspecialty"], "secondaryspecialty": record["secondaryspecialty"],  "type": record["type"], "degree": record["degree"],
                               "phone": record["phone"], "email": record["email"], "gender": record["gender"], "yoe": record["yoe"]})
         cursor.close()
+        connection.close()
         return True, finalData
     except mysql.connector.Error as error:
         print("Failed to get data {}".format(error))
@@ -256,6 +277,7 @@ def addHospital(name, addressline1, phone, email, city=" ", state=" ", country="
     """
 
     try:
+        connection = db_connection()
         lastmoddate = str(datetime.datetime.today()).split()[0]
         isactive = "TRUE"
         approvalstatus = "FALSE"
@@ -270,6 +292,7 @@ def addHospital(name, addressline1, phone, email, city=" ", state=" ", country="
         print("Record inserted successfully into hospitals table")
         msg = "Record inserted successfully into hospitals table"
         cursor.close()
+        connection.close()
         return True, msg
 
     except mysql.connector.Error as error:
@@ -299,6 +322,7 @@ def updateHospitalInfo(data):
     """
 
     try:
+        connection = db_connection()
         lastmoddate = str(datetime.datetime.today()).split()[0]
         cursor = connection.cursor(dictionary=True)
 
@@ -313,6 +337,7 @@ def updateHospitalInfo(data):
         print("Record updated successfully into hospitals table")
         msg = "Record updated successfully into hospitals table"
         cursor.close()
+        connection.close()
         return True, msg
 
     except mysql.connector.Error as error:
@@ -341,6 +366,7 @@ def getHospitalDetails(hospitalid):
     """
 
     try:
+        connection = db_connection()
         cursor = connection.cursor(dictionary=True)
         finalData = []
         cursor.execute(
@@ -350,6 +376,7 @@ def getHospitalDetails(hospitalid):
             finalData.append({"hospitalid": record["hospitalid"], "name": record["name"], "type": record["type"], "addressline1": record["addressline1"],
                               "addressline2": record["addressline2"], "city": record["city"], "state": record["state"], "country": record["country"], "zipcode": record["zipcode"], "phone": record["phone"], "email": record["email"], "approvalstatus": record["approvalstatus"], "isactive": record["isactive"], "lastmoddate": record["lastmoddate"]})
         cursor.close()
+        connection.close()
         return True, finalData
     except mysql.connector.Error as error:
         print("Failed to get data {}".format(error))
@@ -375,6 +402,7 @@ def getHospitals():
     """
 
     try:
+        connection = db_connection()
         cursor = connection.cursor(dictionary=True)
         finalData = []
         cursor.execute(
@@ -384,6 +412,7 @@ def getHospitals():
             finalData.append({"hospitalid": record["hospitalid"], "name": record["name"], "type": record["type"], "addressline1": record["addressline1"],
                               "addressline2": record["addressline2"], "city": record["city"], "state": record["state"], "country": record["country"], "zipcode": record["zipcode"], "phone": record["phone"], "email": record["email"]})
         cursor.close()
+        connection.close()
         return True, finalData
     except mysql.connector.Error as error:
         print("Failed to get data {}".format(error))
@@ -412,6 +441,7 @@ def getAfiiliationByDoctor(ID):
     """
 
     try:
+        connection = db_connection()
         cursor = connection.cursor(dictionary=True)
         finalData = []
         cursor.execute(
@@ -423,6 +453,7 @@ def getAfiiliationByDoctor(ID):
                               "addressline1": record["addressline1"], "addressline2": record["addressline2"], "city": record["city"], "state": record["state"],
                               "country": record["country"], "zipcode": record["zipcode"], "phone": record["phone"], "email": record["email"]})
         cursor.close()
+        connection.close()
         return True, finalData
     except mysql.connector.Error as error:
         print("Failed to get data {}".format(error))
@@ -451,6 +482,7 @@ def getAfiiliationByHospital(ID):
     """
 
     try:
+        connection = db_connection()
         cursor = connection.cursor(dictionary=True)
         finalData = []
         cursor.execute(
@@ -462,6 +494,7 @@ def getAfiiliationByHospital(ID):
                               "lastname": record["lastname"], "primaryspecialty": record["primaryspecialty"], "secondaryspecialty": record["secondaryspecialty"], "type": record["type"],
                               "degree": record["degree"], "phone": record["phone"], "email": record["email"], "gender": record["gender"], "yoe": record["yoe"]})
         cursor.close()
+        connection.close()
         return True, finalData
     except mysql.connector.Error as error:
         print("Failed to get data {}".format(error))
@@ -494,6 +527,7 @@ def addAffiliation(doctorid, hospitalid, appointmentschedule):
     """
 
     try:
+        connection = db_connection()
         lastmoddate = str(datetime.datetime.today()).split()[0]
         isactive = "TRUE"
         print(doctorid, hospitalid, appointmentschedule, isactive, lastmoddate)
@@ -503,6 +537,7 @@ def addAffiliation(doctorid, hospitalid, appointmentschedule):
                        appointmentschedule, isactive, lastmoddate))
         connection.commit()
         cursor.close()
+        connection.close()
         return True, "bla bal"
     except mysql.connector.Error as error:
         print("some error occurred in addAffiliation: {}".format(error))
@@ -529,6 +564,7 @@ def updateAffiliation(data):
     """
 
     try:
+        connection = db_connection()
         lastmoddate = str(datetime.datetime.today()).split()[0]
         cursor = connection.cursor(dictionary=True)
         mysql_update_query = """UPDATE affiliation set appointmentschedule = %s, isactive=%s, lastmoddate=%s WHERE affiliationid = %s """
@@ -541,6 +577,7 @@ def updateAffiliation(data):
         print("Record updated successfully into affiliation table")
         msg = "Record updated successfully into affiliation table"
         cursor.close()
+        connection.close()
         return True, msg
 
     except mysql.connector.Error as error:
@@ -570,6 +607,7 @@ def getDoctorSearch(keyword):
     """
 
     try:
+        connection = db_connection()
         cursor = connection.cursor(dictionary=True)
         finalData = []
         cursor.execute(
@@ -579,6 +617,7 @@ def getDoctorSearch(keyword):
             finalData.append({"doctorid": record["doctorid"], "firstname": record["firstname"], "lastname": record["lastname"],
                              "primaryspecialty": record["primaryspecialty"], "secondaryspecialty": record["secondaryspecialty"]})
         cursor.close()
+        connection.close()
         return True, finalData
     except mysql.connector.Error as error:
         print("Failed to get data {}".format(error))
@@ -607,6 +646,7 @@ def getHospitalSearch(keyword):
     """
 
     try:
+        connection = db_connection()
         cursor = connection.cursor(dictionary=True)
         finalData = []
         cursor.execute(
@@ -616,6 +656,7 @@ def getHospitalSearch(keyword):
             finalData.append({"hospitalid": record["hospitalid"], "name": record["name"], "addressline1": record["addressline1"],
                              "addressline2": record["addressline2"], "city": record["city"], "state": record["state"]})
         cursor.close()
+        connection.close()
         return True, finalData
     except mysql.connector.Error as error:
         print("Failed to get data {}".format(error))
@@ -652,6 +693,7 @@ def addAppointment(userid, doctorid, hospitalid, date, timeslot):
     """
 
     try:
+        connection = db_connection()
         lastmoddate = str(datetime.datetime.today()).split()[0]
         isactive = "TRUE"
         cursor = connection.cursor(dictionary=True)
@@ -660,6 +702,7 @@ def addAppointment(userid, doctorid, hospitalid, date, timeslot):
                        hospitalid, date, timeslot, isactive, lastmoddate))
         connection.commit()
         cursor.close()
+        connection.close()
         return True, "Record added successsfully"
     except mysql.connector.Error as error:
         print("some error occurred in addAppointment: {}".format(error))
@@ -686,6 +729,7 @@ def updateAppointmentInfo(data):
     """
 
     try:
+        connection = db_connection()
         lastmoddate = str(datetime.datetime.today()).split()[0]
         cursor = connection.cursor(dictionary=True)
 
@@ -700,6 +744,7 @@ def updateAppointmentInfo(data):
         print("Record updated successfully into appointment table")
         msg = "Record updated successfully into appointment table"
         cursor.close()
+        connection.close()
         return True, msg
 
     except mysql.connector.Error as error:
@@ -726,6 +771,7 @@ def denyHospital(data):
         Returns a tuple which contains a bool(checking database staus) and a message for the approval of the status.
     """
     try:
+        connection = db_connection()
         now = datetime.datetime.now()
         formattedDate = now.strftime("%Y%m%d")
         cursor = connection.cursor(dictionary=True)
@@ -736,6 +782,7 @@ def denyHospital(data):
         connection.commit()
         msg = "Status Denied"
         cursor.close()
+        connection.close()
         return True, msg
 
     except mysql.connector.Error as error:
@@ -763,6 +810,7 @@ def removeUser(id):
     """
 
     try:
+        connection = db_connection()
         cursor = connection.cursor(dictionary=True)
 
         cursor.execute("Select userid from doctors where doctorid = %s", (id,))
@@ -773,6 +821,7 @@ def removeUser(id):
         connection.commit()
         msg = "User Removed"
         cursor.close()
+        connection.close()
         return True, msg
     except mysql.connector.Error as error:
         print("Failed to update into users table {}".format(error))
@@ -799,6 +848,7 @@ def denyDoctor(data):
     """
 
     try:
+        connection = db_connection()
         now = datetime.datetime.now()
         formattedDate = now.strftime("%Y%m%d")
         cursor = connection.cursor(dictionary=True)
@@ -809,6 +859,7 @@ def denyDoctor(data):
         connection.commit()
         msg = "Status Denied"
         cursor.close()
+        connection.close()
         return True, msg
 
     except mysql.connector.Error as error:
@@ -836,6 +887,7 @@ def updateHospitalStatus(data):
     """
 
     try:
+        connection = db_connection()
         now = datetime.datetime.now()
         formattedDate = now.strftime("%Y%m%d")
         cursor = connection.cursor(dictionary=True)
@@ -847,6 +899,7 @@ def updateHospitalStatus(data):
         connection.commit()
         msg = "Status Approved"
         cursor.close()
+        connection.close()
         return True, msg
 
     except mysql.connector.Error as error:
@@ -874,6 +927,7 @@ def updateDoctorStatus(data):
     """
 
     try:
+        connection = db_connection()
         now = datetime.datetime.now()
         formattedDate = now.strftime("%Y%m%d")
         cursor = connection.cursor(dictionary=True)
@@ -884,6 +938,7 @@ def updateDoctorStatus(data):
         connection.commit()
         msg = "Status Approved"
         cursor.close()
+        connection.close()
         return True, msg
 
     except mysql.connector.Error as error:
@@ -910,6 +965,7 @@ def getUnapprovedDoctors():
     """
 
     try:
+        connection = db_connection()
         cursor = connection.cursor(dictionary=True)
         cursor.execute(
             "Select * FROM doctors WHERE approvalstatus = %s", ("FALSE",))
@@ -919,6 +975,7 @@ def getUnapprovedDoctors():
             finalData.append(record)
 
         cursor.close()
+        connection.close()
         return True, finalData
 
     except mysql.connector.Error as error:
@@ -945,6 +1002,7 @@ def getUnapprovedHospitals():
     """
 
     try:
+        connection = db_connection()
         cursor = connection.cursor(dictionary=True)
         cursor.execute(
             "Select * FROM hospitals WHERE approvalstatus = %s", ("FALSE",))
@@ -954,6 +1012,7 @@ def getUnapprovedHospitals():
             finalData.append(record)
 
         cursor.close()
+        connection.close()
         return True, finalData
 
     except mysql.connector.Error as error:
@@ -981,6 +1040,7 @@ def checkDuplicateEmail(email):
     """
 
     try:
+        connection = db_connection()
         cursor = connection.cursor(dictionary=True)
         sqlSelectQuery = "SELECT * FROM Users where email = %s"
         cursor.execute(sqlSelectQuery, (email,))
@@ -1014,6 +1074,7 @@ def addUser(data):
     """
 
     try:
+        connection = db_connection()
         username = " "
         firstname = str(data["name"])
         lastname = " "
@@ -1032,6 +1093,7 @@ def addUser(data):
 
         connection.commit()
         cursor.close()
+        connection.close()
         return True
 
     except mysql.connector.Error as error:
@@ -1059,11 +1121,13 @@ def loginCheck(email, password):
     """
 
     try:
+        connection = db_connection()
         cursor = connection.cursor(dictionary=True)
         cursor.execute(
             "SELECT userid, username, email, usertype, phone, isactive FROM users WHERE email= %s AND password = %s", (email, password))
         user = cursor.fetchone()
         cursor.close()
+        connection.close()
         if user:
             return user, 1
         else:
@@ -1092,12 +1156,14 @@ def getUserProfileByID(ID):
     """
 
     try:
+        connection = db_connection()
         cursor = connection.cursor(dictionary=True)
         cursor.execute(
             'SELECT username, email, firstname, lastname, gender, password, phone, isactive FROM users where userid = %s', (int(ID),))
         user = cursor.fetchone()
 
         cursor.close()
+        connection.close()
         return user
 
     except mysql.connector.Error as error:
@@ -1123,12 +1189,14 @@ def getUserProfileByEmail(email):
     """
 
     try:
+        connection = db_connection()
         cursor = connection.cursor(dictionary=True)
         cursor.execute(
             'SELECT userid FROM users where email = %s', (str(email),))
         user = cursor.fetchone()
 
         cursor.close()
+        connection.close()
         return user
 
     except mysql.connector.Error as error:
@@ -1154,6 +1222,7 @@ def updateUserProfile(data):
     """
 
     try:
+        connection = db_connection()
         now = datetime.datetime.now()
         formattedDate = now.strftime("%Y%m%d")
         cursor = connection.cursor(dictionary=True)
@@ -1167,6 +1236,7 @@ def updateUserProfile(data):
         print("Record updated successfully into users table")
         msg = "Record updated successfully into users table"
         cursor.close()
+        connection.close()
         return True, msg
 
     except mysql.connector.Error as error:
@@ -1194,6 +1264,7 @@ def getAppointmentInfoUserDB(id):
     """
 
     try:
+        connection = db_connection()
         cursor = connection.cursor(dictionary=True)
         cursor.execute("SELECT hospitals.name, hospitals.addressline1, appointment.userid, appointment.hospitalid, appointment.timeslot, appointment.date, doctors.firstname, doctors.lastname, doctors.primaryspecialty, doctors.secondaryspecialty, doctors.type, doctors.degree, doctors.phone, doctors.email, doctors.gender FROM doctors INNER JOIN appointment ON doctors.doctorid = appointment.doctorid INNER JOIN hospitals ON hospitals.hospitalid = appointment.hospitalid  WHERE appointment.userid = %s", (int(id),))
         appointmentInfo = cursor.fetchall()
@@ -1202,6 +1273,7 @@ def getAppointmentInfoUserDB(id):
             finalData.append(record)
 
         cursor.close()
+        connection.close()
         return True, finalData
     except mysql.connector.Error as error:
         print("Failed to get information from table {}".format(error))
@@ -1228,6 +1300,7 @@ def getAppointmentInfoDoctorDB(id):
     """
 
     try:
+        connection = db_connection()
         cursor = connection.cursor(dictionary=True)
         cursor.execute("SELECT hospitals.name, hospitals.addressline1, appointment.doctorid, appointment.hospitalid, appointment.timeslot, appointment.date, users.firstname FROM users INNER JOIN appointment ON users.userid = appointment.userid INNER JOIN hospitals ON hospitals.hospitalid = appointment.hospitalid WHERE appointment.doctorid = %s", (int(id),))
         appointmentInfo = cursor.fetchall()
@@ -1236,6 +1309,7 @@ def getAppointmentInfoDoctorDB(id):
             finalData.append(record)
 
         cursor.close()
+        connection.close()
         return True, finalData
     except mysql.connector.Error as error:
         print("Failed to get information from table {}".format(error))
