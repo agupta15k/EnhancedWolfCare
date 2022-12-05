@@ -5,6 +5,7 @@ Total Score: 240
 |Notes|Points|Evidence|
 |-----|------|---------|
 | Video1 | - | N/A, started a new project | 
+| Bonus: Xfold improvement | - | - |
 | Video2 | 3 | Added [video](https://drive.google.com/file/d/1Y7WDqHnhxGI7bMoBCHcPmIpulzRuV2UB/view?usp=sharing) | 
 | Workload is spread over the whole team (one team member is often Xtimes more productive than the others but nevertheless, here is a track record that everyone is contributing a lot) | 3 | Responsibilites of individual modules were deligated to different subgroups, thus all of the group members have contributed to the project. [Contributors](https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/graphs/contributors) |
 | Number of commits | 3 | There are a total of [204 commits](https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/commits/main) in the repo |
