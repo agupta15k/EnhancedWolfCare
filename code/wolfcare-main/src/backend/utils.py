@@ -1,10 +1,7 @@
 """
 This file holds the entire database related configuration and fucntions
 """
-import ast
-import re
 import mysql.connector
-from ast import literal_eval as make_tuple
 from src.backend.dbconfig import constants
 import datetime
 
