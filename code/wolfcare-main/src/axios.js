@@ -8,7 +8,8 @@ import axios from 'axios';
  */
 const fetchClient = () => {
 	const defaultOptions = {
-		baseURL: 'http://localhost/ncsu_se_fall22_22_pr_2/code/wolfcare-main/php/',
+		// baseURL: 'https://3a5a-107-13-178-32.ngrok.io/',
+		baseUrl: 'http://localhost:3000/',
 		headers: {
 			'Content-Type': 'application/json',
 		},

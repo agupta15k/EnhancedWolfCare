@@ -16,8 +16,7 @@ class HospitalsList extends React.Component {
 						>
 							{ record.description }
 						</p>
-					),
-					rowExpandable: (record) => record.name !== 'Not Expandable',
+					)
 				} }
 				dataSource={ hospitalsData }
 				bordered={ true }

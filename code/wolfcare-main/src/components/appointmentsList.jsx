@@ -94,16 +94,27 @@ class AppointmentsList extends React.Component {
 						render={(_, record) => {
 							return (<Space size="middle">
 								<a className='link' onClick={() => {
-									this.setSelectedAppointment(record);
-									this.setAppointmentDescriptionStatus(true);
+									if (record.appointStatus.props.children.props.children === 'Active') {
+										this.setSelectedAppointment(record);
+										this.setAppointmentDescriptionStatus(true);
+									} else {
+										alert('Appointment not active');
+										return false;
+									}
 								}}>Edit</a>
 								<Popconfirm
 									title="Are you sure to cancel this appointment?"
 									onConfirm={() => this.confirmDeletion(record)}
 									okText="Yes"
 									cancelText="No"
+									disabled={record.appointStatus.props.children.props.children !== 'Active'}
 								>
-									<a className='link'>Cancel</a>
+									<a className='link' onClick={() => {
+										if (record.appointStatus.props.children.props.children !== 'Active') {
+											alert('Appointment not active');
+											return false;
+										}
+									}}>Cancel</a>
 								</Popconfirm>
 							</Space>);
 						}}
