@@ -818,6 +818,7 @@ def removeUser(id):
         id = int(details["userid"])
         cursor.execute("DELETE FROM users WHERE userid = %s",
                        (id,))
+        cursor.execute("UPDATE doctors set userid = %s WHERE userid = %s", (-1, id))
         connection.commit()
         msg = "User Removed"
         cursor.close()
