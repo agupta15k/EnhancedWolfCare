@@ -75,7 +75,8 @@ class AppointmentsList extends React.Component {
 		// Delete appointment
 		if (Object.keys(this.props).length > 0 && Object.keys(this.props.parentProps).length > 0) {
 			const apiInput = {
-				appointment: record
+				...record,
+				isactive: 'FALSE'
 			};
 			this.setState({
 				loading: true

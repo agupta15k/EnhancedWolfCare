@@ -7,16 +7,9 @@ import axios from '../axios';
  * @param {Object} value Object containing updated user details
  * @returns {Promise} Response for axios PUT request
  */
-const deleteAppointmentApi = (user) => {
-	return {
-		data: {
-			status: 200,
-			message: 'You have registered successfully',
-			data: {}
-		}
-	};
-	// return axios.put('/updateprofile', {
-	// 	...user
-	// });
+const deleteAppointmentApi = (input) => {
+	return axios.put('/updateAppointment', {
+		...input
+	});
 };
 export default deleteAppointmentApi;
