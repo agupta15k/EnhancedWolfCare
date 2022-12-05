@@ -13,9 +13,9 @@ import { appointmentsData } from '../constants/appointments';
 
 const dateFormat = 'YYYY-MM-DD';
 const timeFormat = 'HH:mm';
-const dummySchedule = {Monday:{StartTime: '10:00:00', EndTime:'16:00:00'}, Tuesday:{StartTime: '11:00:00', EndTime:'16:00:00'}};
+const dummySchedule = { Monday: { StartTime: '10:00:00', EndTime: '16:00:00' }, Tuesday: { StartTime: '11:00:00', EndTime: '16:00:00' } };
 class DescribeAppointment extends React.Component {
-	constructor (props) {
+	constructor(props) {
 		super(props);
 		this.state = {
 			loading: false,
@@ -27,41 +27,101 @@ class DescribeAppointment extends React.Component {
 			allowedDays: [],
 			selectedDate: props.selectedAppointment.appointDate,
 			allowedTime: [],
-			selectedTime: props.selectedAppointment.appointTime
+			selectedTime: moment(props.selectedAppointment.appointTime)
 		};
 	}
 
-	componentDidMount() {
+	componentDidMount = () => {
 		this.populateDoctors();
-	}
-
-	populateDoctors = () => {
-		const allowedDoctors = appointmentsData.map((appointment) => {
-			return {
-				value: appointment.doctorName,
-				label: appointment.doctorName
-			};
-		});
-		this.setState({
-			allowedDoctors
-		}, () => {
-			this.populateHospitals();
-		});
+	};
+	populateDoctors = async () => {
+		if (Object.keys(this.props.parentProps).length > 0) {
+			this.setState({
+				loading: true
+			});
+			await this.props.parentProps.onGetDoctors();
+			if (this.props.parentProps.getDoctorsApiStatus) {
+				const allowedDoctors = this.props.parentProps.doctors.map((doctor) => {
+					return {
+						value: doctor.doctorid,
+						label: doctor.name
+					};
+				});
+				this.setState({
+					loading: false,
+					allowedDoctors
+				}, () => {
+					this.populateHospitals();
+				});
+				return true;
+			} else {
+				this.setState({
+					loading: false
+				});
+				alert(this.props.parentProps.getHospitalsApiMessage || 'Could not get list of hospitals, please try again.');
+				return false;
+			}
+		}
 	};
 
-	populateHospitals = () => {
-		const allowedHospitals = appointmentsData.map((appointment) => {
-			return {
-				value: appointment.hospitalName,
-				label: appointment.hospitalName
-			};
-		});
-		this.setState({
-			allowedHospitals
-		}, () => {
-			this.populateDates();
-		});
+	populateHospitals = async () => {
+		if (Object.keys(this.props.parentProps).length > 0) {
+			this.setState({
+				loading: true
+			});
+			await this.props.parentProps.onGetHospitals();
+			if (this.props.parentProps.getHospitalsApiStatus) {
+				const hospitalData = this.props.parentProps.hospitals.map((hospital) => {
+					return {
+						value: hospital.hospitalid,
+						label: hospital.name
+					};
+				});
+				this.setState({
+					loading: false,
+					allowedHospitals: hospitalData
+				}, () => {
+					this.populateDates();
+				});
+				return true;
+			} else {
+				this.setState({
+					loading: false
+				});
+				alert(this.props.parentProps.getHospitalsApiMessage || 'Could not get list of hospitals, please try again.');
+				return false;
+			}
+		}
 	};
+
+
+	// populateDoctors = () => {
+	// 	const allowedDoctors = appointmentsData.map((appointment) => {
+	// 		return {
+	// 			value: appointment.doctorName,
+	// 			label: appointment.doctorName
+	// 		};
+	// 	});
+	// 	this.setState({
+	// 		allowedDoctors
+	// 	}, () => {
+	// 		this.populateHospitals();
+	// 	});
+	// };
+
+	// populateHospitals = () => {
+	// 	const allowedHospitals = appointmentsData.map((appointment) => {
+	// 		return {
+	// 			value: appointment.hospitalName,
+	// 			label: appointment.hospitalName
+	// 		};
+	// 	});
+	// 	this.setState({
+	// 		allowedHospitals
+	// 	}, () => {
+	// 		this.populateDates();
+	// 	});
+	// };
 
 	populateDates = () => {
 		const dayMap = {
@@ -178,8 +238,12 @@ class DescribeAppointment extends React.Component {
 	handleSubmit = async (event) => {
 		event.preventDefault();
 		if (Object.keys(this.props).length > 0 && Object.keys(this.props.parentProps).length > 0) {
-			const apiInput = {
-				appointment: this.state.selectedAppointment
+			const apiInput =await {
+				...this.state.selectedAppointment,
+				doctorid:this.state.selectedDoctor,
+				date:this.state.selectedDate.format(dateFormat),
+				timeslot:this.state.selectedTime.format(timeFormat),
+				hospitalid:this.state.selectedHospital,
 			};
 			this.setState({
 				loading: true
@@ -189,6 +253,9 @@ class DescribeAppointment extends React.Component {
 				this.setState({
 					loading: false
 				});
+				this.props.setAppointmentDescriptionStatus(false);
+				location.reload();
+				this.props.parentProps.redirectToPath('/home/appointments');
 				return true;
 			} else {
 				this.setState({
@@ -204,19 +271,19 @@ class DescribeAppointment extends React.Component {
 	render() {
 		return (
 			<Modal
-				title={ <h2>Edit appointment</h2> }
-				open={ true }
-				onOk={ () => this.props.setAppointmentDescriptionStatus(false) }
-				onCancel={ () => this.props.setAppointmentDescriptionStatus(false) }
-				width={ 800 }
-				height={ 700 }
-				footer={ null }
+				title={<h2>Edit appointment</h2>}
+				open={true}
+				onOk={() => this.props.setAppointmentDescriptionStatus(false)}
+				onCancel={() => this.props.setAppointmentDescriptionStatus(false)}
+				width={800}
+				height={700}
+				footer={null}
 			>
 				<div className='signup-content'>
 					<div className='signup-form'>
 						<form className='register-form' id='register-form'>
 							<div className='form-group'>
-								<UserOutlined style={{marginTop: '4%'}}/>
+								<UserOutlined style={{ marginTop: '4%' }} />
 								<Select
 									showSearch
 									placeholder="Select a doctor"
@@ -225,13 +292,13 @@ class DescribeAppointment extends React.Component {
 										(option && option.label).toLowerCase().includes(input.toLowerCase())
 									}
 									options={this.state.allowedDoctors}
-									style={{width: '90%', marginLeft: '5%'}}
+									style={{ width: '90%', marginLeft: '5%' }}
 									value={this.state.selectedDoctor}
 									onChange={(event) => this.onChange(event, 'doctor')}
 								/>
 							</div>
 							<div className='form-group'>
-								<MedicineBoxOutlined style={{marginTop: '4%'}}/>
+								<MedicineBoxOutlined style={{ marginTop: '4%' }} />
 								<Select
 									showSearch
 									placeholder="Select a hospital"
@@ -240,7 +307,7 @@ class DescribeAppointment extends React.Component {
 										(option && option.label).toLowerCase().includes(input.toLowerCase())
 									}
 									options={this.state.allowedHospitals}
-									style={{width: '90%', marginLeft: '5%'}}
+									style={{ width: '90%', marginLeft: '5%' }}
 									value={this.state.selectedHospital}
 									onChange={(event) => this.onChange(event, 'hospital')}
 								/>
@@ -249,7 +316,7 @@ class DescribeAppointment extends React.Component {
 								<CalendarOutlined />
 								<DatePicker
 									format={dateFormat}
-									style={{width: '90%', marginLeft: '5%'}}
+									style={{ width: '90%', marginLeft: '5%' }}
 									placeholder={'Select date'}
 									required
 									disabledDate={this.disabledDate}
@@ -262,18 +329,18 @@ class DescribeAppointment extends React.Component {
 								<ClockCircleOutlined />
 								<TimePicker
 									format={timeFormat}
-									style={{width: '90%', marginLeft: '5%'}}
+									style={{ width: '90%', marginLeft: '5%' }}
 									placeholder={'Select time'}
 									required
 									minuteStep={30}
 									disabledTime={this.disabledTime}
-									value={moment(`${this.state.selectedDate} ${this.state.selectedTime}`)}
+									value={moment(this.state.selectedTime, 'hh:mm')}
 									onChange={(event) => this.handleTimeChange(event)}
 									onOk={(event) => this.handleTimeChange(event)}
 								/>
 							</div>
 							<div className='form-group form-button'>
-								{ this.state.loading ? <Spinner /> : <input type='submit' name='update-appointment' id='update-appointment' className='form-submit' value='Update' onClick={ this.handleSubmit } /> }
+								{this.state.loading ? <Spinner /> : <input type='submit' name='update-appointment' id='update-appointment' className='form-submit' value='Update' onClick={this.handleSubmit} />}
 							</div>
 						</form>
 					</div>

@@ -36,7 +36,6 @@ const homeReducer = (state = initialState, action) => {
 		// Success case
 		case 'SUBMITLOGIN': {
 			if (action.payload && action.payload.data) {
-				console.log(action.payload.data);
 				const userId = action.payload.data.user.userid;
 				const userType = action.payload.data.user.usertype;
 				localStorage.setItem('userLogonDetails', JSON.stringify({userId, userType, userInfo: action.payload.data, signInTime: new Date(), signInStatus: true}));

@@ -8,7 +8,7 @@ import axios from '../axios';
  * @returns {Promise} Response for axios PUT request
  */
 const updateAppointmentApi = (input) => {
-	return axios.put('/updateAppointmentInfo', {
+	return axios.put('/updateAppointment', {
 		...input
 	});
 };

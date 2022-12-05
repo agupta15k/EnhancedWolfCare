@@ -44,7 +44,7 @@ const homeMapDispatchToProps = dispatch => {
 		},
 		onAppointmentCreate: async (value) => {
 			try {
-				console.log(value);
+				//console.log(value);
 				let res = await scheduleAppointmentAPI(value);
 				dispatch({
 					type: res && res.data && res.data.status === 200 ? 'SUBMITCREATEAPPOINTMENT' : 'UPDATEAPPOINTMENTFAILURE',
@@ -90,7 +90,7 @@ const homeMapDispatchToProps = dispatch => {
 		onGetDoctors: async () => {
 			try {
 				let res = await getDoctorsApi();
-				console.log(res);
+				//console.log(res);
 				dispatch({
 					type: res && res.data && res.data.status === 200 ? 'SUBMITGETDOCTORS' : 'GETDOCTORSFAILURE',
 					payload: res.data

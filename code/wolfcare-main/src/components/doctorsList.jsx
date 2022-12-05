@@ -1,19 +1,14 @@
 import React from 'react';
-import { doctorsData, doctorsColumns } from '../constants/doctors';
-import { Select, Button, Space, Popconfirm, Table } from 'antd';
-import { appointmentsData } from '../constants/appointments';
-import DescribeAppointment from './appointmentDescribe';
+import { Select, Button, Space, Table } from 'antd';
 import { Spinner } from 'reactstrap';
-import { DatePicker, Modal, TimePicker } from 'antd';
+import { DatePicker, Modal } from 'antd';
 import {
 	CalendarOutlined,
-	ClockCircleOutlined,
 	UserOutlined,
 	MedicineBoxOutlined
 } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import moment from 'moment';
-import getHospitalsAPI from '../api/hospitalList';
 
 const dateFormat = 'YYYY-MM-DD hh:mm';
 const dayFormat = 'YYYY-MM-DD';
@@ -44,7 +39,6 @@ class AppointmentsList extends React.Component {
 				// // 		label: hospital.name
 				// // 	};
 				// // });
-				// console.log(this.props.parentProps.doctors);
 				this.setState({
 					loading: false,
 					doctors:this.props.parentProps.doctors
@@ -73,10 +67,9 @@ class AppointmentsList extends React.Component {
 						label: hospital.name
 					};
 				});
-				console.log(this.props.parentProps.hospitals);
 				this.setState({
 					loading: false,
-					hospitals:hospitalData//this.props.parentProps.hospitals
+					hospitals:hospitalData
 				});
 				return true;
 			} else {
@@ -90,8 +83,6 @@ class AppointmentsList extends React.Component {
 	};
 
 	handleSubmit = async () => {
-		console.log('Schedule appointment');
-		console.log(this.state.selectedAppointment);
 		if (Object.keys(this.props).length > 0 && Object.keys(this.props.parentProps).length > 0) {
 			const apiInput = {
 				doctorid:this.state.selectedAppointment.doctorid,
@@ -131,17 +122,14 @@ class AppointmentsList extends React.Component {
 		this.setState({
 			selectedAppointment: val
 		});
-		console.log(val);
 	};
 	onChange = (value) => {
-		console.log('on change hospital', value);
 		this.setState({
 			selectedHospital: value
 		});
 		this.setState({
 			selectedAppointment: { ...this.state.selectedAppointment, selectedHospitalId: value, }
 		});
-		console.log(this.state);
 	};
 	handleDateChange = (event) => {
 		if (event < dayjs()) {
@@ -151,7 +139,6 @@ class AppointmentsList extends React.Component {
 				selectedAppointment: { ...this.state.selectedAppointment, appointDateTime: moment(event).format(dateFormat) }
 			});
 		}
-		console.log(this.state);
 	};
 
 	render() {
