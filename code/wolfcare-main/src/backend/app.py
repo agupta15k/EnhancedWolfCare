@@ -642,7 +642,6 @@ def approveDoctors():
     """
     if request.method == 'PUT':
         data = json.loads(request.data)
-        status, msg = updateDoctorStatus(data)
         if (data["status"] == "Approved"):
             status, msg = updateDoctorStatus(data)
             if status:
@@ -652,8 +651,11 @@ def approveDoctors():
         elif (data["status"] == "Denied"):
             status, msg = denyDoctor(data)
             if status:
-                removeUser(int(data["id"]))
-                return jsonify({"status": 200, "data": {}, "message": msg})
+                status, msg = removeUser(int(data["id"]))
+                if status:
+                    return jsonify({"status": 200, "data": {}, "message": msg})
+                else:
+                    return jsonify({"status": 400, "data": {}, "message": msg})
             else:
                 return jsonify({"status": 400, "data": {}, "message": msg})
 
