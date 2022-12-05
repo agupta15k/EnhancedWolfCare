@@ -774,7 +774,7 @@ def login():
                 status, data =  getDoctorDetailsByUserID(userid)
                 
                 if status == True:  
-                    newDict["doctor"] = data
+                    newDict["doctor"] = data[0]
         
                 else:
                     return jsonify({"status": 400, "data": {}, "message": "Error while Accessing the database"})
