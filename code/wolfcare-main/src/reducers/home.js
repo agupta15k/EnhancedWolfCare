@@ -32,7 +32,9 @@ const initialState = {
 	reviewHospitalRequestApiSuccess: false,
 	userId: '',
 	userType: '',
-	userInfo: {}
+	userInfo: {},
+	updateProfileApiMessage: '',
+	updateProfileApiSuccess: false,
 };
 
 /**
@@ -48,7 +50,7 @@ const homeReducer = (state = initialState, action) => {
 			if (action.payload && action.payload.data) {
 				const userId = action.payload.data.user.userid;
 				const userType = action.payload.data.user.usertype;
-				localStorage.setItem('userLogonDetails', JSON.stringify({userId, userType, userInfo: action.payload.data, signInTime: new Date(), signInStatus: true}));
+				localStorage.setItem('userLogonDetails', JSON.stringify({ userId, userType, userInfo: action.payload.data, signInTime: new Date(), signInStatus: true }));
 				return {
 					...state,
 					userId,
@@ -70,6 +72,14 @@ const homeReducer = (state = initialState, action) => {
 				...state,
 				loginApiSuccess: false,
 				loginApiMessage: action.payload.message
+			};
+		}
+		case 'SUBMITSIGNOUT': {
+			return {
+				...state,
+				userId:null,
+				userType:'',
+				userInfo: {}
 			};
 		}
 		// Success case
@@ -310,6 +320,35 @@ const homeReducer = (state = initialState, action) => {
 				...state,
 				reviewHospitalRequestApiSuccess: false,
 				reviewHospitalRequestApiMessage: action.payload.message
+			};
+		}
+		// Success case
+		case 'SUBMITUPDATEPROFILE': {
+			if (action.payload && action.payload.data) {
+				const userId = action.payload.data.user.userid;
+				const userType = action.payload.data.user.usertype;
+				localStorage.setItem('userLogonDetails', JSON.stringify({ userId, userType, userInfo: action.payload.data, signInTime: new Date(), signInStatus: true }));
+				return {
+					...state,
+					userId,
+					userType,
+					userInfo: action.payload.data,
+					loginApiSuccess: true,
+					loginApiMessage: action.payload.message
+				};
+			}
+			return {
+				...state,
+				loginApiSuccess: false,
+				loginApiMessage: action.payload.message
+			};
+		}
+		// Failure case
+		case 'UPDATEPROFILEFAILURE': {
+			return {
+				...state,
+				updateProfileApiSuccess: false,
+				updateProfileApiMessage: action.payload.message
 			};
 		}
 		default: return state;

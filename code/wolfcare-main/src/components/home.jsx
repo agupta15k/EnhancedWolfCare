@@ -99,7 +99,7 @@ class Home extends React.Component {
 	};
 
 	getUserType = () => {
-		return this.state.userType;
+		return this.props.userType||this.state.userType;
 	};
 
 	setUserType = (val) => {
@@ -271,7 +271,11 @@ class Home extends React.Component {
 													<a rel='noopener noreferrer' onClick={() => {
 														let userLogonDetails = this.state.userLogonDetails;
 														userLogonDetails.signInStatus = false;
+														userLogonDetails.userId = null;
+														userLogonDetails.userType = '';
+														userLogonDetails.userInfo = {};
 														localStorage.setItem('userLogonDetails', JSON.stringify(userLogonDetails));
+														this.props.onSubmitSignOut();
 														this.redirectToPath('/home');
 													}}>
 														Sign Out

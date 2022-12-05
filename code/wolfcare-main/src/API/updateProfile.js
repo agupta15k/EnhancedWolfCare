@@ -7,9 +7,18 @@ import axios from '../axios';
  * @param {Object} value Object containing updated user details
  * @returns {Promise} Response for axios PUT request
  */
-const updateProfileAPI = (user) => {
+const updateProfileAPI = (value) => {
 	return axios.put('/updateprofile', {
-		...user
+		name: value.name,
+		email: value.email,
+		password: value.pass,
+		repeatpassword: value.rePass,
+		bloodGroup: value.bloodGroup,
+		phoneNumber: value.phoneNumber,
+		userType: value.userType,
+		experience: value.experience,
+		specialization: value.specialization,
+		address: value.address
 	});
 };
 export default updateProfileAPI;

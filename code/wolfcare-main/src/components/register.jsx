@@ -32,7 +32,42 @@ class RegisterUser extends React.Component {
 			userType: props.getUserType() || 'patient'
 		};
 	}
+	componentDidMount() {
+		if (this.props.isUpdate) {
+			this.profileIsUpdate();
+		}
+	}
+	profileIsUpdate() {
+		// if (this.props.getUserType() === 'patient') {
+		this.setState({
+			name: this.props.parentProps.userInfo.user.name || 'Deer',
+		});
+		// }
+		if (this.props.getUserType() === 'doctor') {
+			this.setState({
+				name: this.props.parentProps.userInfo.doctor.firstname + this.props.parentProps.userInfo.doctor.lastname || 'Deer',
+			});
+		}
 
+		this.setState({
+			// name: this.props.parentProps.userInfo.user.username || 'Deer',
+			email: this.props.parentProps.userInfo.user.email || 'zebra@google.com',
+			pass: '12345',
+			rePass: '12345',
+			//for user:
+			bloodGroup: this.props.parentProps.userInfo.user.bloodgroup || 'O+',
+			phoneNumber: this.props.parentProps.userInfo.user.phone || '9876543210',
+			// for doctor:
+			experience: this.props.parentProps.userInfo.doctor.yoe || '',
+			specialization: this.props.parentProps.userInfo.doctor.primaryspecialty || '',
+			// hospitalLocation: '',
+			address: this.props.parentProps.userInfo.user.address || '',
+			loading: false,
+			isUpdate: this.props.isUpdate || false,
+			userType: this.props.parentProps.userInfo.usertype || 'patient'
+		});
+		// }
+	}
 	/**
 	 * Update state with user entered values
 	 * @param {Object} event Event sent for onChange event
@@ -97,7 +132,7 @@ class RegisterUser extends React.Component {
 			alert('Missing values for blood group. Enter your blood group.');
 			return false;
 		}
-		if (isNaN(this.state.phoneNumber) ||this.state.phoneNumber.length!==10) {
+		if (isNaN(this.state.phoneNumber) || this.state.phoneNumber.length !== 10) {
 			alert('Invalid values for phone number. Enter your phone number.');
 			return false;
 		}
@@ -133,6 +168,34 @@ class RegisterUser extends React.Component {
 			this.setState({
 				loading: true
 			});
+			if (this.props.isUpdate) {
+				await this.props.parentProps.onUpdateProfile(apiInput);
+				if (this.props.parentProps.updateProfileApiStatus) {
+					const loginApiInput = {
+						email: this.state.email,
+						pass: this.state.pass
+					};
+					await this.props.parentProps.onSubmitLogin(loginApiInput);
+					if (this.props.parentProps.loginApiStatus) {
+						this.setState({
+							loading: false
+						});
+						this.props.setRegisterClicked(false);
+						return true;
+					} else {
+						this.setState({
+							loading: false
+						});
+						alert(this.props.parentProps.loginApiMessage || 'Automatic login failed, please login manually.');
+					}
+				} else {
+					this.setState({
+						loading: false
+					});
+					alert(this.props.parentProps.updateProfileApiMessage || 'User creation could not complete. Please try again.');
+					return false;
+				}
+			}
 			await this.props.parentProps.onSubmitRegister(apiInput);
 			if (this.props.parentProps.registerApiStatus) {
 				const loginApiInput = {
@@ -226,6 +289,9 @@ class RegisterUser extends React.Component {
 		];
 		const animatedComponents = makeAnimated();
 		const userType = this.props.getUserType();
+		// if (this.props.isUpdate) {
+
+		// }
 		return (
 			<div className='signup-content'>
 				<div className='signup-form'>
@@ -242,6 +308,7 @@ class RegisterUser extends React.Component {
 								maxMenuHeight={200}
 								menuPlacement='top'
 								name='userType'
+								isDisabled={this.props.isUpdate ? true : false}
 								onChange={(event) => this.handleUserType({ values: event, name: 'userType' })}
 							/>
 						</div>

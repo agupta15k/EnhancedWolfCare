@@ -15,7 +15,7 @@ import getDoctorRequests from '../api/getDoctorRequests';
 import reviewDoctorRequests from '../api/reviewDoctorRequests';
 import getHospitalRequests from '../api/getHospitalRequests';
 import reviewHospitalRequests from '../api/reviewHospitalRequests';
-
+import updateProfileApi from '../api/updateProfile';
 
 /**
  * Map actions to props for user dashboard component
@@ -33,6 +33,15 @@ const homeMapDispatchToProps = dispatch => {
 				});
 			} catch (error) {
 				console.error('Some error occurred while calling axios API', error);
+			}
+		},
+		onSubmitSignOut: async () => {
+			try {
+				dispatch({
+					type: 'SUBMITSIGNOUT'
+				});
+			} catch (error) {
+				console.error('Some error occurred while calling signout dispatch', error);
 			}
 		},
 		onSubmitRegister: async (value) => {
@@ -169,6 +178,17 @@ const homeMapDispatchToProps = dispatch => {
 				console.error('Some error occurred while calling axios API', error);
 			}
 		},
+		onUpdateProfile: async (value) => {
+			try {
+				let res = await updateProfileApi(value);
+				dispatch({
+					type: res && res.data && res.data.status === 200 ? 'SUBMITUPDATEPROFILE' : 'UPDATEPROFILEFAILURE',
+					payload: res.data
+				});
+			} catch (error) {
+				console.error('Some error occurred while calling axios API', error);
+			}
+		},
 	};
 };
 
@@ -213,7 +233,9 @@ const homeMapStateToProps = state => {
 		reviewHospitalRequestApiMessage: state.home.reviewHospitalRequestApiMessage,
 		userId: localStorageUserInfo && localStorageUserInfo.userId,
 		userType: localStorageUserInfo && localStorageUserInfo.userType,
-		userInfo: localStorageUserInfo && localStorageUserInfo.userInfo || {}
+		userInfo: localStorageUserInfo && localStorageUserInfo.userInfo || {},
+		updateProfileApiStatus: state.home.updateProfileApiSuccess,
+		updateProfileApiMessage: state.home.updateProfileApiMessage,
 	});
 };
 
