@@ -11,6 +11,10 @@ import scheduleAppointmentAPI from '../api/scheduleAppointment';
 import getDoctorsApi from '../api/getDoctors';
 import getAppointmentsForUser from '../api/getAppointmentsForUser';
 import getAppointmentsForDoctor from '../api/getAppointmentsForDoctor';
+import getDoctorRequests from '../api/getDoctorRequests';
+import reviewDoctorRequests from '../api/reviewDoctorRequests';
+import getHospitalRequests from '../api/getHospitalRequests';
+import reviewHospitalRequests from '../api/reviewHospitalRequests';
 
 
 /**
@@ -120,7 +124,51 @@ const homeMapDispatchToProps = dispatch => {
 			} catch (error) {
 				console.error('Some error occurred while calling axios API', error);
 			}
-		}
+		},
+		onGetDoctorRequests: async () => {
+			try {
+				let res = await getDoctorRequests();
+				dispatch({
+					type: res && res.data && res.data.status === 200 ? 'SUBMITGETDOCTORREQUESTS' : 'GETDOCTORREQUESTSFAILURE',
+					payload: res.data
+				});
+			} catch (error) {
+				console.error('Some error occurred while calling get doctors axios API', error);
+			}
+		},
+		onReviewDoctorRequest: async (val) => {
+			try {
+				let res = await reviewDoctorRequests(val);
+				dispatch({
+					type: res && res.data && res.data.status === 200 ? 'SUBMITREVIEWDOCTORREQUEST' : 'REVIEWDOCTORREQUESTFAILURE',
+					payload: res.data
+				});
+			} catch (error) {
+				console.error('Some error occurred while calling axios API', error);
+			}
+		},
+		onGetHospitalRequests: async () => {
+			try {
+				let res = await getHospitalRequests();
+				dispatch({
+					type: res && res.data && res.data.status === 200 ? 'SUBMITGETHOSPITALREQUESTS' : 'GETHOSPITALREQUESTSFAILURE',
+					payload: res.data
+				});
+			} catch (error) {
+				console.error('Some error occurred while calling get doctors axios API', error);
+			}
+		},
+		onReviewHospitalRequest: async (val) => {
+			try {
+				let res = await reviewHospitalRequests(val);
+				dispatch({
+					type: res && res.data && res.data.status === 200 ? 'SUBMITREVIEWHOSPITALREQUEST' : 'REVIEWHOSPITALREQUESTFAILURE',
+					payload: res.data
+				});
+			} catch (error) {
+				console.error('Some error occurred while calling axios API', error);
+			}
+		},
 	};
 };
 
@@ -153,6 +201,16 @@ const homeMapStateToProps = state => {
 		getDoctorsApiStatus: state.home.getDoctorsApiSuccess,
 		getDoctorsApiMessage: state.home.getDoctorsApiMessage,
 		doctors: state.home.doctors,
+		getDoctorRequestsApiStatus: state.home.getDoctorRequestsApiSuccess,
+		getDoctorRequestsApiMessage: state.home.getDoctorRequestsApiMessage,
+		doctorRequests: state.home.doctorRequests,
+		getHospitalRequestsApiStatus: state.home.getHospitalRequestsApiSuccess,
+		getHospitalRequestsApiMessage: state.home.getHospitalRequestsApiMessage,
+		hospitalRequests: state.home.hospitalRequests,
+		reviewDoctorRequestApiStatus: state.home.reviewDoctorRequestApiSuccess,
+		reviewDoctorRequestApiMessage: state.home.reviewDoctorRequestApiMessage,
+		reviewHospitalRequestApiStatus: state.home.reviewHospitalRequestApiSuccess,
+		reviewHospitalRequestApiMessage: state.home.reviewHospitalRequestApiMessage,
 		userId: localStorageUserInfo && localStorageUserInfo.userId,
 		userType: localStorageUserInfo && localStorageUserInfo.userType,
 		userInfo: localStorageUserInfo && localStorageUserInfo.userInfo || {}

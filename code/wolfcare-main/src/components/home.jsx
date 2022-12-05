@@ -131,7 +131,7 @@ class Home extends React.Component {
 			case 'contact':
 				return <ContactUs />;
 			case 'requests':
-				return <AdminRequests userLogonDetails={this.state.userLogonDetails} />;
+				return <AdminRequests userLogonDetails={this.state.userLogonDetails} parentProps={this.props}/>;
 			default:
 				return <MainPage redirectToPath={this.redirectToPath} setRegisterClicked={this.setRegisterClicked} userType={this.state.userType} />;
 		}

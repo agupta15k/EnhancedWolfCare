@@ -20,6 +20,16 @@ const initialState = {
 	hospitals: [],
 	userAppointments: [],
 	doctorAppointments: [],
+	getDoctorRequestsApiMessage: '',
+	getDoctorRequestsApiSuccess: false,
+	doctorRequests: [],
+	getHospitalRequestsApiMessage: '',
+	getHospitalRequestsApiSuccess: false,
+	hospitalRequests: [],
+	reviewDoctorRequestApiMessage: '',
+	reviewDoctorRequestApiSuccess: false,
+	reviewHospitalRequestApiMessage: '',
+	reviewHospitalRequestApiSuccess: false,
 	userId: '',
 	userType: '',
 	userInfo: {}
@@ -220,6 +230,86 @@ const homeReducer = (state = initialState, action) => {
 				...state,
 				getAppointmentsForDoctorApiSuccess: false,
 				getAppointmentsForDoctorApiMessage: action.payload.message
+			};
+		}
+		// Success case
+		case 'SUBMITGETDOCTORREQUESTS': {
+			if (action.payload && action.payload.data) {
+				return {
+					...state,
+					doctorRequests: action.payload.data,
+					getDoctorRequestsApiSuccess: true,
+					getDoctorRequestsApiMessage: action.payload.message
+				};
+			}
+			return {
+				...state,
+				getDoctorRequestsApiSuccess: false,
+				getDoctorRequestsApiMessage: action.payload.message
+			};
+		}
+		// Failure case
+		case 'GETDOCTORREQUESTSFAILURE': {
+			return {
+				...state,
+				getDoctorRequestsApiSuccess: false,
+				getDoctorRequestsApiMessage: action.payload.message
+			};
+		}
+		// Success case
+		case 'SUBMITREVIEWDOCTORREQUEST': {
+			return {
+				...state,
+				reviewDoctorRequestApiSuccess: true,
+				reviewDoctorRequestApiMessage: action.payload.message
+			};
+		}
+		// Failure case
+		case 'REVIEWDOCTORREQUESTFAILURE': {
+			return {
+				...state,
+				reviewDoctorRequestApiSuccess: false,
+				reviewDoctorRequestApiMessage: action.payload.message
+			};
+		}
+		// Success case
+		case 'SUBMITGETHOSPITALREQUESTS': {
+			if (action.payload && action.payload.data) {
+				return {
+					...state,
+					hospitalRequests: action.payload.data,
+					getHospitalRequestsApiSuccess: true,
+					getHospitalRequestsApiMessage: action.payload.message
+				};
+			}
+			return {
+				...state,
+				getHospitalRequestsApiSuccess: false,
+				getHospitalRequestsApiMessage: action.payload.message
+			};
+		}
+		// Failure case
+		case 'GETHOSPITALREQUESTSFAILURE': {
+			return {
+				...state,
+				getHospitalRequestsApiSuccess: false,
+				getHospitalRequestsApiMessage: action.payload.message
+			};
+		}
+		// Success case
+		case 'SUBMITREVIEWHOSPITALREQUEST': {
+			return {
+				...state,
+				reviewHospitalRequestApiSuccess: true,
+				reviewHospitalRequestApiMessage: action.payload.message
+			};
+		}
+		// Failure case
+		case 'REVIEWHOSPITALREQUESTFAILURE': {
+			return {
+				...state,
+				reviewHospitalRequestApiSuccess: false,
+				reviewHospitalRequestApiMessage: action.payload.message
 			};
 		}
 		default: return state;
