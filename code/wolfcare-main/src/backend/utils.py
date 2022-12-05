@@ -1266,7 +1266,7 @@ def getAppointmentInfoUserDB(id):
     try:
         connection = db_connection()
         cursor = connection.cursor(dictionary=True)
-        cursor.execute("SELECT hospitals.name, hospitals.addressline1, appointment.userid, appointment.hospitalid, appointment.timeslot, appointment.date, doctors.firstname, doctors.lastname, doctors.primaryspecialty, doctors.secondaryspecialty, doctors.type, doctors.degree, doctors.phone, doctors.email, doctors.gender FROM doctors INNER JOIN appointment ON doctors.doctorid = appointment.doctorid INNER JOIN hospitals ON hospitals.hospitalid = appointment.hospitalid  WHERE appointment.userid = %s", (int(id),))
+        cursor.execute("SELECT hospitals.name, hospitals.addressline1, appointment.userid, appointment.hospitalid, appointment.timeslot, appointment.isactive, appointment.date, doctors.firstname, doctors.lastname, doctors.primaryspecialty, doctors.secondaryspecialty, doctors.type, doctors.degree, doctors.phone, doctors.email, doctors.gender FROM doctors INNER JOIN appointment ON doctors.doctorid = appointment.doctorid INNER JOIN hospitals ON hospitals.hospitalid = appointment.hospitalid  WHERE appointment.userid = %s", (int(id),))
         appointmentInfo = cursor.fetchall()
         finalData = []
         for record in appointmentInfo:
@@ -1302,7 +1302,7 @@ def getAppointmentInfoDoctorDB(id):
     try:
         connection = db_connection()
         cursor = connection.cursor(dictionary=True)
-        cursor.execute("SELECT hospitals.name, hospitals.addressline1, appointment.doctorid, appointment.hospitalid, appointment.timeslot, appointment.date, users.firstname FROM users INNER JOIN appointment ON users.userid = appointment.userid INNER JOIN hospitals ON hospitals.hospitalid = appointment.hospitalid WHERE appointment.doctorid = %s", (int(id),))
+        cursor.execute("SELECT hospitals.name, hospitals.addressline1, appointment.doctorid, appointment.hospitalid, appointment.isactive, appointment.timeslot, appointment.date, users.firstname FROM users INNER JOIN appointment ON users.userid = appointment.userid INNER JOIN hospitals ON hospitals.hospitalid = appointment.hospitalid WHERE appointment.doctorid = %s", (int(id),))
         appointmentInfo = cursor.fetchall()
         finalData = []
         for record in appointmentInfo:
