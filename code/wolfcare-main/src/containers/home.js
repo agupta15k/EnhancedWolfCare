@@ -6,6 +6,7 @@ import onSubmitLoginAPI from '../api/login';
 import registerUserApi from '../api/registerUser';
 import updateAppointmentApi from '../api/updateAppointment';
 import deleteAppointmentApi from '../api/deleteAppointment';
+import getHospitalsApi from '../api/getHospitals';
 
 
 /**
@@ -58,6 +59,18 @@ const homeMapDispatchToProps = dispatch => {
 			} catch (error) {
 				console.error('Some error occurred while calling axios API', error);
 			}
+		},
+		onGetHospitals: async () => {
+			try {
+				let res = await getHospitalsApi();
+				console.log(res);
+				dispatch({
+					type: res && res.data && res.data.status === 200 ? 'SUBMITGETHOSPITALS' : 'GETHOSPITALSFAILURE',
+					payload: res.data
+				});
+			} catch (error) {
+				console.error('Some error occurred while calling axios API', error);
+			}
 		}
 	};
 };
@@ -77,6 +90,9 @@ const homeMapStateToProps = state => {
 		updateAppointmentApiMessage: state.home.updateAppointmentApiMessage,
 		deleteAppointmentApiStatus: state.home.deleteAppointmentApiSuccess,
 		deleteAppointmentApiMessage: state.home.deleteAppointmentApiMessage,
+		getHospitalsApiStatus: state.home.getHospitalsApiSuccess,
+		getHospitalsApiMessage: state.home.getHospitalsApiMessage,
+		hospitals: state.home.hospitals,
 		userId: localStorageUserInfo && localStorageUserInfo.userId,
 		userType: localStorageUserInfo && localStorageUserInfo.userType
 	});

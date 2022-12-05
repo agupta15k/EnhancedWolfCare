@@ -106,7 +106,7 @@ class Home extends React.Component {
 			case 'doctors':
 				return <DoctorsList />;
 			case 'hospitals':
-				return <HospitalsList />;
+				return <HospitalsList parentProps={this.props}/>;
 			case 'appointments':
 				return <AppointmentsList userLogonDetails={this.state.userLogonDetails} setLoginClicked={this.setLoginClicked} redirectToPath={this.redirectToPath} parentProps={this.props}/>;
 			case 'symptoms':

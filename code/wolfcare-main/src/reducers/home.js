@@ -9,6 +9,9 @@ const initialState = {
 	updateAppointmentApiSuccess: false,
 	deleteAppointmentApiMessage: '',
 	deleteAppointmentApiSuccess: false,
+	getHospitalsApiSuccess: false,
+	getHospitalsApiMessage: '',
+	hospitals: [],
 	userId: '',
 	userType: ''
 };
@@ -95,6 +98,30 @@ const homeReducer = (state = initialState, action) => {
 				...state,
 				deleteAppointmentApiSuccess: false,
 				deleteAppointmentApiMessage: action.payload.message
+			};
+		}
+		// Success case
+		case 'SUBMITGETHOSPITALS': {
+			if (action.payload && action.payload.data) {
+				return {
+					...state,
+					hospitals: action.payload.data,
+					getHospitalsApiSuccess: true,
+					getHospitalsApiMessage: action.payload.message
+				};
+			}
+			return {
+				...state,
+				getHospitalsApiSuccess: false,
+				getHospitalsApiMessage: action.payload.message
+			};
+		}
+		// Failure case
+		case 'GETHOSPITALSFAILURE': {
+			return {
+				...state,
+				getHospitalsApiSuccess: false,
+				getHospitalsApiMessage: action.payload.message
 			};
 		}
 		default: return state;
