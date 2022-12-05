@@ -64,7 +64,8 @@ class RegisterUser extends React.Component {
 			address: this.props.parentProps.userInfo.user.address || '',
 			loading: false,
 			isUpdate: this.props.isUpdate || false,
-			userType: this.props.parentProps.userInfo.usertype || 'patient'
+			userType: this.props.parentProps.userInfo.usertype || 'patient',
+			userId: this.props.parentProps.userId
 		});
 		// }
 	}
@@ -164,6 +165,7 @@ class RegisterUser extends React.Component {
 				specialization: this.state.specialization,
 				address: this.state.address,
 				userType: this.props.getUserType(),
+				userId:this.state.userId
 			};
 			this.setState({
 				loading: true
