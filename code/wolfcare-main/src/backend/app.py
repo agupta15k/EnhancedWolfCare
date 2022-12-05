@@ -26,7 +26,7 @@ def empty():
     return jsonify({"status": 200, "data": {}, "message": "Backend working"})
 
 
-@app.route('/addDoctor', methods=['POST'])
+@app.route('/addDoctor', methods=['POST', 'OPTIONS'])
 def app_addDoctor():
     """
     Response is a json which contains:\n
@@ -67,7 +67,7 @@ def app_addDoctor():
     return jsonify({"status": 200, "data": {}, "message": ""})
 
 
-@app.route('/updateDoctor', methods=['PUT'])
+@app.route('/updateDoctor', methods=['PUT', 'OPTIONS'])
 def app_updateDoctor():
     """
     Updating doctor info already exisiting.\n
@@ -98,7 +98,7 @@ def app_updateDoctor():
     return jsonify({"status": 200, "data": {}, "message": ""})
 
 
-@app.route('/getDoctorInfo', methods=['GET'])
+@app.route('/getDoctorInfo', methods=['GET', 'OPTIONS'])
 def app_getDoctorInfo():
     """
     Gets information of the doctor based on the id.\n
@@ -131,7 +131,38 @@ def app_getDoctorInfo():
     return jsonify({"status": 200, "data": {}, "message": ""})
 
 
-@app.route('/addHospital', methods=['POST'])
+@app.route('/getDoctors', methods=['GET', 'OPTIONS'])
+def app_getDoctors():
+    """
+    Gets information of all the active doctors\n
+    Response is a json which contains:\n
+    1) Status - This can take 3 values = (200 : Perfect response, 405 : Database Error, 400 : Failure from client side ).\n
+    2) Data - Associated data with the operation.\n
+    3) Message - A message assoicated with the status.
+    Parameters
+    ----------
+
+    Returns
+    ----------
+    json
+        Returns a json containing the status, data which contains the information, message in accordance with the status.
+    """
+
+    if request.method == 'GET':
+
+        status, data = getDoctors()
+        if status:
+            if data == []:
+                return jsonify({"status": 200, "data": {}, "message": "No records found"})
+            else:
+                return jsonify({"status": 200, "data": data, "message": "Records found"})
+        else:
+            return jsonify({"status": 400, "data": {}, "message": data})
+
+    return jsonify({"status": 200, "data": {}, "message": ""})
+
+
+@app.route('/addHospital', methods=['POST', 'OPTIONS'])
 def app_addHospital():
     """
     Response is a json which contains:\n
@@ -172,7 +203,7 @@ def app_addHospital():
     return jsonify({"status": 200, "data": {}, "message": ""})
 
 
-@app.route('/updateHospital', methods=['PUT'])
+@app.route('/updateHospital', methods=['PUT', 'OPTIONS'])
 def app_updateHospital():
     """
     Updating Hospital info already exisiting.\n
@@ -203,7 +234,7 @@ def app_updateHospital():
     return jsonify({"status": 200, "data": {}, "message": ""})
 
 
-@app.route('/getHospitalInfo', methods=['GET'])
+@app.route('/getHospitalInfo', methods=['GET', 'OPTIONS'])
 def app_getHospitalInfo():
     """
     Gets information of the hospital based on the id.\n
@@ -225,6 +256,37 @@ def app_getHospitalInfo():
 
         id = request.args.get('id')
         status, data = getHospitalDetails(id)
+        if status:
+            if data == []:
+                return jsonify({"status": 200, "data": {}, "message": "No records found"})
+            else:
+                return jsonify({"status": 200, "data": data, "message": "Records found"})
+        else:
+            return jsonify({"status": 400, "data": {}, "message": data})
+
+    return jsonify({"status": 200, "data": {}, "message": ""})
+
+
+@app.route('/getHospitals', methods=['GET', 'OPTIONS'])
+def app_getHospitals():
+    """
+    Gets information of all the hospitals.\n
+    Response is a json which contains:\n
+    1) Status - This can take 3 values = (200 : Perfect response, 405 : Database Error, 400 : Failure from client side ).\n
+    2) Data - Associated data with the operation.\n
+    3) Message - A message assoicated with the status.
+    Parameters
+    ----------
+    
+    Returns
+    ----------
+    json
+        Returns a json containing the status, data which contains the information, message in accordance with the status.
+    """
+
+    if request.method == 'GET':
+
+        status, data = getHospitals()
         if status:
             if data == []:
                 return jsonify({"status": 200, "data": {}, "message": "No records found"})
@@ -309,7 +371,7 @@ def app_addAppointment():
     return jsonify({"status": 200, "data": {}, "message": ""})
 
 
-@app.route('/updateAppointment', methods=['PUT'])
+@app.route('/updateAppointment', methods=['PUT', 'OPTIONS'])
 def app_updateAppointment():
     """
     Updating Appointment info already exisiting.\n
@@ -617,18 +679,58 @@ def register():
     if request.method == 'POST':
         data = json.loads(request.data)
         email = data['email']
-        check, status = checkDuplicateEmail(email)
+        usertype = data['userType']
+        
+        if usertype == 'patient':
+            check, status = checkDuplicateEmail(email)
 
-        if (status == 0):
-            return jsonify({"status": 400, "data": {}, "message": "Error while Accessing the database"})
-        if (check):
-            return jsonify({"status": 405, "data": {}, "message": "Please fill out the form again! The Email is taken/or is written in the wrong format"})
+            if (status == 0):
+                return jsonify({"status": 400, "data": {}, "message": "Error while Accessing the database"})
+            if (check):
+                return jsonify({"status": 405, "data": {}, "message": "Please fill out the form again! The Email is taken/or is written in the wrong format"})
 
-        check = addUser(data)
-        if (check):
-            return jsonify({"status": 200, "data": {}, "message": "You have registered succesfully"})
-        else:
-            return jsonify({"status": 400, "data": {}, "message": "Error while adding an user"})
+            check = addUser(data)
+            if (check):
+                return jsonify({"status": 200, "data": {}, "message": "You have registered succesfully"})
+            else:
+                return jsonify({"status": 400, "data": {}, "message": "Error while adding an user"})
+        
+        elif usertype == 'hospital':
+            status, msg = addHospital(
+                data['name'], data['address'], data['phoneNumber'], data['email'])
+
+
+            if status==False:
+                return jsonify({"status": 400, "data": {}, "message":msg})
+            else:
+                return jsonify({"status": 200, "data": {}, "message": "You have registered succesfully as Hospital"})
+        
+        elif usertype == 'doctor':
+            check, status = checkDuplicateEmail(email)
+
+            if (status == 0):
+                return jsonify({"status": 400, "data": {}, "message": "Error while Accessing the database"})
+            if (check):
+                return jsonify({"status": 405, "data": {}, "message": "Please fill out the form again! The Email is taken/or is written in the wrong format"})
+
+            check = addUser(data)
+            
+            if (check):
+                
+                userid = getUserProfileByEmail(email)
+                if userid == []:
+                    return jsonify({"status": 400, "data": {}, "message": "Error while Accessing the database"})
+                else:
+                    userid = userid["userid"]
+                
+                    status, msg = addDoctor(data["name"], data["specialization"], data["phoneNumber"], data["email"], data["experience"], userid)
+                    
+                    if status == False:
+                        return jsonify({"status": 400, "data": {}, "message": msg})
+            
+                return jsonify({"status": 200, "data": {}, "message": "You have registered succesfully as a Doctor:)"})
+            else:
+                return jsonify({"status": 400, "data": {}, "message": "Error while adding an user"})
 
     return jsonify({"status": 200, "data": {}, "message": ""})
 
@@ -652,6 +754,7 @@ def login():
     """
 
     if request.method == 'POST':
+        
         data = json.loads(request.data)
         email = data['email']
         password = data['password']
@@ -660,8 +763,25 @@ def login():
         if (status == 0):
             return jsonify({"status": 400, "data": {}, "message": "Database Error"})
 
-        if (len(userInfo)):
-            return jsonify({"status": 200, "data": userInfo, "message": "Logged in Succesfully"})
+        if (len(userInfo) >0):
+            newDict = {}
+            newDict["doctor"] = {}
+            
+            userid = userInfo["userid"]
+            newDict["user"] = userInfo
+            
+            if userInfo["usertype"] == "doctor":
+                status, data =  getDoctorDetailsByUserID(userid)
+                
+                if status == True:  
+                    newDict["doctor"] = data
+        
+                else:
+                    return jsonify({"status": 400, "data": {}, "message": "Error while Accessing the database"})
+                
+                
+            return jsonify({"status": 200, "data": newDict, "message": "Logged in Succesfully"})
+        
         else:
             return jsonify({"status": 405, "data": {}, "message": "Incorrect email/Password"})
 
