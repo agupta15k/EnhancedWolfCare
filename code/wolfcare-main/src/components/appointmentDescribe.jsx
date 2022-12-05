@@ -1,40 +1,171 @@
 import React from 'react';
 import { Spinner } from 'reactstrap';
-import { DatePicker, Modal } from 'antd';
+import { DatePicker, Modal, Select, TimePicker } from 'antd';
 import {
 	CalendarOutlined,
 	ClockCircleOutlined,
+	MedicineBoxOutlined,
 	UserOutlined
 } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import moment from 'moment';
+import { appointmentsData } from '../constants/appointments';
 
-const dateFormat = 'YYYY-MM-DD HH:mm:ss';
+const dateFormat = 'YYYY-MM-DD';
+const timeFormat = 'HH:mm';
+const dummySchedule = {Monday:{StartTime: '10:00:00', EndTime:'16:00:00'}, Tuesday:{StartTime: '11:00:00', EndTime:'16:00:00'}};
 class DescribeAppointment extends React.Component {
 	constructor (props) {
 		super(props);
 		this.state = {
 			loading: false,
-			selectedAppointment: props.selectedAppointment
+			selectedAppointment: props.selectedAppointment,
+			allowedDoctors: [],
+			selectedDoctor: props.selectedAppointment.doctorName,
+			allowedHospitals: [],
+			selectedHospital: props.selectedAppointment.hospitalName,
+			allowedDays: [],
+			selectedDate: props.selectedAppointment.appointDate,
+			allowedTime: [],
+			selectedTime: props.selectedAppointment.appointTime
 		};
 	}
 
+	componentDidMount() {
+		this.populateDoctors();
+	}
+
+	populateDoctors = () => {
+		const allowedDoctors = appointmentsData.map((appointment) => {
+			return {
+				value: appointment.doctorName,
+				label: appointment.doctorName
+			};
+		});
+		this.setState({
+			allowedDoctors
+		}, () => {
+			this.populateHospitals();
+		});
+	};
+
+	populateHospitals = () => {
+		const allowedHospitals = appointmentsData.map((appointment) => {
+			return {
+				value: appointment.hospitalName,
+				label: appointment.hospitalName
+			};
+		});
+		this.setState({
+			allowedHospitals
+		}, () => {
+			this.populateDates();
+		});
+	};
+
+	populateDates = () => {
+		const dayMap = {
+			Sunday: 0,
+			Monday: 1,
+			Tuesday: 2,
+			Wednesday: 3,
+			Thursday: 4,
+			Friday: 5,
+			Saturday: 6
+		};
+		const allowedDays = [];
+		Object.keys(dummySchedule).forEach((sch) => {
+			allowedDays.push(dayMap[sch]);
+		});
+		this.setState({
+			allowedDays
+		}, () => {
+			this.populateHours();
+		});
+	};
+
+	populateHours = () => {
+		const dayMap = {
+			0: 'Sunday',
+			1: 'Monday',
+			2: 'Tuesday',
+			3: 'Wednesday',
+			4: 'Thursday',
+			5: 'Friday',
+			6: 'Saturday'
+		};
+		let day = moment(this.state.selectedDate).day();
+		if (!this.state.allowedDays.includes(day)) {
+			day = this.state.allowedDays[0];
+		}
+		let dayString = dayMap[day];
+		const startTime = dummySchedule[dayString].StartTime.split(':')[0];
+		const endTime = dummySchedule[dayString].EndTime.split(':')[0];
+		const allowedHours = [];
+		for (let i = startTime; i <= endTime; i++) {
+			allowedHours.push(i);
+		}
+		this.setState({
+			allowedHours,
+			selectedDate: moment().day(day).format(dateFormat)
+		});
+	};
+
 	disabledDate = (current) => {
-		return current < dayjs().endOf('day').subtract(1, 'day');
+		return current < dayjs().endOf('day').subtract(1, 'day') || !this.state.allowedDays.includes(moment(current).day());
 	};
 
 	disabledTime = () => ({
-		disabledHours: () => [0, 1, 2, 3, 4, 5, 6, 7, 18, 19, 20, 21, 22, 23]
+		disabledHours: () => {
+			const disabledHours = [];
+			for (let i = 0; i <= 23; i++) {
+				if (!this.state.allowedHours.includes(i)) {
+					disabledHours.push(i);
+				}
+			}
+			return disabledHours;
+		}
 	});
 
+	onChange = (value, type) => {
+		switch (type) {
+			case 'doctor':
+				this.populateHospitals();
+				this.setState({
+					selectedDoctor: value,
+					selectedHospital: null,
+					selectedDate: this.selectedDate
+				});
+				break;
+			case 'hospital':
+				this.populateDates();
+				this.setState({
+					selectedHospital: value,
+					selectedDate: this.selectedDate
+				});
+				break;
+			default:
+				break;
+		}
+	};
+
 	handleDateChange = (event) => {
-		if (moment(event).format(dateFormat) === this.state.selectedAppointment.appointDateTime) {
+		if (moment(event).format(dateFormat) === this.state.selectedAppointment.appointDate) {
 			alert('No change in date. Please update the date, else click on cancel.');
-		} else if (event < dayjs()) {
-			alert('Entered date is older than current time, please fix that.');
 		} else {
 			this.setState({
-				selectedAppointment: {...this.state.selectedAppointment, appointDateTime: moment(event).format(dateFormat)}
+				selectedDate: event,
+				selectedTime: moment(Date.now()).format(timeFormat)
+			}, this.populateHours());
+		}
+	};
+
+	handleTimeChange = (event) => {
+		if (moment(event).format(timeFormat) === this.state.selectedAppointment.appointTime) {
+			alert('No change in date. Please update the date, else click on cancel.');
+		} else {
+			this.setState({
+				selectedTime: event
 			});
 		}
 	};
@@ -85,26 +216,61 @@ class DescribeAppointment extends React.Component {
 					<div className='signup-form'>
 						<form className='register-form' id='register-form'>
 							<div className='form-group'>
-								<CalendarOutlined />
-								<DatePicker
-									format={dateFormat}
-									showTime
-									style={{marginLeft: '5%'}}
-									placeholder={'Select date and time'}
-									required
-									disabledDate={this.disabledDate}
-									disabledTime={this.disabledTime}
-									value={moment(this.state.selectedAppointment.appointDateTime)}
-									onOk={this.handleDateChange}
+								<UserOutlined style={{marginTop: '4%'}}/>
+								<Select
+									showSearch
+									placeholder="Select a doctor"
+									optionFilterProp="label"
+									filterOption={(input, option) =>
+										(option && option.label).toLowerCase().includes(input.toLowerCase())
+									}
+									options={this.state.allowedDoctors}
+									style={{width: '90%', marginLeft: '5%'}}
+									value={this.state.selectedDoctor}
+									onChange={(event) => this.onChange(event, 'doctor')}
 								/>
 							</div>
 							<div className='form-group'>
-								<UserOutlined style={{marginTop: '4%'}}/>
-								<input type='text' name='name' id='name' placeholder='Doctor Name' style={{float: 'right'}} value={this.state.selectedAppointment.doctorName} disabled />
+								<MedicineBoxOutlined style={{marginTop: '4%'}}/>
+								<Select
+									showSearch
+									placeholder="Select a hospital"
+									optionFilterProp="label"
+									filterOption={(input, option) =>
+										(option && option.label).toLowerCase().includes(input.toLowerCase())
+									}
+									options={this.state.allowedHospitals}
+									style={{width: '90%', marginLeft: '5%'}}
+									value={this.state.selectedHospital}
+									onChange={(event) => this.onChange(event, 'hospital')}
+								/>
 							</div>
 							<div className='form-group'>
-								<ClockCircleOutlined style={{marginTop: '4%'}}/>
-								{this.state.selectedAppointment.appointStatus}
+								<CalendarOutlined />
+								<DatePicker
+									format={dateFormat}
+									style={{width: '90%', marginLeft: '5%'}}
+									placeholder={'Select date'}
+									required
+									disabledDate={this.disabledDate}
+									value={moment(this.state.selectedDate)}
+									onChange={(event) => this.handleDateChange(event)}
+									onOk={(event) => this.handleDateChange(event)}
+								/>
+							</div>
+							<div className='form-group'>
+								<ClockCircleOutlined />
+								<TimePicker
+									format={timeFormat}
+									style={{width: '90%', marginLeft: '5%'}}
+									placeholder={'Select time'}
+									required
+									minuteStep={30}
+									disabledTime={this.disabledTime}
+									value={moment(`${this.state.selectedDate} ${this.state.selectedTime}`)}
+									onChange={(event) => this.handleTimeChange(event)}
+									onOk={(event) => this.handleTimeChange(event)}
+								/>
 							</div>
 							<div className='form-group form-button'>
 								{ this.state.loading ? <Spinner /> : <input type='submit' name='update-appointment' id='update-appointment' className='form-submit' value='Update' onClick={ this.handleSubmit } /> }

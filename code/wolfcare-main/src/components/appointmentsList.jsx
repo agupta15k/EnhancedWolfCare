@@ -83,8 +83,10 @@ class AppointmentsList extends React.Component {
 					loading={this.state.loading}
 				>
 					<Column title='Id' dataIndex='key' key='key' width='5%' />
-					<Column title="Appointment Date and Time" dataIndex="appointDateTime" key="appointDateTime" />
+					<Column title="Appointment Date" dataIndex="appointDate" key="appointDate" />
+					<Column title="Appointment Time" dataIndex="appointTime" key="appointTime" />
 					<Column title="Doctor" dataIndex="doctorName" key="doctorName" />
+					<Column title="Hospital" dataIndex="hospitalName" key="hospitalName" />
 					<Column title="Appointment Status" dataIndex="appointStatus" key="appointStatus" />
 					<Column
 						title="Action"
