@@ -1,4 +1,4 @@
-/**@module updateAppointmentApi */
+/**@module getAppointmentsForUser */
 
 import axios from '../axios';
 
@@ -7,9 +7,7 @@ import axios from '../axios';
  * @param {Object} value Object containing updated user details
  * @returns {Promise} Response for axios PUT request
  */
-const updateAppointmentApi = (input) => {
-	return axios.put('/updateAppointmentInfo', {
-		...input
-	});
+const getAppointmentsForUser = (id) => {
+	return axios.get('/appointmentInfoUser?id=' + id);
 };
-export default updateAppointmentApi;
+export default getAppointmentsForUser;

@@ -9,7 +9,7 @@ const iframe = () => {
 class SymptomsChecker extends React.Component {
 	render() {
 		return (
-			<div>
+			<div style={{margin: '2% 2% 2% 2%'}}>
 				<div dangerouslySetInnerHTML={iframe()} />
 			</div>
 		);

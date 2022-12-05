@@ -9,6 +9,9 @@ import deleteAppointmentApi from '../api/deleteAppointment';
 import getHospitalsApi from '../api/getHospitals';
 import scheduleAppointmentAPI from '../api/scheduleAppointment';
 import getDoctorsApi from '../api/getDoctors';
+import getAppointmentsForUser from '../api/getAppointmentsForUser';
+import getAppointmentsForDoctor from '../api/getAppointmentsForDoctor';
+
 
 /**
  * Map actions to props for user dashboard component
@@ -76,7 +79,6 @@ const homeMapDispatchToProps = dispatch => {
 		onGetHospitals: async () => {
 			try {
 				let res = await getHospitalsApi();
-				console.log(res);
 				dispatch({
 					type: res && res.data && res.data.status === 200 ? 'SUBMITGETHOSPITALS' : 'GETHOSPITALSFAILURE',
 					payload: res.data
@@ -96,6 +98,28 @@ const homeMapDispatchToProps = dispatch => {
 			} catch (error) {
 				console.error('Some error occurred while calling get doctors axios API', error);
 			}
+		},
+		onGetAppointmentsForUser: async (id) => {
+			try {
+				let res = await getAppointmentsForUser(id);
+				dispatch({
+					type: res && res.data && res.data.status === 200 ? 'SUBMITGETAPPOINTMENTSFORUSER' : 'GETAPPOINTMENTSFORUSERFAILURE',
+					payload: res.data
+				});
+			} catch (error) {
+				console.error('Some error occurred while calling axios API', error);
+			}
+		},
+		onGetAppointmentsForDoctor: async (id) => {
+			try {
+				let res = await getAppointmentsForDoctor(id);
+				dispatch({
+					type: res && res.data && res.data.status === 200 ? 'SUBMITGETAPPOINTMENTSFORDOCTOR' : 'GETAPPOINTMENTSFORDOCTORFAILURE',
+					payload: res.data
+				});
+			} catch (error) {
+				console.error('Some error occurred while calling axios API', error);
+			}
 		}
 	};
 };
@@ -113,6 +137,12 @@ const homeMapStateToProps = state => {
 		registerApiMessage: state.home.registerApiMessage,
 		createAppointmentApiStatus: state.home.createAppointmentApiSuccess,
 		createAppointmentApiMessage: state.home.createAppointmentApiMessage,
+		getAppointmentsForUserStatus: state.home.getAppointmentsForUserApiSuccess,
+		getAppointmentsForUserMessage: state.home.getAppointmentsForUserApiMessage,
+		userAppointments: state.home.userAppointments,
+		getAppointmentsForDoctorStatus: state.home.getAppointmentsForDoctorApiSuccess,
+		getAppointmentsForDoctorMessage: state.home.getAppointmentsForDoctorApiMessage,
+		doctorAppointments: state.home.doctorAppointments,
 		updateAppointmentApiStatus: state.home.updateAppointmentApiSuccess,
 		updateAppointmentApiMessage: state.home.updateAppointmentApiMessage,
 		deleteAppointmentApiStatus: state.home.deleteAppointmentApiSuccess,
@@ -124,7 +154,8 @@ const homeMapStateToProps = state => {
 		getDoctorsApiMessage: state.home.getDoctorsApiMessage,
 		doctors: state.home.doctors,
 		userId: localStorageUserInfo && localStorageUserInfo.userId,
-		userType: localStorageUserInfo && localStorageUserInfo.userType
+		userType: localStorageUserInfo && localStorageUserInfo.userType,
+		userInfo: localStorageUserInfo && localStorageUserInfo.userInfo || {}
 	});
 };
 

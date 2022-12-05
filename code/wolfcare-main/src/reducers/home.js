@@ -7,6 +7,10 @@ const initialState = {
 	registerApiSuccess: false,
 	createAppointmentApiMessage: '',
 	createAppointmentApiSuccess: false,
+	getAppointmentsForUserApiMessage: '',
+	getAppointmentsForUserApiSuccess: false,
+	getAppointmentsForDoctorApiMessage: '',
+	getAppointmentsForDoctorApiSuccess: false,
 	updateAppointmentApiMessage: '',
 	updateAppointmentApiSuccess: false,
 	deleteAppointmentApiMessage: '',
@@ -14,8 +18,11 @@ const initialState = {
 	getHospitalsApiSuccess: false,
 	getHospitalsApiMessage: '',
 	hospitals: [],
+	userAppointments: [],
+	doctorAppointments: [],
 	userId: '',
-	userType: ''
+	userType: '',
+	userInfo: {}
 };
 
 /**
@@ -29,13 +36,15 @@ const homeReducer = (state = initialState, action) => {
 		// Success case
 		case 'SUBMITLOGIN': {
 			if (action.payload && action.payload.data) {
+				console.log(action.payload.data);
 				const userId = action.payload.data.user.userid;
 				const userType = action.payload.data.user.usertype;
-				localStorage.setItem('userLogonDetails', JSON.stringify({userId, userType, signInTime: new Date(), signInStatus: true}));
+				localStorage.setItem('userLogonDetails', JSON.stringify({userId, userType, userInfo: action.payload.data, signInTime: new Date(), signInStatus: true}));
 				return {
 					...state,
 					userId,
 					userType,
+					userInfo: action.payload.data,
 					loginApiSuccess: true,
 					loginApiMessage: action.payload.message
 				};
@@ -164,6 +173,54 @@ const homeReducer = (state = initialState, action) => {
 				...state,
 				getDoctorsApiSuccess: false,
 				getDoctorsApiMessage: action.payload.message
+			};
+		}
+		// Success case
+		case 'SUBMITGETAPPOINTMENTSFORUSER': {
+			if (action.payload && action.payload.data) {
+				return {
+					...state,
+					userAppointments: action.payload.data,
+					getAppointmentsForUserApiSuccess: true,
+					getAppointmentsForUserApiMessage: action.payload.message
+				};
+			}
+			return {
+				...state,
+				getAppointmentsForUserApiSuccess: false,
+				getAppointmentsForUserApiMessage: action.payload.message
+			};
+		}
+		// Failure case
+		case 'GETAPPOINTMENTSFORUSERFAILURE': {
+			return {
+				...state,
+				getAppointmentsForUserApiSuccess: false,
+				getAppointmentsForUserApiMessage: action.payload.message
+			};
+		}
+		// Success case
+		case 'SUBMITGETAPPOINTMENTSFORDOCTOR': {
+			if (action.payload && action.payload.data) {
+				return {
+					...state,
+					doctorAppointments: action.payload.data,
+					getAppointmentsForDoctorApiSuccess: true,
+					getAppointmentsForDoctorApiMessage: action.payload.message
+				};
+			}
+			return {
+				...state,
+				getAppointmentsForDoctorApiSuccess: false,
+				getAppointmentsForDoctorApiMessage: action.payload.message
+			};
+		}
+		// Failure case
+		case 'GETAPPOINTMENTSFORDOCTORFAILURE': {
+			return {
+				...state,
+				getAppointmentsForDoctorApiSuccess: false,
+				getAppointmentsForDoctorApiMessage: action.payload.message
 			};
 		}
 		default: return state;

@@ -158,22 +158,25 @@ class HospitalsList extends React.Component {
 
 	render() {
 		return (
-			<Table
-				columns={this.state.columns}
-				dataSource={ this.state.hospitals }
-				bordered={ true }
-				showHeader
-				scroll={ {
-					y: 530
-				} }
-				pagination={ {
-					position: [ 'bottomCenter' ],
-					showQuickJumper: true
-				} }
-				loading={this.state.loading}
-				style={{marginLeft: '2%', marginRight: '2%'}}
-			>
-			</Table>
+			<section style={{margin: '2% 2% 2% 2%'}}>
+				<h2>Member hospitals</h2>
+				<Table
+					columns={this.state.columns}
+					dataSource={ this.state.hospitals }
+					bordered={ true }
+					showHeader
+					scroll={ {
+						y: 530
+					} }
+					pagination={ {
+						position: [ 'bottomCenter' ],
+						showQuickJumper: true
+					} }
+					loading={this.state.loading}
+					style={{marginTop: '2%'}}
+				>
+				</Table>
+			</section>
 		);
 	}
 }
