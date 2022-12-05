@@ -108,7 +108,7 @@ class AppointmentsList extends React.Component {
 				this.setState({
 					loading: false
 				});
-				location.reload();
+				this.props.redirectToPath('/home/appointments');
 				return true;
 			} else {
 				this.setState({
