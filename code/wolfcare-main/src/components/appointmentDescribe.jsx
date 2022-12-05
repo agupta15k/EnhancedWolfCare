@@ -27,7 +27,7 @@ class DescribeAppointment extends React.Component {
 			allowedDays: [],
 			selectedDate: props.selectedAppointment.appointDate,
 			allowedTime: [],
-			selectedTime: moment(props.selectedAppointment.appointTime)
+			selectedTime: props.selectedAppointment.appointTime
 		};
 	}
 
@@ -240,9 +240,9 @@ class DescribeAppointment extends React.Component {
 		if (Object.keys(this.props).length > 0 && Object.keys(this.props.parentProps).length > 0) {
 			const apiInput =await {
 				...this.state.selectedAppointment,
-				doctorid:this.state.selectedDoctor,
-				date:this.state.selectedDate.format(dateFormat),
-				timeslot:this.state.selectedTime.format(timeFormat),
+				// doctorid:this.state.selectedDoctor,
+				date:moment(this.state.selectedDate).format(dateFormat),
+				timeslot:moment(this.state.selectedTime).format(timeFormat),
 				hospitalid:this.state.selectedHospital,
 			};
 			this.setState({
