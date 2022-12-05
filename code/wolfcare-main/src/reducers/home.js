@@ -324,23 +324,10 @@ const homeReducer = (state = initialState, action) => {
 		}
 		// Success case
 		case 'SUBMITUPDATEPROFILE': {
-			if (action.payload && action.payload.data) {
-				const userId = action.payload.data.user.userid;
-				const userType = action.payload.data.user.usertype;
-				localStorage.setItem('userLogonDetails', JSON.stringify({ userId, userType, userInfo: action.payload.data, signInTime: new Date(), signInStatus: true }));
-				return {
-					...state,
-					userId,
-					userType,
-					userInfo: action.payload.data,
-					loginApiSuccess: true,
-					loginApiMessage: action.payload.message
-				};
-			}
 			return {
 				...state,
-				loginApiSuccess: false,
-				loginApiMessage: action.payload.message
+				updateProfileApiSuccess: true,
+				updateProfileApiMessage: action.payload.message
 			};
 		}
 		// Failure case
