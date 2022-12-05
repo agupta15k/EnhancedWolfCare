@@ -31,13 +31,14 @@ class Home extends React.Component {
 	 * Set initial state
 	 * @param {Object} props Props for the component
 	 */
-	constructor (props) {
+	constructor(props) {
 		super(props);
 		this.state = {
 			tab: '',
 			userLogonDetails: {},
 			isLoginClicked: false,
 			isRegisterClicked: false,
+			userType: props.userType || 'patient',
 			isProfileViewClicked: false
 		};
 	}
@@ -48,10 +49,13 @@ class Home extends React.Component {
 	componentDidMount() {
 		const userLogonDetails = JSON.parse(localStorage.getItem('userLogonDetails'));
 		this.setState({
-			userLogonDetails: userLogonDetails || {}
+			userLogonDetails: userLogonDetails || {},
 		});
+		if (this.state.userLogonDetails.userType) {
+			this.setState({ userType: this.state.userLogonDetails.userType });
+		}
 		const url = new URL(document.location.href);
-		const pathWithoutHome = url.pathname.split('/')[ 2 ];
+		const pathWithoutHome = url.pathname.split('/')[2];
 		if (url.pathname === '/') {
 			this.redirectToPath('/home');
 		} else if (url.pathname === '/home') {
@@ -59,7 +63,7 @@ class Home extends React.Component {
 				tab: 'home'
 			});
 		} else {
-			const paths = [ 'doctors', 'hospitals', 'appointments', 'symptoms', 'about', 'contact', 'requests' ];
+			const paths = ['doctors', 'hospitals', 'appointments', 'symptoms', 'about', 'contact', 'requests'];
 			if (paths.includes(pathWithoutHome)) {
 				this.setState({
 					tab: pathWithoutHome
@@ -85,11 +89,22 @@ class Home extends React.Component {
 		});
 	};
 
-	setRegisterClicked = (val) => {
+	setRegisterClicked = (val, userType) => {
 		const userLogonDetails = JSON.parse(localStorage.getItem('userLogonDetails'));
 		this.setState({
 			userLogonDetails: userLogonDetails || {},
-			isRegisterClicked: val
+			userType: userType || 'patient',
+			isRegisterClicked: val,
+		});
+	};
+
+	getUserType = () => {
+		return this.state.userType;
+	};
+
+	setUserType = (val) => {
+		this.setState({
+			userType: val
 		});
 	};
 
@@ -102,13 +117,13 @@ class Home extends React.Component {
 	renderContent = () => {
 		switch (this.state.tab) {
 			case 'home':
-				return <MainPage redirectToPath={this.redirectToPath} setRegisterClicked={this.setRegisterClicked}/>;
+				return <MainPage redirectToPath={this.redirectToPath} setRegisterClicked={this.setRegisterClicked} userType={this.state.userType} />;
 			case 'doctors':
-				return <DoctorsList />;
+				return <DoctorsList userLogonDetails={this.state.userLogonDetails} setLoginClicked={this.setLoginClicked} redirectToPath={this.redirectToPath} parentProps={this.props} />;
 			case 'hospitals':
 				return <HospitalsList parentProps={this.props}/>;
 			case 'appointments':
-				return <AppointmentsList userLogonDetails={this.state.userLogonDetails} setLoginClicked={this.setLoginClicked} redirectToPath={this.redirectToPath} parentProps={this.props}/>;
+				return <AppointmentsList userLogonDetails={this.state.userLogonDetails} setLoginClicked={this.setLoginClicked} redirectToPath={this.redirectToPath} parentProps={this.props} />;
 			case 'symptoms':
 				return <SymptomsChecker />;
 			case 'about':
@@ -118,7 +133,7 @@ class Home extends React.Component {
 			case 'requests':
 				return <AdminRequests userLogonDetails={this.state.userLogonDetails} />;
 			default:
-				return <MainPage redirectToPath={this.redirectToPath} setRegisterClicked={this.setRegisterClicked}/>;
+				return <MainPage redirectToPath={this.redirectToPath} setRegisterClicked={this.setRegisterClicked} userType={this.state.userType} />;
 		}
 	};
 
@@ -160,7 +175,7 @@ class Home extends React.Component {
 				onClick: () => this.redirectToPath('/home/symptoms')
 			}
 		];
-		if (this.props.userType !== 'admin' || !this.state.userLogonDetails.signInStatus) {
+		if (this.state.userType !== 'admin' || !this.state.userLogonDetails.signInStatus) {
 			items = [...items, {
 				key: 'about',
 				icon: <InfoCircleOutlined />,
@@ -184,60 +199,60 @@ class Home extends React.Component {
 		return (
 			<section>
 				<Modal
-					title={ <h2>Sign in</h2> }
-					open={ this.state.isLoginClicked }
-					onOk={ () => this.setLoginClicked(false) }
-					onCancel={ () => this.setLoginClicked(false) }
-					width={ 800 }
-					height={ 700 }
-					footer={ null }
+					title={<h2>Sign in</h2>}
+					open={this.state.isLoginClicked}
+					onOk={() => this.setLoginClicked(false)}
+					onCancel={() => this.setLoginClicked(false)}
+					width={800}
+					height={700}
+					footer={null}
 				>
-					<LoginUser setLoginClicked={ this.setLoginClicked } parentProps={ this.props } />
+					<LoginUser setLoginClicked={this.setLoginClicked} parentProps={this.props} />
 				</Modal>
 				<Modal
-					title={ <h2>Sign up</h2> }
-					open={ this.state.isRegisterClicked }
-					onOk={ () => this.setRegisterClicked(false) }
-					onCancel={ () => this.setRegisterClicked(false) }
-					width={ 800 }
-					height={ 700 }
-					style={ { top: 20 } }
-					footer={ null }
+					title={<h2>Sign up</h2>}
+					open={this.state.isRegisterClicked}
+					onOk={() => this.setRegisterClicked(false, 'patient')}
+					onCancel={() => this.setRegisterClicked(false, 'patient')}
+					width={800}
+					height={700}
+					style={{ top: 20 }}
+					footer={null}
 				>
-					<RegisterUser setRegisterClicked={ this.setRegisterClicked } parentProps={ this.props } />
+					<RegisterUser setRegisterClicked={this.setRegisterClicked} getUserType={this.getUserType} setUserType={this.setUserType} clearUserType={this.clearUserType} parentProps={this.props} />
 				</Modal>
 				<Modal
-					title={ <h2>Profile</h2> }
-					open={ this.state.isProfileViewClicked }
-					onOk={ () => this.setProfileView(false) }
-					onCancel={ () => this.setProfileView(false) }
-					width={ 800 }
-					height={ 700 }
-					footer={ null }
+					title={<h2>Profile</h2>}
+					open={this.state.isProfileViewClicked}
+					onOk={() => this.setProfileView(false)}
+					onCancel={() => this.setProfileView(false)}
+					width={800}
+					height={700}
+					footer={null}
 				>
-					<RegisterUser setRegisterClicked={ this.setRegisterClicked } parentProps={ this.props } isUpdate={true}/>
+					<RegisterUser setRegisterClicked={this.setRegisterClicked} getUserType={this.getUserType} setUserType={this.setUserType} clearUserType={this.clearUserType} parentProps={this.props} isUpdate={true} />
 				</Modal>
 				<Layout className='layout'>
-					<Header style={ { backgroundColor: '#DFDFDF', height: '5.5em' } }>
-						<a href='/home' style={ { float: 'left' } }>
-							<img style={ { height: '70px', width: '70px', position: 'relative', float: 'left', marginTop: '0.5em' } } src='../wolf.png' alt='wolf'></img>
-							<b style={ { color: 'black', marginLeft: '0.5em', float: 'left', fontSize: '25px' } }>WOLF</b><b style={ { color: 'red', float: 'left', fontSize: '25px' } }>CARE</b>
+					<Header style={{ backgroundColor: '#DFDFDF', height: '5.5em' }}>
+						<a href='/home' style={{ float: 'left' }}>
+							<img style={{ height: '70px', width: '70px', position: 'relative', float: 'left', marginTop: '0.5em' }} src='../wolf.png' alt='wolf'></img>
+							<b style={{ color: 'black', marginLeft: '0.5em', float: 'left', fontSize: '25px' }}>WOLF</b><b style={{ color: 'red', float: 'left', fontSize: '25px' }}>CARE</b>
 							<br></br>
-							<p style={ { color: 'black', float: 'left', fontSize: '15px', marginLeft: '1em', marginTop: '-2.5em' } }>Your pocket doctor</p>
+							<p style={{ color: 'black', float: 'left', fontSize: '15px', marginLeft: '1em', marginTop: '-2.5em' }}>Your pocket doctor</p>
 						</a>
 						{
 							this.props.userId && this.state.userLogonDetails.signInStatus ? <div
-								style={ { float: 'right' } }>
+								style={{ float: 'right' }}>
 								<Dropdown
 									placement='bottom'
-									menu={ {
+									menu={{
 										items: [
 											{
 												key: 'profile',
 												label: (
-													<a rel='noopener noreferrer' onClick={ () => {
+													<a rel='noopener noreferrer' onClick={() => {
 														this.setProfileView(true);
-													} }>
+													}}>
 														Profile
 													</a>
 												)
@@ -253,39 +268,39 @@ class Home extends React.Component {
 											{
 												key: 'signout',
 												label: (
-													<a rel='noopener noreferrer' onClick={ () => {
+													<a rel='noopener noreferrer' onClick={() => {
 														let userLogonDetails = this.state.userLogonDetails;
 														userLogonDetails.signInStatus = false;
 														localStorage.setItem('userLogonDetails', JSON.stringify(userLogonDetails));
 														this.redirectToPath('/home');
-													} }>
+													}}>
 														Sign Out
 													</a>
 												)
 											}
 										]
-									} }
+									}}
 								>
-									<Avatar style={ { backgroundColor: '#87d068', marginTop: '20px' } } size={ 50 } icon={ <UserOutlined /> } />
+									<Avatar style={{ backgroundColor: '#87d068', marginTop: '20px' }} size={50} icon={<UserOutlined />} />
 								</Dropdown>
 							</div> : <div
-								style={ { float: 'right' } }>
-								<Button shape='round' type='primary' size='small' style={ { height: '40px', position: 'relative', float: 'left', marginRight: '1em', marginTop: '1.5em' } } onClick={ () => this.setLoginClicked(true) }><p style={ { float: 'left', marginTop: '0.5em' } }>Login</p></Button>
-								<Button shape='round' size='small' style={ { height: '40px', position: 'relative', float: 'left', marginTop: '1.5em' } }><p style={ { float: 'left', marginTop: '0.5em' } } onClick={ () => this.setRegisterClicked(true) }>Join Now</p></Button>
+								style={{ float: 'right' }}>
+								<Button shape='round' type='primary' size='small' style={{ height: '40px', position: 'relative', float: 'left', marginRight: '1em', marginTop: '1.5em' }} onClick={() => this.setLoginClicked(true)}><p style={{ float: 'left', marginTop: '0.5em' }}>Login</p></Button>
+								<Button shape='round' size='small' style={{ height: '40px', position: 'relative', float: 'left', marginTop: '1.5em' }}><p style={{ float: 'left', marginTop: '0.5em' }} onClick={() => this.setRegisterClicked(true)}>Join Now</p></Button>
 							</div>
 						}
 						<Menu
-							style={ { backgroundColor: '#DFDFDF', float: 'right', marginRight: '3em', marginTop: '0.5em' } }
+							style={{ backgroundColor: '#DFDFDF', float: 'right', marginRight: '3em', marginTop: '0.5em' }}
 							mode='horizontal'
-							items={ items }
-							disabledOverflow={ true }
-							selectedKeys={ [ this.state.tab || 'home' ] }
+							items={items}
+							disabledOverflow={true}
+							selectedKeys={[this.state.tab || 'home']}
 						/>
 					</Header>
-					<Content style={{height: '650px'}}>
-						{ this.renderContent() }
+					<Content style={{ height: '650px' }}>
+						{this.renderContent()}
 					</Content>
-					<Footer style={ { paddingTop: '1em', width: '100%', height: '10px', backgroundColor: '#DFDFDF', bottom:'0.5%', position: 'absolute' } }>Copyright (c) 2022 Group 22</Footer>
+					<Footer style={{ paddingTop: '1em', width: '100%', height: '10px', backgroundColor: '#DFDFDF', bottom: '0.5%', position: 'absolute' }}>Copyright (c) 2022 Group 22</Footer>
 				</Layout>
 			</section>
 		);

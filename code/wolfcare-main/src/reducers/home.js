@@ -5,6 +5,8 @@ const initialState = {
 	loginApiSuccess: false,
 	registerApiMessage: '',
 	registerApiSuccess: false,
+	createAppointmentApiMessage: '',
+	createAppointmentApiSuccess: false,
 	updateAppointmentApiMessage: '',
 	updateAppointmentApiSuccess: false,
 	deleteAppointmentApiMessage: '',
@@ -69,6 +71,22 @@ const homeReducer = (state = initialState, action) => {
 			};
 		}
 		// Success case
+		case 'SUBMITCREATEAPPOINTMENT': {
+			return {
+				...state,
+				createAppointmentApiSuccess: true,
+				createAppointmentApiMessage: action.payload.message
+			};
+		}
+		// Failure case
+		case 'CREATEAPPOINTMENTFAILURE': {
+			return {
+				...state,
+				createAppointmentApiSuccess: false,
+				createAppointmentApiMessage: action.payload.message
+			};
+		}
+		// Success case
 		case 'SUBMITUPDATEAPPOINTMENT': {
 			return {
 				...state,
@@ -122,6 +140,30 @@ const homeReducer = (state = initialState, action) => {
 				...state,
 				getHospitalsApiSuccess: false,
 				getHospitalsApiMessage: action.payload.message
+			};
+		}
+		// Success case
+		case 'SUBMITGETDOCTORS': {
+			if (action.payload && action.payload.data) {
+				return {
+					...state,
+					doctors: action.payload.data,
+					getDoctorsApiSuccess: true,
+					getDoctorsApiMessage: action.payload.message
+				};
+			}
+			return {
+				...state,
+				getDoctorsApiSuccess: false,
+				getDoctorsApiMessage: action.payload.message
+			};
+		}
+		// Failure case
+		case 'GETDOCTORSFAILURE': {
+			return {
+				...state,
+				getDoctorsApiSuccess: false,
+				getDoctorsApiMessage: action.payload.message
 			};
 		}
 		default: return state;

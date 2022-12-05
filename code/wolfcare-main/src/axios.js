@@ -8,8 +8,8 @@ import axios from 'axios';
  */
 const fetchClient = () => {
 	const defaultOptions = {
-		// baseURL: 'https://3a5a-107-13-178-32.ngrok.io/',
-		baseUrl: 'http://localhost:3000/',
+		baseURL: 'https://2a72-107-13-178-32.ngrok.io/',
+		// baseUrl: 'http://localhost:3000/',
 		headers: {
 			'Content-Type': 'application/json',
 		},

@@ -7,6 +7,7 @@ class MainPage extends React.Component {
 		super(props);
 		this.redirectToPath = props.redirectToPath;
 		this.setRegisterClicked = props.setRegisterClicked;
+		this.userType = props.userType;
 	}
 
 	render() {
@@ -77,7 +78,7 @@ class MainPage extends React.Component {
 									<figure style={{width: '40%', marginTop: '8%', marginLeft: '3%', float: 'left'}}><img src='../doc1.jpg' alt='doc1' style={{width: '180px', height: '180px'}}/></figure>
 									<h2 style={{width:'43%', marginTop: '15%', float: 'right'}}>Are you a Doctor?</h2>
 									<h1 style={{width:'43%', marginRight: '5%', float: 'right'}}><b>Join our team</b></h1>
-									<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', marginTop: '2%', marginLeft: '20%'}} onClick={() => this.setRegisterClicked(true)}><p style={{float: 'left', marginTop: '0.5em'}}>Join as Doctor</p></Button>
+									<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', marginTop: '2%', marginLeft: '20%'}} onClick={() => this.setRegisterClicked(true,'doctor')}><p style={{float: 'left', marginTop: '0.5em'}}>Join as Doctor</p></Button>
 								</div>
 							</div>
 						</div>
@@ -90,7 +91,7 @@ class MainPage extends React.Component {
 									<figure style={{width: '40%', marginTop: '8%', marginLeft: '3%', float: 'left'}}><img src='../hospital.jpg' alt='sign in' /></figure>
 									<h2 style={{width:'43%', marginTop: '15%', marginRight: '5%', float: 'right'}}>Represent a hospital?</h2>
 									<h1 style={{width:'43%', marginRight: '5%', float: 'right'}}><b>Join our team</b></h1>
-									<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', marginTop: '2%', marginLeft: '20%'}} onClick={() => this.setRegisterClicked(true)}><p style={{float: 'left', marginTop: '0.5em'}}>Add hospital</p></Button>
+									<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', marginTop: '2%', marginLeft: '20%'}} onClick={() => this.setRegisterClicked(true,'hospital')}><p style={{float: 'left', marginTop: '0.5em'}}>Add hospital</p></Button>
 								</div>
 							</div>
 						</div>

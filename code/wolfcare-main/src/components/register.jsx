@@ -12,7 +12,7 @@ class RegisterUser extends React.Component {
 	 * Set initial state
 	 * @param {Object} props Props for the component
 	 */
-	constructor (props) {
+	constructor(props) {
 		super(props);
 		this.state = {
 			name: '',
@@ -26,8 +26,10 @@ class RegisterUser extends React.Component {
 			experience: '',
 			specialization: '',
 			// hospitalLocation: '',
+			address: '',
 			loading: false,
-			isUpdate: props.isUpdate
+			isUpdate: props.isUpdate,
+			userType: props.getUserType() || 'patient'
 		};
 	}
 
@@ -39,12 +41,12 @@ class RegisterUser extends React.Component {
 		if (event.type === 'change') {
 			if (event.target) {
 				this.setState({
-					[ event.target.id ]: event.target.value
+					[event.target.id]: event.target.value
 				});
 			}
 		} else {
 			this.setState({
-				[ event.name ]: event.values
+				[event.name]: event.values
 			});
 		}
 	};
@@ -55,7 +57,7 @@ class RegisterUser extends React.Component {
 	 */
 	handleAddition = (event) => {
 		this.setState({
-			zipCodes: [ ...this.state.zipCodes, event ]
+			zipCodes: [...this.state.zipCodes, event]
 		});
 	};
 
@@ -75,9 +77,9 @@ class RegisterUser extends React.Component {
 	 * @returns {Boolean} True if everything succeeds, false otherwise
 	 */
 	handleSubmit = async (event) => {
-		const keys = [ 'name', 'email', 'pass', 'rePass' ];
+		const keys = ['name', 'email', 'pass', 'rePass'];
 		for (let i = 0; i < keys.length; i++) {
-			if (this.state[ keys[ i ] ] === '') return false;
+			if (this.state[keys[i]] === '') return false;
 		}
 		event.preventDefault();
 		const emailRegex = new RegExp('\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})');
@@ -85,26 +87,36 @@ class RegisterUser extends React.Component {
 			alert('Email format not correct. Enter email in correct format');
 			return false;
 		}
-		if (this.state.pass !== this.state.rePass) {
-			alert('Password does not match the confirmation. Ensure to enter matching passwords');
-			return false;
+		if (this.props.getUserType() !== 'hospital') {
+			if (this.state.pass !== this.state.rePass && this.props.getUserType()) {
+				alert('Password does not match the confirmation. Ensure to enter matching passwords');
+				return false;
+			}
 		}
-		if (this.state.bloodGroup === '') {
+		if (this.props.getUserType() === 'patient' && this.state.bloodGroup === '') {
 			alert('Missing values for blood group. Enter your blood group.');
 			return false;
 		}
-		if (this.state.phoneNumber === '') {
-			alert('Missing values for phone number. Enter your phone number.');
+		if (isNaN(this.state.phoneNumber) ||this.state.phoneNumber.length!==10) {
+			alert('Invalid values for phone number. Enter your phone number.');
 			return false;
 		}
-		// if (this.state.experience === '') {
-		// 	alert('Missing values for experience. Enter your experience.');
-		// 	return false;
-		// }
-		// if (this.state.specialization === '') {
-		// 	alert('Missing values for specialization. Enter your specialization.');
-		// 	return false;
-		// }
+		if (this.props.getUserType() === 'doctor') {
+			if (isNaN(this.state.experience)) {
+				alert('Invalid values for experience. Enter your experience.');
+				return false;
+			}
+			if (this.state.specialization === '') {
+				alert('Missing values for specialization. Enter your specialization.');
+				return false;
+			}
+		}
+		if (this.props.getUserType() === 'hospital') {
+			if (this.state.address === '') {
+				alert('Missing values for address. Enter your hospital address.');
+				return false;
+			}
+		}
 		if (Object.keys(this.props).length > 0 && Object.keys(this.props.parentProps).length > 0) {
 			const apiInput = {
 				name: this.state.name,
@@ -115,7 +127,8 @@ class RegisterUser extends React.Component {
 				phoneNumber: this.state.phoneNumber,
 				experience: this.state.experience,
 				specialization: this.state.specialization,
-				type: this.props.type,
+				address: this.state.address,
+				userType: this.props.getUserType(),
 			};
 			this.setState({
 				loading: true
@@ -149,12 +162,20 @@ class RegisterUser extends React.Component {
 		}
 		return false;
 	};
+	handleUserType = (event) => {
+		this.props.setUserType(event.values.value);
+		this.setState({
+			userType: event.values.value
+		});
+	};
 
 	/**
 	 * Render RegisterUser component
 	 * @returns {React.Component} Form with register user related HTML tags
 	 */
 	render() {
+		// this.setState({userType:this.props.userType});
+		// this.handleUserType2();
 		const bloodGroups = [
 			{
 				label: 'O+',
@@ -189,60 +210,103 @@ class RegisterUser extends React.Component {
 				value: 'AB-'
 			}
 		];
+		const userTypes = [
+			{
+				label: 'patient',
+				value: 'patient'
+			},
+			{
+				label: 'doctor',
+				value: 'doctor'
+			},
+			{
+				label: 'hospital',
+				value: 'hospital'
+			}
+		];
 		const animatedComponents = makeAnimated();
+		const userType = this.props.getUserType();
 		return (
 			<div className='signup-content'>
 				<div className='signup-form'>
 					<form className='register-form' id='register-form'>
-						<div className='form-group'>
-							<img src='../signup-name.png' alt='signup name' />
-							<input autoFocus type='text' name='name' id='name' placeholder='Your Name' value={ this.state.name } onChange={ this.handleInput } required />
-						</div>
-						<div className='form-group'>
-							<img src='../signup-email.png' alt='signup enail' />
-							<input type='email' name='email' id='email' placeholder='Your Email' value={ this.state.email } onChange={ this.handleInput } required />
-						</div>
-						<div className='form-group'>
-							<img src='../signup-pass.png' alt='signup password' />
-							<input type='password' name='pass' id='pass' placeholder='Password' value={ this.state.pass } onChange={ this.handleInput } required />
-						</div>
-						<div className='form-group'>
-							<img src='../signup-repass.png' alt='signup repeat password' />
-							<input type='password' className={ this.state.pass !== this.state.rePass ? 'error' : '' } name='rePass' id='rePass' placeholder='Repeat your password' value={ this.state.rePass } onChange={ this.handleInput } required />
-						</div>
-						<div className='form-group' style={ { overflow: 'unset' } }>
-							<img src='../blood-group.png' alt='blood group' />
+
+						<div className='form-group' style={{ overflow: 'unset' }}>
+							<img src='../user-type.png' alt='user type' />
 							<Select
-								closeMenuOnSelect={ false }
-								components={ animatedComponents }
-								isMulti={ false }
-								options={ bloodGroups }
-								placeholder={ 'Your blood group' }
-								maxMenuHeight={ 200 }
+								value={{ label: userType, value: userType }}
+								components={animatedComponents}
+								isMulti={false}
+								options={userTypes}
+								placeholder={'You are a DOCTOR/PATIENT/HOSPITAL?'}
+								maxMenuHeight={200}
 								menuPlacement='top'
-								name='bloodGroup'
-								onChange={ (event) => this.handleInput({ values: event, name: 'bloodGroup' }) }
+								name='userType'
+								onChange={(event) => this.handleUserType({ values: event, name: 'userType' })}
 							/>
 						</div>
 						<div className='form-group'>
-							<img src='../phone-number.png' alt='phone number' />
-							<input type='text' name='phoneNumber' id='phoneNumber' placeholder='Your phone number' value={ this.state.phoneNumber } onChange={ this.handleInput } required />
+							<img src='../signup-name.png' alt='signup name' />
+							<input autoFocus type='text' name='name' id='name' placeholder='Your Name' value={this.state.name} onChange={this.handleInput} required />
+						</div>
+						<div className='form-group'>
+							<img src='../signup-email.png' alt='signup enail' />
+							<input type='email' name='email' id='email' placeholder='Your Email' value={this.state.email} onChange={this.handleInput} required />
+						</div>
+						<div className='form-group'>
+							<img src='../signup-pass.png' alt='signup password' />
+							<input type='password' name='pass' id='pass' placeholder='Password' value={this.state.pass} onChange={this.handleInput} required />
+						</div>
+						<div className='form-group'>
+							<img src='../signup-repass.png' alt='signup repeat password' />
+							<input type='password' className={this.state.pass !== this.state.rePass ? 'error' : ''} name='rePass' id='rePass' placeholder='Repeat your password' value={this.state.rePass} onChange={this.handleInput} required />
 						</div>
 						{
-							this.props.type === 'doctor' ? (
+							userType === 'patient' ? (<>
+								<div className='form-group' style={{ overflow: 'unset' }}>
+									<img src='../blood-group.png' alt='blood group' />
+									<Select
+										// closeMenuOnSelect={false}
+										components={animatedComponents}
+										isMulti={false}
+										options={bloodGroups}
+										placeholder={'Your blood group'}
+										maxMenuHeight={200}
+										menuPlacement='top'
+										name='bloodGroup'
+										onChange={(event) => this.handleInput({ values: event, name: 'bloodGroup' })}
+									/>
+								</div>
+							</>) : (<></>)
+						}
+						<div className='form-group'>
+							<img src='../phone-number.png' alt='phone number' />
+							<input type='text' name='phoneNumber' id='phoneNumber' placeholder='Your phone number' value={this.state.phoneNumber} onChange={this.handleInput} required />
+						</div>
+						{
+							userType === 'doctor' ? (
 								<>
 									<div className='form-group'>
 										<img src='../experience.png' alt='experience' />
-										<input type='text' name='experience' id='experience' placeholder='Your experience' value={ this.state.experience } onChange={ this.handleInput } required />
+										<input type='text' name='experience' id='experience' placeholder='Your experience' value={this.state.experience} onChange={this.handleInput} required />
 									</div>
 									<div className='form-group'>
 										<img src='../specialization.png' alt='specialization' />
-										<input type='text' name='specialization' id='specialization' placeholder='Your specialization' value={ this.state.specialization } onChange={ this.handleInput } required />
+										<input type='text' name='specialization' id='specialization' placeholder='Your specialization' value={this.state.specialization} onChange={this.handleInput} required />
 									</div></>
 							) : (<></>)
 						}
+						{
+							userType === 'hospital' ? (
+								<>
+									<div className='form-group'>
+										<img src='../address.png' alt='address' />
+										<input type='text' name='address' id='address' placeholder='Your hospital address' value={this.state.address} onChange={this.handleInput} required />
+									</div>
+								</>) : (<></>)
+						}
 						<div className='form-group form-button'>
-							{ this.state.loading ? <Spinner /> : <input type='submit' name='signup' id='signup' className='form-submit' value={this.state.isUpdate ? 'Update' : 'Register'} onClick={ this.handleSubmit } /> }
+							{this.state.loading ? <Spinner /> : <input type='submit' name='signup' id='signup' className='form-submit' value={this.state.isUpdate ? 'Update' : 'Register'} onClick={this.handleSubmit} />}
 						</div>
 					</form>
 				</div>

@@ -30,8 +30,8 @@ class AboutUs extends React.Component {
 				<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', marginTop: '2%', marginLeft: '5%'}} onClick={() => this.props.redirectToPath('/home/doctors')}><p style={{float: 'left', marginTop: '0.5em'}}>Find doctor</p></Button>
 				<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', marginTop: '2%', marginLeft: '5%'}} onClick={() => this.props.redirectToPath('/home/hospitals')}><p style={{float: 'left', marginTop: '0.5em'}}>Find hospital</p></Button>
 				<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', marginTop: '2%', marginLeft: '5%'}} onClick={() => this.props.redirectToPath('/home/symptoms')}><p style={{float: 'left', marginTop: '0.5em'}}>Check symptoms</p></Button>
-				<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', marginTop: '2%', marginLeft: '5%'}} onClick={() => this.props.setRegisterClicked(true)}><p style={{float: 'left', marginTop: '0.5em'}}>Join as Doctor</p></Button>
-				<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', marginTop: '2%', marginLeft: '5%'}} onClick={() => this.props.setRegisterClicked(true)}><p style={{float: 'left', marginTop: '0.5em'}}>Add hospital</p></Button>
+				<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', marginTop: '2%', marginLeft: '5%'}} onClick={() => this.props.setRegisterClicked(true,true)}><p style={{float: 'left', marginTop: '0.5em'}}>Join as Doctor</p></Button>
+				<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', marginTop: '2%', marginLeft: '5%'}} onClick={() => this.props.setRegisterClicked(true,true)}><p style={{float: 'left', marginTop: '0.5em'}}>Add hospital</p></Button>
 			</div>
 		);
 	}
