@@ -101,7 +101,7 @@
 <a href="#credits"> Credits </a>
 </li>
 
-<h2 id = "overview"> About WolfCare 🤘 </h2>
+<h2 id = "overview"> About WolfCare </h2>
 
 WolfCare is an online application that manages the health portfolio of the patient and provides doctor’s assistance through an online portal. A virtual doctor appointment booking system overrides the problems of booking an appointment manually. It is convenient, helps in better resource management and aids in syncing of calender schedules. This project provides a platform for the users to create an account, search for doctors at a given location, view the doctor's background and book appointments. Additionally, we have included a symptoms check where users can add theor test report values and view the results of a medical condition.  
 
@@ -112,14 +112,14 @@ https://user-images.githubusercontent.com/54198410/194599349-2d8e7412-777e-4f72-
 <h2 id = "appInAction"> App in Action </h2>
 
 
-<h2 id = "target audience"> 🎯 Target Audience 👨‍👨‍👧‍👧 </h2>
+<h2 id = "target audience"> Target Audience </h2>
 WolfCare targets uses who would like to check the presence of any medical conditions and book an appointment with a doctor. 
 
 <h2 id = "tech"> Technologies :electron: </h2>
 
 ![Javascript](https://img.shields.io/badge/javascript-%2320232a.svg?style=for-the-badge&logo=javascript&logoColor=%2361DAFB) &nbsp; ![React](https://img.shields.io/badge/React-%2320232a.svg?style=for-the-badge&logo=React&logoColor=%2361DAFB) &nbsp; ![Redux](https://img.shields.io/badge/Redux-%2320232a.svg?style=for-the-badge&logo=Redux&logoColor=%2361DAFB) &nbsp; ![PHP](https://img.shields.io/badge/php-%2320232a.svg?style=for-the-badge&logo=php&logoColor=%2361DAFB) &nbsp; ![MYSQL](https://img.shields.io/badge/mysql-%2320232a.svg?style=for-the-badge&logo=mysql&logoColor=%2361DAFB) &nbsp; ![HTML](https://img.shields.io/badge/HTML-%2320232a.svg?style=for-the-badge&logo=html5&logoColor=%2361DAFB) &nbsp; ![CSS](https://img.shields.io/badge/css-%2320232a.svg?style=for-the-badge&logo=css3&logoColor=%2361DAFB)
 
-<h2 id = "ig"> Getting started ✔️</h2>
+<h2 id = "ig"> Getting started </h2>
 
 >***Note***: *All the requirements of the project are listed in the [requirements.txt](https://github.com/divyagiridhar/SE-Group-25-WolfCare/blob/main/requirements.txt) file with their required versions. The [INSTALL.md](https://github.com/divyagiridhar/SE-Group-25-WolfCare/blob/main/INSTALL.md) guides on how to download the required applications.*
 
