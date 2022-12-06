@@ -1253,11 +1253,20 @@ def updateUserProfile(data):
         connection = db_connection()
         now = datetime.datetime.now()
         formattedDate = now.strftime(&#34;%Y%m%d&#34;)
+        username = &#34; &#34;
+        firstname = str(data[&#34;name&#34;])
+        lastname = &#34; &#34;
+        usertype = str(data[&#34;userType&#34;])
+        gender = &#34; &#34;
+        email = str(data[&#34;email&#34;])
+        password = str(data[&#34;password&#34;])
+        phone = str(data[&#34;phoneNumber&#34;])
+        isactive = &#34;TRUE&#34;
+        
         cursor = connection.cursor(dictionary=True)
         sqlUpdateQuery = &#34;UPDATE users set username = %s, email = %s, firstname = %s, lastname = %s, gender = %s, password = %s, phone = %s, isactive = %s, lastmoddate = %s WHERE userid = %s&#34;
-        inputData = (str(data[&#39;username&#39;]), str(data[&#39;email&#39;]),
-                     str(data[&#34;firstname&#34;]), str(data[&#34;lastname&#34;]), str(data[&#34;gender&#34;]), str(
-            data[&#34;password&#34;]), str(data[&#34;phone&#34;]), str(data[&#34;isactive&#34;]), formattedDate, int(data[&#34;userid&#34;]))
+        inputData = (username,email,
+                     firstname, lastname, gender, password, phone, isactive, formattedDate, int(data[&#34;userid&#34;]))
         cursor.execute(sqlUpdateQuery, inputData)
         connection.commit()
 
@@ -3327,11 +3336,20 @@ Parameters</p>
         connection = db_connection()
         now = datetime.datetime.now()
         formattedDate = now.strftime(&#34;%Y%m%d&#34;)
+        username = &#34; &#34;
+        firstname = str(data[&#34;name&#34;])
+        lastname = &#34; &#34;
+        usertype = str(data[&#34;userType&#34;])
+        gender = &#34; &#34;
+        email = str(data[&#34;email&#34;])
+        password = str(data[&#34;password&#34;])
+        phone = str(data[&#34;phoneNumber&#34;])
+        isactive = &#34;TRUE&#34;
+        
         cursor = connection.cursor(dictionary=True)
         sqlUpdateQuery = &#34;UPDATE users set username = %s, email = %s, firstname = %s, lastname = %s, gender = %s, password = %s, phone = %s, isactive = %s, lastmoddate = %s WHERE userid = %s&#34;
-        inputData = (str(data[&#39;username&#39;]), str(data[&#39;email&#39;]),
-                     str(data[&#34;firstname&#34;]), str(data[&#34;lastname&#34;]), str(data[&#34;gender&#34;]), str(
-            data[&#34;password&#34;]), str(data[&#34;phone&#34;]), str(data[&#34;isactive&#34;]), formattedDate, int(data[&#34;userid&#34;]))
+        inputData = (username,email,
+                     firstname, lastname, gender, password, phone, isactive, formattedDate, int(data[&#34;userid&#34;]))
         cursor.execute(sqlUpdateQuery, inputData)
         connection.commit()
 
