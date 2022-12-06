@@ -108,9 +108,11 @@ WolfCare is an online application that manages the health portfolio of the patie
 
 <h2 id = "demo"> Demo Video </h2>
 
-https://user-images.githubusercontent.com/54198410/194599349-2d8e7412-777e-4f72-9f58-2b48cf1f2d84.mp4
+https://user-images.githubusercontent.com/112216701/205819674-413de60f-b322-4470-8fea-ac8eece08db7.mp4
 
 <h2 id = "appInAction"> App in Action </h2>
+
+Execution screenshots can be found [here](https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/tree/main/docs/execution/screenshots)
 
 <h2 id = "target audience"> Target Audience </h2>
 
