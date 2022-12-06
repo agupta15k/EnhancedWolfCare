@@ -1,6 +1,6 @@
 Repository link: https://github.com/agupta15k/ncsu_se_fall22_22_pr_2
 
-Total Score: 
+Total Score: 83
 
 |Notes|Points|evidence|
 |-----|---------|---------|
