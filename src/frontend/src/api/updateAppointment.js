@@ -3,8 +3,8 @@
 import axios from '../axios';
 
 /**
- * API to update profile details for a user
- * @param {Object} value Object containing updated user details
+ * API to update appointment information
+ * @param {Object} input Object containing updated appointment details
  * @returns {Promise} Response for axios PUT request
  */
 const updateAppointmentApi = (input) => {

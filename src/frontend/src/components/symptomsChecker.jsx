@@ -6,11 +6,19 @@ const iframe = () => {
 	};
 };
 
+/**
+ * React component for symptoms checker
+ * @extends React.Component
+ */
 class SymptomsChecker extends React.Component {
+	/**
+	 * Render symptoms checker component
+	 * @returns {React.Component} Form with register user related HTML tags
+	 */
 	render() {
 		return (
-			<div style={{margin: '2% 2% 2% 2%'}}>
-				<div dangerouslySetInnerHTML={iframe()} />
+			<div style={ { margin: '2% 2% 2% 2%' } }>
+				<div dangerouslySetInnerHTML={ iframe() } />
 			</div>
 		);
 	}

@@ -30,33 +30,33 @@ class Wolfcare extends React.Component {
 			},
 			{
 				path: '/home/doctors',
-				element: <Home tab={'doctors'}/>
+				element: <Home tab={ 'doctors' } />
 			},
 			{
 				path: '/home/hospitals',
-				element: <Home tab={'hospitals'}/>
+				element: <Home tab={ 'hospitals' } />
 			},
 			{
 				path: '/home/appointments',
-				element: <Home tab={'appointments'}/>
+				element: <Home tab={ 'appointments' } />
 			},
 			{
 				path: '/home/symptoms',
-				element: <Home tab={'symptoms'}/>
+				element: <Home tab={ 'symptoms' } />
 			},
 			{
 				path: '/home/about',
-				element: <Home tab={'about'}/>
+				element: <Home tab={ 'about' } />
 			},
 			{
 				path: '/home/contact',
-				element: <Home tab={'contact'}/>
+				element: <Home tab={ 'contact' } />
 			}
 		]);
 
 		return (
-			<Provider store={store}>
-				<RouterProvider router={router} />
+			<Provider store={ store }>
+				<RouterProvider router={ router } />
 			</Provider>
 		);
 	}

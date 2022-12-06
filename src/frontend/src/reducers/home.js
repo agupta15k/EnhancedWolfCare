@@ -38,7 +38,7 @@ const initialState = {
 };
 
 /**
- * Reducer for user dashboard component
+ * Reducer for main component
  * @param {*} state Initial state
  * @param {*} action Action which triggers the reducer execution
  * @returns {Object} Updated state
@@ -77,8 +77,8 @@ const homeReducer = (state = initialState, action) => {
 		case 'SUBMITSIGNOUT': {
 			return {
 				...state,
-				userId:null,
-				userType:'',
+				userId: null,
+				userType: '',
 				userInfo: {}
 			};
 		}

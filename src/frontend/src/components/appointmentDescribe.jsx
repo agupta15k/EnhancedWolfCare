@@ -13,8 +13,17 @@ import moment from 'moment';
 const dateFormat = 'YYYY-MM-DD';
 const timeFormat = 'HH:mm';
 const dummySchedule = { Monday: { StartTime: '10:00:00', EndTime: '16:00:00' }, Tuesday: { StartTime: '11:00:00', EndTime: '16:00:00' } };
+
+/**
+ * React component for describing an appointment
+ * @extends React.Component
+ */
 class DescribeAppointment extends React.Component {
-	constructor(props) {
+	/**
+	 * Set initial state
+	 * @param {Object} props Props for the component
+	 */
+	constructor (props) {
 		super(props);
 		this.state = {
 			loading: false,
@@ -30,9 +39,17 @@ class DescribeAppointment extends React.Component {
 		};
 	}
 
+	/**
+	 * React lifecycle method to load all available doctors
+	 */
 	componentDidMount = () => {
 		this.populateDoctors();
 	};
+
+	/**
+	 * Get and save list of doctors in state
+	 * @returns {Boolean} True if everything succeeds, false otherwise
+	 */
 	populateDoctors = async () => {
 		if (Object.keys(this.props.parentProps).length > 0) {
 			this.setState({
@@ -63,6 +80,10 @@ class DescribeAppointment extends React.Component {
 		}
 	};
 
+	/**
+	 * Get and save list of hospitals in state
+	 * @returns {Boolean} True if everything succeeds, false otherwise
+	 */
 	populateHospitals = async () => {
 		if (Object.keys(this.props.parentProps).length > 0) {
 			this.setState({
@@ -93,6 +114,9 @@ class DescribeAppointment extends React.Component {
 		}
 	};
 
+	/**
+	 * Get and save list of available dates in state
+	 */
 	populateDates = () => {
 		const dayMap = {
 			Sunday: 0,
@@ -105,7 +129,7 @@ class DescribeAppointment extends React.Component {
 		};
 		const allowedDays = [];
 		Object.keys(dummySchedule).forEach((sch) => {
-			allowedDays.push(dayMap[sch]);
+			allowedDays.push(dayMap[ sch ]);
 		});
 		this.setState({
 			allowedDays
@@ -114,6 +138,9 @@ class DescribeAppointment extends React.Component {
 		});
 	};
 
+	/**
+	 * Get and save list of available times in state
+	 */
 	populateHours = () => {
 		const dayMap = {
 			0: 'Sunday',
@@ -126,11 +153,11 @@ class DescribeAppointment extends React.Component {
 		};
 		let day = moment(this.state.selectedDate).day();
 		if (!this.state.allowedDays.includes(day)) {
-			day = this.state.allowedDays[0];
+			day = this.state.allowedDays[ 0 ];
 		}
-		let dayString = dayMap[day];
-		const startTime = dummySchedule[dayString].StartTime.split(':')[0];
-		const endTime = dummySchedule[dayString].EndTime.split(':')[0];
+		let dayString = dayMap[ day ];
+		const startTime = dummySchedule[ dayString ].StartTime.split(':')[ 0 ];
+		const endTime = dummySchedule[ dayString ].EndTime.split(':')[ 0 ];
 		const allowedHours = [];
 		for (let i = startTime; i <= endTime; i++) {
 			allowedHours.push(i);
@@ -141,10 +168,18 @@ class DescribeAppointment extends React.Component {
 		});
 	};
 
+	/**
+	 * Disable unavailable dates for DatePicker
+	 * @returns {Boolean} True if date needs to be disabled, false otherwise
+	 */
 	disabledDate = (current) => {
 		return current < dayjs().endOf('day').subtract(1, 'day') || !this.state.allowedDays.includes(moment(current).day());
 	};
 
+	/**
+	 * Disable unavailable hours for TimePicker
+	 * @returns {Array} List of disabled hours
+	 */
 	disabledTime = () => ({
 		disabledHours: () => {
 			const disabledHours = [];
@@ -157,6 +192,11 @@ class DescribeAppointment extends React.Component {
 		}
 	});
 
+	/**
+	 * Populate doctors, hospitals and time, and update in state
+	 * @param {String} value Update value
+	 * @param {String} type Type of value changed, i.e., doctor or hospital
+	 */
 	onChange = (value, type) => {
 		switch (type) {
 			case 'doctor':
@@ -179,6 +219,10 @@ class DescribeAppointment extends React.Component {
 		}
 	};
 
+	/**
+	 * Update date in state if changed
+	 * @param {Object} value Dropdown change event
+	 */
 	handleDateChange = (event) => {
 		if (moment(event).format(dateFormat) === this.state.selectedAppointment.appointDate) {
 			alert('No change in date. Please update the date, else click on cancel.');
@@ -190,6 +234,10 @@ class DescribeAppointment extends React.Component {
 		}
 	};
 
+	/**
+	 * Update time in state if changed
+	 * @param {Object} value Dropdown change event
+	 */
 	handleTimeChange = (event) => {
 		if (moment(event).format(timeFormat) === this.state.selectedAppointment.appointTime) {
 			alert('No change in date. Please update the date, else click on cancel.');
@@ -201,19 +249,19 @@ class DescribeAppointment extends React.Component {
 	};
 
 	/**
-	 * Validate input values and call onSubmitRegister API to register new user
+	 * Validate input values and call onAppointmentUpdate API to update appointment
 	 * @param {Object} event Button click event
 	 * @returns {Boolean} True if everything succeeds, false otherwise
 	 */
 	handleSubmit = async (event) => {
 		event.preventDefault();
 		if (Object.keys(this.props).length > 0 && Object.keys(this.props.parentProps).length > 0) {
-			const apiInput =await {
+			const apiInput = await {
 				...this.state.selectedAppointment,
 				// doctorid:this.state.selectedDoctor,
-				date:moment(this.state.selectedDate).format(dateFormat),
-				timeslot:moment(this.state.selectedTime).format(timeFormat),
-				hospitalid:this.state.selectedHospital,
+				date: moment(this.state.selectedDate).format(dateFormat),
+				timeslot: moment(this.state.selectedTime).format(timeFormat),
+				hospitalid: this.state.selectedHospital,
 			};
 			this.setState({
 				loading: true
@@ -238,79 +286,83 @@ class DescribeAppointment extends React.Component {
 		return false;
 	};
 
+	/**
+	 * Render appointment edit component
+	 * @returns {React.Component} Form with register user related HTML tags
+	 */
 	render() {
 		return (
 			<Modal
-				title={<h2>Edit appointment</h2>}
-				open={true}
-				onOk={() => this.props.setAppointmentDescriptionStatus(false)}
-				onCancel={() => this.props.setAppointmentDescriptionStatus(false)}
-				width={800}
-				height={700}
-				footer={null}
+				title={ <h2>Edit appointment</h2> }
+				open={ true }
+				onOk={ () => this.props.setAppointmentDescriptionStatus(false) }
+				onCancel={ () => this.props.setAppointmentDescriptionStatus(false) }
+				width={ 800 }
+				height={ 700 }
+				footer={ null }
 			>
 				<div className='signup-content'>
 					<div className='signup-form'>
 						<form className='register-form' id='register-form'>
 							<div className='form-group'>
-								<UserOutlined style={{ marginTop: '4%' }} />
+								<UserOutlined style={ { marginTop: '4%' } } />
 								<Select
 									showSearch
 									placeholder='Select a doctor'
 									optionFilterProp='label'
-									filterOption={(input, option) =>
+									filterOption={ (input, option) =>
 										(option && option.label).toLowerCase().includes(input.toLowerCase())
 									}
-									options={this.state.allowedDoctors}
-									style={{ width: '90%', marginLeft: '5%' }}
-									value={this.state.selectedDoctor}
-									onChange={(event) => this.onChange(event, 'doctor')}
+									options={ this.state.allowedDoctors }
+									style={ { width: '90%', marginLeft: '5%' } }
+									value={ this.state.selectedDoctor }
+									onChange={ (event) => this.onChange(event, 'doctor') }
 								/>
 							</div>
 							<div className='form-group'>
-								<MedicineBoxOutlined style={{ marginTop: '4%' }} />
+								<MedicineBoxOutlined style={ { marginTop: '4%' } } />
 								<Select
 									showSearch
 									placeholder='Select a hospital'
 									optionFilterProp='label'
-									filterOption={(input, option) =>
+									filterOption={ (input, option) =>
 										(option && option.label).toLowerCase().includes(input.toLowerCase())
 									}
-									options={this.state.allowedHospitals}
-									style={{ width: '90%', marginLeft: '5%' }}
-									value={this.state.selectedHospital}
-									onChange={(event) => this.onChange(event, 'hospital')}
+									options={ this.state.allowedHospitals }
+									style={ { width: '90%', marginLeft: '5%' } }
+									value={ this.state.selectedHospital }
+									onChange={ (event) => this.onChange(event, 'hospital') }
 								/>
 							</div>
 							<div className='form-group'>
 								<CalendarOutlined />
 								<DatePicker
-									format={dateFormat}
-									style={{ width: '90%', marginLeft: '5%' }}
-									placeholder={'Select date'}
+									format={ dateFormat }
+									style={ { width: '90%', marginLeft: '5%' } }
+									placeholder={ 'Select date' }
 									required
-									disabledDate={this.disabledDate}
-									value={moment(this.state.selectedDate)}
-									onChange={(event) => this.handleDateChange(event)}
-									onOk={(event) => this.handleDateChange(event)}
+									disabledDate={ this.disabledDate }
+									value={ moment(this.state.selectedDate) }
+									onChange={ (event) => this.handleDateChange(event) }
+									onOk={ (event) => this.handleDateChange(event) }
 								/>
 							</div>
 							<div className='form-group'>
 								<ClockCircleOutlined />
 								<TimePicker
-									format={timeFormat}
-									style={{ width: '90%', marginLeft: '5%' }}
-									placeholder={'Select time'}
+									format={ timeFormat }
+									style={ { width: '90%', marginLeft: '5%' } }
+									placeholder={ 'Select time' }
 									required
-									minuteStep={30}
-									disabledTime={this.disabledTime}
-									value={moment(this.state.selectedTime, 'hh:mm')}
-									onChange={(event) => this.handleTimeChange(event)}
-									onOk={(event) => this.handleTimeChange(event)}
+									minuteStep={ 30 }
+									disabledTime={ this.disabledTime }
+									value={ moment(this.state.selectedTime, 'hh:mm') }
+									onChange={ (event) => this.handleTimeChange(event) }
+									onOk={ (event) => this.handleTimeChange(event) }
 								/>
 							</div>
 							<div className='form-group form-button'>
-								{this.state.loading ? <Spinner /> : <input type='submit' name='update-appointment' id='update-appointment' className='form-submit' value='Update' onClick={this.handleSubmit} />}
+								{ this.state.loading ? <Spinner /> : <input type='submit' name='update-appointment' id='update-appointment' className='form-submit' value='Update' onClick={ this.handleSubmit } /> }
 							</div>
 						</form>
 					</div>

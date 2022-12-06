@@ -2,6 +2,7 @@
 
 import { combineReducers } from 'redux';
 import home from './home';
+
 /**
  * Combine all reducers
  */

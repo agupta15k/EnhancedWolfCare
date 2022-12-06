@@ -13,8 +13,17 @@ import moment from 'moment';
 const dateFormat = 'YYYY-MM-DD hh:mm';
 const dayFormat = 'YYYY-MM-DD';
 const timeFormat = 'HH:mm';
-class AppointmentsList extends React.Component {
-	constructor(props) {
+
+/**
+ * React component for listing all doctors
+ * @extends React.Component
+ */
+class DoctorsList extends React.Component {
+	/**
+	 * Set initial state
+	 * @param {Object} props Props for the component
+	 */
+	constructor (props) {
 		super(props);
 		this.state = {
 			loading: false,
@@ -22,26 +31,29 @@ class AppointmentsList extends React.Component {
 			selectedAppointment: {}
 		};
 	}
+
+	/**
+	 * React lifecycle method to load all available doctors
+	 */
 	componentDidMount = () => {
 		this.populateHospitals();
 		this.populateDoctors();
 	};
-	populateDoctors=async()=>{
+
+	/**
+	 * Get and save list of doctors in state
+	 * @returns {Boolean} True if everything succeeds, false otherwise
+	 */
+	populateDoctors = async () => {
 		if (Object.keys(this.props.parentProps).length > 0) {
 			this.setState({
 				loading: true
 			});
 			await this.props.parentProps.onGetDoctors();
 			if (this.props.parentProps.getDoctorsApiStatus) {
-				// // const allowedDoctors = this.props.parentProps.doctors.map((hospital) => {
-				// // 	return {
-				// // 		value: hospital.hospitalid,
-				// // 		label: hospital.name
-				// // 	};
-				// // });
 				this.setState({
 					loading: false,
-					doctors:this.props.parentProps.doctors
+					doctors: this.props.parentProps.doctors
 				});
 				return true;
 			} else {
@@ -54,7 +66,11 @@ class AppointmentsList extends React.Component {
 		}
 	};
 
-	populateHospitals = async() => {
+	/**
+	 * Get and save list of hospitals in state
+	 * @returns {Boolean} True if everything succeeds, false otherwise
+	 */
+	populateHospitals = async () => {
 		if (Object.keys(this.props.parentProps).length > 0) {
 			this.setState({
 				loading: true
@@ -69,7 +85,7 @@ class AppointmentsList extends React.Component {
 				});
 				this.setState({
 					loading: false,
-					hospitals:hospitalData
+					hospitals: hospitalData
 				});
 				return true;
 			} else {
@@ -82,14 +98,18 @@ class AppointmentsList extends React.Component {
 		}
 	};
 
+	/**
+	 * Validate input values and call onAppointmentCreate API to create appointment
+	 * @returns {Boolean} True if everything succeeds, false otherwise
+	 */
 	handleSubmit = async () => {
 		if (Object.keys(this.props).length > 0 && Object.keys(this.props.parentProps).length > 0) {
 			const apiInput = {
-				doctorid:this.state.selectedAppointment.doctorid,
+				doctorid: this.state.selectedAppointment.doctorid,
 				hospitalid: this.state.selectedAppointment.selectedHospitalId,
 				date: moment(this.state.selectedAppointment.appointDateTime).format(dayFormat),
 				timeslot: moment(this.state.selectedAppointment.appointDateTime).format(timeFormat),
-				userid:this.props.parentProps.userId
+				userid: this.props.parentProps.userId
 			};
 			this.setState({
 				loading: true
@@ -112,17 +132,30 @@ class AppointmentsList extends React.Component {
 		return false;
 	};
 
+	/**
+	 * Set state to show describe appointment model
+	 * @param {Boolean} val True/False to view or not view modal
+	 */
 	setAppointmentDescriptionStatus = (val) => {
 		this.setState({
 			showAppointmentDescription: val
 		});
 	};
 
+	/**
+	 * Set currently selected appointment in state
+	 * @param {Boolean} val Selected appointment
+	 */
 	setSelectedAppointment = (val) => {
 		this.setState({
 			selectedAppointment: val
 		});
 	};
+
+	/**
+	 * Dropdown value change for hospital
+	 * @param {String} value Update value
+	 */
 	onChange = (value) => {
 		this.setState({
 			selectedHospital: value
@@ -131,6 +164,11 @@ class AppointmentsList extends React.Component {
 			selectedAppointment: { ...this.state.selectedAppointment, selectedHospitalId: value, }
 		});
 	};
+
+	/**
+	 * Add date in state
+	 * @param {Object} event Dropdown change event
+	 */
 	handleDateChange = (event) => {
 		if (event < dayjs()) {
 			alert('Entered date is older than current time, please fix that.');
@@ -141,70 +179,74 @@ class AppointmentsList extends React.Component {
 		}
 	};
 
+	/**
+	 * Render doctors list component
+	 * @returns {React.Component} Form with register user related HTML tags
+	 */
 	render() {
 		const { Column } = Table;
 		if (!this.props.userLogonDetails || !this.props.userLogonDetails.signInStatus) {
 			return (
-				<div className='container' style={{position: 'absolute', width: '45%', height: '40%', top: '25%', right: '25%', opacity: '90%'}}>
+				<div className='container' style={ { position: 'absolute', width: '45%', height: '40%', top: '25%', right: '25%', opacity: '90%' } }>
 					<div>
-						<h1 style={{width:'100%', marginTop: '15%', marginRight: '5%', textAlign: 'center'}}>Uh oh! Something went wrong</h1>
-						<h2 style={{width:'100%', marginTop: '5%', marginRight: '5%', textAlign: 'center'}}><b>Please login to see appointments</b></h2>
-						<Button shape='round' type='primary' size='small' style={{height: '40px', position: 'relative', marginTop: '5%', marginLeft: '45%'}} onClick={() => this.props.setLoginClicked(true)}><p style={{float: 'left', marginTop: '0.5em'}}>Login</p></Button>
+						<h1 style={ { width: '100%', marginTop: '15%', marginRight: '5%', textAlign: 'center' } }>Uh oh! Something went wrong</h1>
+						<h2 style={ { width: '100%', marginTop: '5%', marginRight: '5%', textAlign: 'center' } }><b>Please login to see appointments</b></h2>
+						<Button shape='round' type='primary' size='small' style={ { height: '40px', position: 'relative', marginTop: '5%', marginLeft: '45%' } } onClick={ () => this.props.setLoginClicked(true) }><p style={ { float: 'left', marginTop: '0.5em' } }>Login</p></Button>
 					</div>
 				</div>
 			);
 		}
 		return (
 			<section>
-				{this.state.showAppointmentDescription ? (
+				{ this.state.showAppointmentDescription ? (
 					<>
 						<Modal
-							title={<h2>Schedule appointment</h2>}
-							open={true}
-							onOk={() => this.setAppointmentDescriptionStatus(false)}
-							onCancel={() => this.setAppointmentDescriptionStatus(false)}
-							width={800}
-							height={700}
-							footer={null}
+							title={ <h2>Schedule appointment</h2> }
+							open={ true }
+							onOk={ () => this.setAppointmentDescriptionStatus(false) }
+							onCancel={ () => this.setAppointmentDescriptionStatus(false) }
+							width={ 800 }
+							height={ 700 }
+							footer={ null }
 						>
 							<div className='signup-content'>
 								<div className='signup-form'>
 									<form className='register-form' id='register-form'>
 										<div className='form-group'>
-											<UserOutlined style={{ marginTop: '4%' }} />
-											<input type='text' name='name' id='name' placeholder='Doctor Name' style={{ float: 'right' }} value={this.state.selectedAppointment.name} disabled />
+											<UserOutlined style={ { marginTop: '4%' } } />
+											<input type='text' name='name' id='name' placeholder='Doctor Name' style={ { float: 'right' } } value={ this.state.selectedAppointment.name } disabled />
 										</div>
 										<div className='form-group'>
-											<MedicineBoxOutlined style={{ marginTop: '4%' }} />
+											<MedicineBoxOutlined style={ { marginTop: '4%' } } />
 											<Select
 												showSearch
 												placeholder='Select a hospital'
 												optionFilterProp='label'
-												filterOption={(input, option) =>
+												filterOption={ (input, option) =>
 													(option && option.label).toLowerCase().includes(input.toLowerCase())
 												}
-												options={this.state.hospitals}
-												style={{ width: '90%', marginLeft: '5%' }}
-												value={this.state.selectedHospital}
-												onChange={(event) => this.onChange(event)}
+												options={ this.state.hospitals }
+												style={ { width: '90%', marginLeft: '5%' } }
+												value={ this.state.selectedHospital }
+												onChange={ (event) => this.onChange(event) }
 											/>
 										</div>
 										<div className='form-group'>
 											<CalendarOutlined />
 											<DatePicker
-												format={dateFormat}
+												format={ dateFormat }
 												showTime
-												style={{ marginLeft: '5%' }}
-												placeholder={'Select date and time'}
+												style={ { marginLeft: '5%' } }
+												placeholder={ 'Select date and time' }
 												required
-												disabledDate={this.disabledDate}
-												disabledTime={this.disabledTime}
-												value={moment(this.state.selectedAppointment.appointDateTime)}
-												onOk={this.handleDateChange}
+												disabledDate={ this.disabledDate }
+												disabledTime={ this.disabledTime }
+												value={ moment(this.state.selectedAppointment.appointDateTime) }
+												onOk={ this.handleDateChange }
 											/>
 										</div>
 										<div className='form-group form-button'>
-											{this.state.loading ? <Spinner /> : <input type='submit' name='submit-appointment' id='submit-appointment' className='form-submit' value='Submit' onClick={this.handleSubmit} />}
+											{ this.state.loading ? <Spinner /> : <input type='submit' name='submit-appointment' id='submit-appointment' className='form-submit' value='Submit' onClick={ this.handleSubmit } /> }
 										</div>
 									</form>
 								</div>
@@ -214,47 +256,35 @@ class AppointmentsList extends React.Component {
 							</div>
 						</Modal>
 					</>
-				) : null}
+				) : null }
 				<Table
-					dataSource={this.props.parentProps.doctors}
-					bordered={true}
-					expandable={{
-						expandedRowRender: () => (
-							<p
-								style={{
-									margin: 0,
-								}}
-							>
-								{'adfasdfasdfasdf'}
-							</p>
-						),
-						rowExpandable: (record) => record.name !== 'Not Expandable',
-					}}
+					dataSource={ this.props.parentProps.doctors }
+					bordered={ true }
 					showHeader
-					scroll={{
+					scroll={ {
 						y: 435
-					}}
-					pagination={{
-						position: ['bottomCenter'],
+					} }
+					pagination={ {
+						position: [ 'bottomCenter' ],
 						showQuickJumper: true
-					}}
-					loading={this.state.loading}
+					} }
+					loading={ this.state.loading }
 				>
-					{/* <Column title='Id' dataIndex='key' key='key' width='5%' /> */}
+					{/* <Column title='Id' dataIndex='key' key='key' width='5%' /> */ }
 					<Column title='Doctor' dataIndex='name' key='name' />
 					<Column title='Specialization' dataIndex='specialization' key='specialization' />
 					<Column title='Experience' dataIndex='experience' key='experience' />
 					<Column
 						title='Action'
 						key='action'
-						render={(_, record) => {
+						render={ (_, record) => {
 							return (<Space size='middle'>
-								<a className='link' onClick={() => {
+								<a className='link' onClick={ () => {
 									this.setSelectedAppointment(record);
 									this.setAppointmentDescriptionStatus(true);
-								}}>Schedule</a>
+								} }>Schedule</a>
 							</Space>);
-						}}
+						} }
 					/>
 				</Table>
 			</section>
@@ -262,4 +292,4 @@ class AppointmentsList extends React.Component {
 	}
 }
 
-export default AppointmentsList;
+export default DoctorsList;

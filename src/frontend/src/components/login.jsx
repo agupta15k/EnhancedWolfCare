@@ -63,6 +63,7 @@ class LoginUser extends React.Component {
 					loading: false
 				});
 				this.props.setLoginClicked(false);
+				location.reload();
 				return true;
 			} else {
 				this.setState({

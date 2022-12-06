@@ -19,7 +19,7 @@ const updateProfileAPI = (value) => {
 		experience: value.experience,
 		specialization: value.specialization,
 		address: value.address,
-		userid:value.userId,
+		userid: value.userId,
 	});
 };
 export default updateProfileAPI;

@@ -18,8 +18,8 @@ import reviewHospitalRequests from '../api/reviewHospitalRequests';
 import updateProfileApi from '../api/updateProfile';
 
 /**
- * Map actions to props for user dashboard component
- * @returns  {Object} Item addition action that triggers addItem API
+ * Map actions to props
+ * @returns  {Object} Item addition action that triggers relevant API
  */
 
 const homeMapDispatchToProps = dispatch => {
@@ -193,7 +193,7 @@ const homeMapDispatchToProps = dispatch => {
 };
 
 /**
- * Map state to props for user dashboard component
+ * Map state to props
  * @returns  {Object} Props
  */
 const homeMapStateToProps = state => {
@@ -240,6 +240,6 @@ const homeMapStateToProps = state => {
 };
 
 /**
- * Using connect, subscribe user dashboard component to redux store
+ * Using connect, subscribe home component to redux store
  */
 export default connect(homeMapStateToProps, homeMapDispatchToProps)(Home);
