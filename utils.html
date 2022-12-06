@@ -1152,8 +1152,9 @@ def loginCheck(email, password):
         connection = db_connection()
         cursor = connection.cursor(dictionary=True)
         cursor.execute(
-            &#34;SELECT userid, username, email, usertype, phone, isactive FROM users WHERE email= %s AND password = %s&#34;, (email, password))
+            &#34;SELECT userid, username, firstname, lastname, email, usertype, phone, isactive FROM users WHERE email= %s AND password = %s&#34;, (email, password))
         user = cursor.fetchone()
+        user[&#34;name&#34;] = user[&#34;firstname&#34;]+user[&#34;lastname&#34;]
         cursor.close()
         connection.close()
         if user:
@@ -2850,8 +2851,9 @@ Parameters</p>
         connection = db_connection()
         cursor = connection.cursor(dictionary=True)
         cursor.execute(
-            &#34;SELECT userid, username, email, usertype, phone, isactive FROM users WHERE email= %s AND password = %s&#34;, (email, password))
+            &#34;SELECT userid, username, firstname, lastname, email, usertype, phone, isactive FROM users WHERE email= %s AND password = %s&#34;, (email, password))
         user = cursor.fetchone()
+        user[&#34;name&#34;] = user[&#34;firstname&#34;]+user[&#34;lastname&#34;]
         cursor.close()
         connection.close()
         if user:
