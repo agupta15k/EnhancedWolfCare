@@ -131,7 +131,6 @@ WolfCare targets uses who would like to check the presence of any medical condit
   - pytest for testing the application server.
   - Clone the Github repository in your local system.
   - This project uses xampp, so make sure to install xampp in your system.
-  - Place the project repository in `/xampp/htdocs/` (**Note:** the xampp folder will be present in the C directory of your local system).
   - Run the xampp application, and start the `Apache` and`MySQL` by clicking on the start button.
 
 - ### Dependencies
