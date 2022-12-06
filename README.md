@@ -1,61 +1,59 @@
-<h1 align="center"> 🩺WolfCare </h1>
+<h1 align="center">
+  <a href="https://github.com/agupta15k/ncsu_se_fall22_22_pr_2">
+    🩺WolfCare
+  </a>
+</h1>
   
 <h2 align="center"> Online Doctor Appointment and Symptoms Checker </h1>
 
 <div align="center">
-  <a href="https://github.com/divyagiridhar/SE-Group-25-WolfCare/actions/workflows/python-app.yml">
-    <img src="https://github.com/divyagiridhar/SE-Group-25-WolfCare/actions/workflows/python-app.yml/badge.svg">
+  <a href="https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/actions/workflows/backendGitActions.yml">
+    <img src="https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/actions/workflows/backendGitActions.yml/badge.svg">
   </a>
-  <a href="https://github.com/divyagiridhar/SE-Group-25-WolfCare/actions/workflows/Coverage.yml">
-    <img src="https://github.com/divyagiridhar/SE-Group-25-WolfCare/actions/workflows/Coverage.yml/badge.svg">
+  <a href="https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/actions/workflows/frontendGitActions.yml">
+    <img src="https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/actions/workflows/frontendGitActions.yml/badge.svg">
   </a>
-  <a href="https://codecov.io/gh/dhruvpatel-9/WolfCare" > 
-    <img src="https://codecov.io/gh/dhruvpatel-9/WolfCare/branch/main/graph/badge.svg?token=9174TE5M55"/> 
+  <a href="https://codecov.io/gh/agupta15k/ncsu_se_fall22_22_pr_2" > 
+    <img src="https://codecov.io/gh/agupta15k/ncsu_se_fall22_22_pr_2/branch/main/graph/badge.svg?token=2EK80CFDBA"/> 
   </a>
-  <a href="https://github.com/divyagiridhar/SE-Group-25-WolfCare/actions/workflows/style_checker.yml" > 
-    <img src="https://github.com/divyagiridhar/SE-Group-25-WolfCare/actions/workflows/style_checker.yml/badge.svg"/> 
-  </a>
-  <a href="https://github.com/divyagiridhar/SE-Group-25-WolfCare/actions/workflows/lint.yml" > 
-    <img src="https://github.com/divyagiridhar/SE-Group-25-WolfCare/actions/workflows/lint.yml/badge.svg"/> 
-  </a>
-  <a href="https://github.com/divyagiridhar/SE-Group-25-WolfCare.git">
-    <img src="https://img.shields.io/github/repo-size/divyagiridhar/SE-Group-25-WolfCare?color=brightgreen">
+  <a href="https://github.com/agupta15k/ncsu_se_fall22_22_pr_2.git">
+    <img src="https://img.shields.io/github/repo-size/agupta15k/ncsu_se_fall22_22_pr_2?color=brightgreen">
   </a>
   <a href="https://zenodo.org/badge/latestdoi/569499359">
     <img src="https://zenodo.org/badge/569499359.svg" alt="DOI">
   </a>
-  <a href="https://github.com/divyagiridhar/SE-Group-25-WolfCare/blob/main/LICENSE">
+  <a href="https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/divyagiridhar/SE-Group-25-WolfCare">
   </a>
-  <a href="https://github.com/divyagiridhar/SE-Group-25-WolfCare/graphs/contributors">
-    <img src="https://img.shields.io/github/contributors/divyagiridhar/SE-Group-25-WolfCare">
+  <a href="https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/agupta15k/ncsu_se_fall22_22_pr_2">
   </a>
-  <a href="https://github.com/divyagiridhar/SE-Group-25-WolfCare/graphs/commit-activity">
-    <img src="https://img.shields.io/github/commit-activity/w/divyagiridhar/SE-Group-25-WolfCare?color=blueviolet">
+  <a href="https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/graphs/commit-activity">
+    <img src="https://img.shields.io/github/commit-activity/w/agupta15k/ncsu_se_fall22_22_pr_2?color=blueviolet">
   </a>
-  <a href="https://github.com/divyagiridhar/SE-Group-25-WolfCare/issues">
-    <img src="https://img.shields.io/github/issues-raw/divyagiridhar/SE-Group-25-WolfCare?color=red">
+  <a href="https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/issues">
+    <img src="https://img.shields.io/github/issues-raw/agupta15k/ncsu_se_fall22_22_pr_2?color=red">
   </a>
-  <a href="https://github.com/divyagiridhar/SE-Group-25-WolfCare/issues?q=is%3Aissue+is%3Aclosed">
-    <img src="https://img.shields.io/github/issues-closed-raw/divyagiridhar/SE-Group-25-WolfCare?color=success">
+  <a href="https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/issues?q=is%3Aissue+is%3Aclosed">
+    <img src="https://img.shields.io/github/issues-closed-raw/agupta15k/ncsu_se_fall22_22_pr_2?color=success">
   </a>
-  <a href="https://github.com/divyagiridhar/SE-Group-25-WolfCare/pulls">
-    <img src="https://img.shields.io/github/issues-pr/divyagiridhar/SE-Group-25-WolfCare?color=orange">
+  <a href="https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/pulls">
+    <img src="https://img.shields.io/github/issues-pr/agupta15k/ncsu_se_fall22_22_pr_2?color=orange">
   </a>
-  <a href="https://github.com/divyagiridhar/SE-Group-25-WolfCare/pulls?q=is%3Apr+is%3Aclosed">
-    <img src="https://img.shields.io/github/issues-pr-closed/divyagiridhar/SE-Group-25-WolfCare?color=green">
+  <a href="https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/pulls?q=is%3Apr+is%3Aclosed">
+    <img src="https://img.shields.io/github/issues-pr-closed/agupta15k/ncsu_se_fall22_22_pr_2?color=green">
   </a>
-  <a href="https://github.com/divyagiridhar/SE-Group-25-WolfCare/tags">
-    <img src="https://img.shields.io/github/v/tag/divyagiridhar/SE-Group-25-WolfCare?color=9cf">
+  <a href="https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/tags">
+    <img src="https://img.shields.io/github/v/tag/agupta15k/ncsu_se_fall22_22_pr_2?color=9cf">
   </a>
-  <a href="https://github.com/divyagiridhar/SE-Group-25-WolfCare">
-    <img src="https://img.shields.io/github/languages/count/divyagiridhar/SE-Group-25-WolfCare">
+  <a href="https://github.com/agupta15k/ncsu_se_fall22_22_pr_2">
+    <img src="https://img.shields.io/github/languages/count/agupta15k/ncsu_se_fall22_22_pr_2">
   </a>
-  <a href="https://github.com/divyagiridhar/SE-Group-25-WolfCare">
-    <img src="https://img.shields.io/github/languages/top/divyagiridhar/SE-Group-25-WolfCare?color=ff69b4">
+  <a href="https://github.com/agupta15k/ncsu_se_fall22_22_pr_2">
+    <img src="https://img.shields.io/github/languages/top/agupta15k/ncsu_se_fall22_22_pr_2?color=ff69b4">
   </a>
-  <a href="https://github.com/divyagiridhar/SE-Group-25-WolfCare/network/members">
-    <img src="https://img.shields.io/github/forks/divyagiridhar/SE-Group-25-WolfCare?style=social">
+  <a href="https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/network/members">
+    <img src="https://img.shields.io/github/forks/agupta15k/ncsu_se_fall22_22_pr_2?style=social">
   </a>
 </div>
 
@@ -64,13 +62,10 @@
 <a href="#overview"> About WolfCare </a> 
 </li>
 <li> 
-<a href="#flowchart"> Flowchart </a> 
+<a href="#demo"> Demo Video </a> 
 </li>
 <li> 
-<a href="#design"> Website Design </a> 
-</li>
-<li> 
-<a href="#db"> Database Design </a> 
+<a href="#appInAction"> App In Action </a> 
 </li>
 <li> 
 <a href="#target audience"> Target Audience </a> 
@@ -79,10 +74,22 @@
 <a href="#tech"> Technologies </a> 
 </li>
 <li> 
-<a href="#ig"> Installation Guide </a>
+<a href="#ig"> Getting Started </a>
 </li>
 <li> 
-<a href="#documentation"> Documentation </a>
+<a href="#directory"> Directory Structure </a>
+</li>
+<li> 
+<a href="#releases"> Releases </a>
+</li>
+<li> 
+<a href="#roadmap"> Roadmap </a>
+</li>
+<li> 
+<a href="#chat"> Chat Channel </a>
+</li>
+<li> 
+<a href="#support"> Support </a>
 </li>
 <li> 
 <a href="#licenses"> License </a> 
@@ -91,140 +98,217 @@
 <a href="#cb"> Contributors </a>
 </li>
 <li> 
-<a href="#help"> Help </a>
+<a href="#credits"> Credits </a>
 </li>
-<br>
 
 <h2 id = "overview"> About WolfCare 🤘 </h2>
 
 WolfCare is an online application that manages the health portfolio of the patient and provides doctor’s assistance through an online portal. A virtual doctor appointment booking system overrides the problems of booking an appointment manually. It is convenient, helps in better resource management and aids in syncing of calender schedules. This project provides a platform for the users to create an account, search for doctors at a given location, view the doctor's background and book appointments. Additionally, we have included a symptoms check where users can add theor test report values and view the results of a medical condition.  
 
+<h2 id = "demo"> Demo Video </h2>
+
 https://user-images.githubusercontent.com/54198410/194599349-2d8e7412-777e-4f72-9f58-2b48cf1f2d84.mp4
 
-<br>
-<h2 id = "flowchart"> Flowchart ⏬ </h2>
-<div align = "center">
-  <img style="height:700px; width:500px;" src = "/images/Flowchartblack.png">
-</div>
-<br>
+<h2 id = "appInAction"> App in Action </h2>
 
-<h2 id = "design"> Website Design 🖥️ </h2>
-
-<table border="2" bordercolorlight="#b9dcff" bordercolordark="#006fdd">
-
-  <thead>  
-    <a href = "/documentation/main.png">1. Main Page </a>
-    <p></p>
-    <img src="/images/main.png">
-  </thead>
-  
-  <tr style="background: #010203;"> 
-    <td colspan = "2">
-      <a href = "/documentation/welcome.png">2. Welcome Page </a>
-      <p> </p>
-        <img src="/images/loginregister.png">    
-     </td>
-     <td colspan = "2">
-      <a href = "/documentation/login.png">3. Login Page </a>
-      <p> </p>  
-        <img src="/images/login.png">    
-     </td>
-  </tr>
-   <tr style="background: #010203;"> 
-    <td colspan = "2">
-      <a href = "/documentation/home.png">4. Home Page </a>
-      <p> </p>  
-        <img src="/images/home.png">    
-     </td>
-     <td colspan = "2"> 
-      <a href = "/documentation/search.png">5. Search Page </a>
-      <p> </p>
-        <img src="./images/doc_search.png">
-    </td>
-  </tr>
-  </table>
-<br>
-
-<h2 id = "db"> Database Design 💾</h2>
-
-<table border="2" bordercolorlight="#b9dcff" bordercolordark="#006fdd">
-
-  <thead>
-    <p> 1. Main Database </p>
-    <img src="/images/db1.png">
-  </thead>
-  
-  <tr style="background: #010203;"> 
-    <td colspan = "2">
-      <p style="color: #FF7A59"> 2. Doctors' Database </p>  
-        <img src="/images/db2.png">    
-     </td>
-     <td colspan = "2">
-      <p style="color: #FF7A59"> 3. Users' Database  </p>  
-        <img src="/images/db3.png">    
-     </td>
-  </tr>
-  </table>
-<br>
 
 <h2 id = "target audience"> 🎯 Target Audience 👨‍👨‍👧‍👧 </h2>
 WolfCare targets uses who would like to check the presence of any medical conditions and book an appointment with a doctor. 
-<br>
-<br>
 
 <h2 id = "tech"> Technologies :electron: </h2>
 
-![Javascript](https://img.shields.io/badge/javascript-%2320232a.svg?style=for-the-badge&logo=javascript&logoColor=%2361DAFB) &nbsp; ![PHP](https://img.shields.io/badge/php-%2320232a.svg?style=for-the-badge&logo=php&logoColor=%2361DAFB) &nbsp; ![MYSQL](https://img.shields.io/badge/mysql-%2320232a.svg?style=for-the-badge&logo=mysql&logoColor=%2361DAFB) &nbsp; ![HTML](https://img.shields.io/badge/html-%2320232a.svg?style=for-the-badge&logo=html&logoColor=%2361DAFB) &nbsp; ![CSS](https://img.shields.io/badge/css-%2320232a.svg?style=for-the-badge&logo=css&logoColor=%2361DAFB)
-<br>
-<br>
+![Javascript](https://img.shields.io/badge/javascript-%2320232a.svg?style=for-the-badge&logo=javascript&logoColor=%2361DAFB) &nbsp; ![React](https://img.shields.io/badge/React-%2320232a.svg?style=for-the-badge&logo=React&logoColor=%2361DAFB) &nbsp; ![Redux](https://img.shields.io/badge/Redux-%2320232a.svg?style=for-the-badge&logo=Redux&logoColor=%2361DAFB) &nbsp; ![PHP](https://img.shields.io/badge/php-%2320232a.svg?style=for-the-badge&logo=php&logoColor=%2361DAFB) &nbsp; ![MYSQL](https://img.shields.io/badge/mysql-%2320232a.svg?style=for-the-badge&logo=mysql&logoColor=%2361DAFB) &nbsp; ![HTML](https://img.shields.io/badge/HTML-%2320232a.svg?style=for-the-badge&logo=html5&logoColor=%2361DAFB) &nbsp; ![CSS](https://img.shields.io/badge/css-%2320232a.svg?style=for-the-badge&logo=css3&logoColor=%2361DAFB)
 
-<h2 id = "ig"> Installation Guide ✔️</h2>
+<h2 id = "ig"> Getting started ✔️</h2>
 
 >***Note***: *All the requirements of the project are listed in the [requirements.txt](https://github.com/divyagiridhar/SE-Group-25-WolfCare/blob/main/requirements.txt) file with their required versions. The [INSTALL.md](https://github.com/divyagiridhar/SE-Group-25-WolfCare/blob/main/INSTALL.md) guides on how to download the required applications.*
 
-1. Clone the Github repository in your local system by running **`git clone https://github.com/divyagiridhar/SE-Group-25-WolfCare.git`** in your command line or downloading the repository zip file.
-2. This project uses xampp, so make sure to install xampp in your system.
-3. Place the project repository in **`/xampp/htdocs/`** (**Note:** the xampp folder will be present in the C directory of your local system).
-4. Run the xampp application, and start the **`Apache`, `MySQL`, and `FileZilla`** by clicking on the start button.
-5. Open the project in Visual Studio Code (VS Code) &rarr; Go to **`code/medical-rules/index.html`** and press the **`Go Live`** button present at the bottom right corner.
-(**Tip:** If there isn't any `Go Live` button present at the bottom right corner in VS Code, **install** the extension &rarr; Live Server.)
-6. Open **`code/wolfcare-main/html/main.html`** through **`localhost`**.
+- ### Prerequisites
+  - [npm](https://www.npmjs.com/) and [node](https://nodejs.org/en/) (version 16.X or 16.17.1) should be installed.
+  - Make sure the database server (mysql) is on. Consider using XAMPP.
+  - Download [Python3](https://www.python.org/downloads/).
+  - pytest for testing the application server.
+  - Clone the Github repository in your local system.
+  - This project uses xampp, so make sure to install xampp in your system.
+  - Place the project repository in `/xampp/htdocs/` (**Note:** the xampp folder will be present in the C directory of your local system).
+  - Run the xampp application, and start the `Apache` and`MySQL` by clicking on the start button.
 
-<br>
-<hr>
-<p> ❔ <strong> Still not getting it? Confused? Of course we are the saviours and creators, you can take a look at the video tutorial given below.</strong></p>
-<hr>
+- ### Dependencies
 
-https://user-images.githubusercontent.com/30078834/194672106-53b41cd8-fc84-40a3-874e-a51936059b86.mp4
+  **Backend**: [flask](https://flask.palletsprojects.com/en/2.2.x/) (2.2.2), [flask_cors](https://flask-cors.readthedocs.io/en/latest/) (3.0.10), [json](https://docs.python.org/3/library/json.html), [asyncio](https://docs.python.org/3/library/asyncio.html), [ast](https://docs.python.org/3/library/ast.html), [re](https://docs.python.org/3/library/re.html), [mysql](https://dev.mysql.com/doc/connector-python/en/) (8.0.30), [pytest](https://docs.pytest.org/en/7.1.x/) (7.1.2), [pdoc](https://pdoc.dev/) (0.10.0).
+  
+  **Frontend**: [axios](https://axios-http.com/docs/intro) (1.0.0), [antd](https://ant.design/docs/react/introduce) (4.23.4), [jsdoc](https://jsdoc.app/) (3.6.11), [react-select](https://react-select.com/home) (5.4.0), [react-tag-input](https://www.npmjs.com/package/react-tag-input) (6.8.1), [reactstrap](https://www.npmjs.com/package/reactstrap) (9.1.4), [jest](https://jestjs.io/).
 
-<hr>
-<br>
+- ### Installation and Run
 
-<h2 id = "documentation"> Documentation 🖋️ </h2>
-<a href="https://github.com/divyagiridhar/SE-Group-25-WolfCare/blob/main/documentation/home.md">Home Page</a>
-<br>
-<a href="https://github.com/divyagiridhar/SE-Group-25-WolfCare/blob/main/documentation/main.md">Main Page</a>
-<br>
-<a href="https://github.com/divyagiridhar/SE-Group-25-WolfCare/blob/main/documentation/login.md">Login Page</a>
-<br>
-<a href="https://github.com/divyagiridhar/SE-Group-25-WolfCare/blob/main/documentation/search.md">Search Page</a>
+    **Backend**: [Documentation](https://htmlpreview.github.io/?https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/blob/backendDocs/index.html)
 
-<h3> How? </h3>
-Click<a href="https://user-images.githubusercontent.com/30078834/194672106-53b41cd8-fc84-40a3-874e-a51936059b86.mp4"> here</a>.
-<h3> Why? </h3>
-Click<a href="https://user-images.githubusercontent.com/54198410/194599349-2d8e7412-777e-4f72-9f58-2b48cf1f2d84.mp4"> here</a>.
+    1. Create virtual environment
 
-<h2 id = "licenses"> Licenses 📝 </h2>
-<a href="https://github.com/divyagiridhar/SE-Group-25-WolfCare/blob/main/LICENSE"> MIT </a> License is used in this project. 
-<br>
-<br>
+    ```
+    python -m venv <name_of_virtualenv>
+    ```
 
-<h2 id = "help"> Help 📧 </h2>
-You can email any queries to the contributors mentioned below.
-<br>
+    2. Activate Python Virtual environment
 
-<hr>
-  <p id="cb" align = "center">
-  |&nbsp; <a href = "mailto: rghevar@ncsu.edu">Ravi Ghevariya</a> &nbsp;| &nbsp; <a href = "mailto: dpatel49@ncsu.edu">Dhruv Patel</a> &nbsp;|&nbsp; <a href = "mailto: mrpatel8@ncsu.edu">Manan Patel</a> &nbsp;|&nbsp; <a href = "mailto: divyagiridhar97@gmail.com">Divya Giridhar</a> &nbsp;|&nbsp; <a href = "mailto: shreyastitus@gmail.com">Shreyas Titus</a> |
-  </p>
-<hr>
+    ```
+    <name_of_virtualenv>\Scripts\activate.bat for Windows users.
+    source <name_of_virtualenv>/bin/activate for linux users.
+    ```
+
+    3. Install dependencies
+
+    ```
+    pip install -r requirements.txt
+    ```
+
+  	4. Make sure the database is imported from ```database/wolfcare.sql``` onto the mysql server.
+	
+    5. Run the below command from the main directory to start the backend application server.
+
+    ```
+    python -m src.backend.app
+    ```
+
+    6. The backend flask application will be up and running at ```localhost:5001```
+
+    **Frontend**: [Documentation](https://htmlpreview.github.io/?https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/blob/frontendDocs/left-overs/0.1.0/index.html)
+
+    1. After cloning the repository, move to the directory ```src\frontend``` where our frontend code is located.
+
+    2. Install all the dependencies using npm. Command to run: ```npm install```. This will fetch the dependecies from package.json file, and install them.
+
+    3. Start the server by using the command ```npm start```. This will run the server on port ```3000```, and the website can be accessed by going to ```http://localhost:3000/```.
+
+    4. If credentials of a registered user are available, use them, or register a new user and interact with the website.
+
+ - ### Testing
+
+    **Backend**
+
+    1. Run the below command from the main directory. This should run all the test cases for app.py.
+
+    ```
+    pytest
+    ```
+    
+    **Frontend**
+
+    1. Move to the directory ```src\frontend``` where our frontend tests are located.
+    
+    2. Run the tests using the command ```npm test -- --coverage --watchAll=false```. This will run all the tests across the frontend code.
+
+  - ### Troubleshooting
+  
+    Try the following troubleshooting steps. If none of them work, contact the repository owner/file an issue.
+
+    **Backend**
+
+    1. We have added the print statements in all of the backend functions to know execution of the codes.
+    2. In case of error the print statements will let us know about the issue of code break.
+    3. The api responses the status code, valid message and response header which they can share back for troubleshooting.
+
+    **Frontend**
+    
+    1. Since frontend is build using JavaScript, React and Redux, check for console logs under developer tools to identify any failures.
+    2. Consider installing and using [React developer tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en) and [Redux developer tools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en) to track the request through the system.
+
+<h2 id = "directory"> Directory Structure </h2>
+
+    .
+    ├── .github
+    |   ├── ISSUE_TEMPLATE
+    |   |   ├── bug_report.md               # Template for bug report
+    |   |   ├── feature_request.md          # Template for feature request
+    |   ├── workflows
+    |   |   ├── frontendGitActions.yml      # GitActions workflow for frontend
+    |   |   ├── backendGitActions.yml       # GitActions workflow for frontend
+    ├── .vscode
+    |   ├── extensions.json                 # Recommended extensions for vscode
+    |   ├── settings.json                   # Workspace settings for vscode
+    ├── database
+    |   ├── wolfcare.sql                    # Database for project
+    ├── docs
+    |   ├── Rubrics
+    |   |   ├── proj1rubric.md              # Project rubric
+    |   ├── backend                         # Documentation for backend
+    |   ├── frontendDocs/wolfcare/0.1.0     # Documentation for frontend
+    |   ├── README.md                       # Readme file for docs folder
+    ├── src
+    |   ├── backend
+    |   |   ├── __init__.py                 # Init file for backend
+    |   |   ├── app.py                      # File containing backend APIs
+    |   |   ├── dbconfig.py                 # DB configuration for backend
+    |   |   ├── utils.py                    # Utilities for backend
+    |   ├── frontend
+    |   |   ├── public                      # Folder containing assets and images
+    |   |   ├── src
+    |   |   |   ├── api                     # Folder containing API calling frontend code
+    |   |   |   ├── __tests__               # Folder containing unit tests for frontend
+    |   |   |   ├── app                     # Folder containing redux store configuration
+    |   |   |   ├── components              # Folder containing frontend react components
+    |   |   |   ├── containers              # Folder containing containers to connect components with redux store
+    |   |   |   ├── reducers                # Folder containing reducers
+    |   |   |   ├── axiox.js                # API client generation
+    |   |   |   ├── index.css               # CSS configuration for frontend
+    |   |   |   ├── index.js                # Entry point for frontend
+    |   |   |   ├── setupTests.js           # Setup jest configuration for unit testing
+    |   |   |   ├── wolfcare.jsx            # Root react component
+    |   |   ├── .eslintignore               # Ignore configuration for eslint
+    |   |   ├── .eslintrc.js                # eslint configuration
+    |   |   ├── package.json                # Package configuration and dependency closure
+    |   ├── README.md                       # Readme file for src folder
+    ├── test
+    |   ├── README.md                       # Readme file for test folder
+    |   ├── __init__.py                     # Init file for test folder
+    |   ├── test_app.py                     # Tests for backend
+    ├── .gitattributes                      # File for git attributes
+    ├── .gitignore                          # File for git ignore
+    ├── CITATION.cff                        # File for citations
+    ├── CODE_OF_CONDUCT.md                  # Code of conduct for repository
+    ├── CONTRIBUTING.md                     # Details about contributing to the repository
+    ├── INSTALL.md                          # Details about prerequisite installation
+    ├── LICENSE                             # MIT License details
+    ├── README.md                           # Readme file for repository
+    ├── requirements.txt                    # Details of dependency packages
+    └── setup.py                            # Setup file for the module
+
+<h2 id = "releases"> Releases </h2>
+
+* [WolfCare v1.0.0](https://github.com/divyagiridhar/SE-Group-25-WolfCare/releases/tag/v1.0.0): Initial v0.1 release
+* [WolfCare v1.0.1](https://github.com/divyagiridhar/SE-Group-25-WolfCare/releases/tag/v1.0.1): First major release
+* [EnhancedWolfCare v0.1.0](https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/releases/tag/0.1.0): Initial v0.1 release
+* [EnhancedWolfCare v1.0.0](https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/releases/tag/v1.0.0): First major release
+
+<h2 id = "roadmap"> Roadmap </h2>
+
+* Roadmap for this project can be found [here](https://github.com/users/agupta15k/projects/1).
+
+<h2 id = "chat"> Chat Channel </h2>
+
+* All the communication was handled through a private chat channel and online meets. Some screenshots of discussions can be found [here](https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/tree/main/docs/chatChannel/screenshots).
+
+<h2 id = "support"> Support </h2>
+We do our best to answer all tickets in a timely manner, but sometimes we accumulate a backlog and may take awhile to respond. Please be patient—we will get back to you as soon as we can! 
+
+Please do contact any of us:
+* Akash Gupta(agupta57@ncsu.edu)
+* Arun Srinivasan P(apartha4@ncsu.edu)
+* Nagaraj Madamshetti(nmadams@ncsu.edu)
+* Nitesh Mishra(nmishra4@ncsu.edu)
+* Sumit Singh(ssingh57@ncsu.edu)
+
+
+<h2 id = "licenses"> Licence </h2>
+
+* We are using [MIT license](https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/blob/main/LICENSE)
+* Copyright (c) 2022 Group 22
+
+<h2 id = "cb"> Contributors </h2>
+
+Thanks goes to [these](https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/graphs/contributors) wonderful people.
+
+<h2 id = "credits"> Credits </h2>
+
+* Thanks goes to the owners of repository [SE-Group-25-WolfCare](https://github.com/divyagiridhar/SE-Group-25-WolfCare) for prompting the idea and laying the groundwork.
+* Thanks also goes to [Mr. Jugu Dannie Sundar](https://github.com/jugu), whose rule builder has helped us significantly in this project.
