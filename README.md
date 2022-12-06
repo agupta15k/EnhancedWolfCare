@@ -1,5 +1,3 @@
-<p align="center"><img src="/images/ProjectBanner.png">
-  
 <h1 align="center"> 🩺WolfCare </h1>
   
 <h2 align="center"> Online Doctor Appointment and Symptoms Checker </h1>
@@ -23,8 +21,8 @@
   <a href="https://github.com/divyagiridhar/SE-Group-25-WolfCare.git">
     <img src="https://img.shields.io/github/repo-size/divyagiridhar/SE-Group-25-WolfCare?color=brightgreen">
   </a>
-  <a href="https://zenodo.org/badge/latestdoi/544594767">
-    <img src="https://zenodo.org/badge/544594767.svg" alt="DOI">
+  <a href="https://zenodo.org/badge/latestdoi/569499359">
+    <img src="https://zenodo.org/badge/569499359.svg" alt="DOI">
   </a>
   <a href="https://github.com/divyagiridhar/SE-Group-25-WolfCare/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/divyagiridhar/SE-Group-25-WolfCare">
