@@ -4,11 +4,7 @@
   </a>
 </h1>
 
-###
-
 <h2 align="center"> Online Doctor Appointment and Symptoms Checker </h2>
-
-###
 
 <div align="center">
   <a href="https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/actions/workflows/backendGitActions.yml">
@@ -61,11 +57,7 @@
   </a>
 </div>
 
-###
-
 <h2> Table of Contents </h2>
-
-###
 
 <li> 
 <a href="#overview"> About WolfCare </a> 
@@ -110,49 +102,25 @@
 <a href="#credits"> Credits </a>
 </li>
 
-###
-
 <h2 id = "overview"> About WolfCare </h2>
-
-###
 
 WolfCare is an online application that manages the health portfolio of the patient and provides doctor’s assistance through an online portal. A virtual doctor appointment booking system overrides the problems of booking an appointment manually. It is convenient, helps in better resource management and aids in syncing of calender schedules. This project provides a platform for the users to create an account, search for doctors at a given location, view the doctor's background and book appointments. Additionally, we have included a symptoms check where users can add theor test report values and view the results of a medical condition.  
 
-###
-
 <h2 id = "demo"> Demo Video </h2>
-
-###
 
 https://user-images.githubusercontent.com/54198410/194599349-2d8e7412-777e-4f72-9f58-2b48cf1f2d84.mp4
 
-###
-
 <h2 id = "appInAction"> App in Action </h2>
-
-###
-
-###
 
 <h2 id = "target audience"> Target Audience </h2>
 
-###
-
 WolfCare targets uses who would like to check the presence of any medical conditions and book an appointment with a doctor. 
-
-###
 
 <h2 id = "tech"> Technologies :electron: </h2>
 
-###
-
 ![Javascript](https://img.shields.io/badge/javascript-%2320232a.svg?style=for-the-badge&logo=javascript&logoColor=%2361DAFB) &nbsp; ![React](https://img.shields.io/badge/React-%2320232a.svg?style=for-the-badge&logo=React&logoColor=%2361DAFB) &nbsp; ![Redux](https://img.shields.io/badge/Redux-%2320232a.svg?style=for-the-badge&logo=Redux&logoColor=%2361DAFB) &nbsp; ![PHP](https://img.shields.io/badge/php-%2320232a.svg?style=for-the-badge&logo=php&logoColor=%2361DAFB) &nbsp; ![MYSQL](https://img.shields.io/badge/mysql-%2320232a.svg?style=for-the-badge&logo=mysql&logoColor=%2361DAFB) &nbsp; ![HTML](https://img.shields.io/badge/HTML-%2320232a.svg?style=for-the-badge&logo=html5&logoColor=%2361DAFB) &nbsp; ![CSS](https://img.shields.io/badge/css-%2320232a.svg?style=for-the-badge&logo=css3&logoColor=%2361DAFB)
 
-###
-
 <h2 id = "ig"> Getting started </h2>
-
-###
 
 >***Note***: *All the requirements of the project are listed in the [requirements.txt](https://github.com/divyagiridhar/SE-Group-25-WolfCare/blob/main/requirements.txt) file with their required versions. The [INSTALL.md](https://github.com/divyagiridhar/SE-Group-25-WolfCare/blob/main/INSTALL.md) guides on how to download the required applications.*
 
@@ -246,11 +214,7 @@ WolfCare targets uses who would like to check the presence of any medical condit
     1. Since frontend is build using JavaScript, React and Redux, check for console logs under developer tools to identify any failures.
     2. Consider installing and using [React developer tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en) and [Redux developer tools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en) to track the request through the system.
 
-###
-
 <h2 id = "directory"> Directory Structure </h2>
-
-###
 
     .
     ├── .github
@@ -310,38 +274,22 @@ WolfCare targets uses who would like to check the presence of any medical condit
     ├── requirements.txt                    # Details of dependency packages
     └── setup.py                            # Setup file for the module
 
-###
-
 <h2 id = "releases"> Releases </h2>
-
-###
 
 * [WolfCare v1.0.0](https://github.com/divyagiridhar/SE-Group-25-WolfCare/releases/tag/v1.0.0): Initial v0.1 release
 * [WolfCare v1.0.1](https://github.com/divyagiridhar/SE-Group-25-WolfCare/releases/tag/v1.0.1): First major release
 * [EnhancedWolfCare v0.1.0](https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/releases/tag/0.1.0): Initial v0.1 release
 * [EnhancedWolfCare v1.0.0](https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/releases/tag/v1.0.0): First major release
 
-###
-
 <h2 id = "roadmap"> Roadmap </h2>
-
-###
 
 * Roadmap for this project can be found [here](https://github.com/users/agupta15k/projects/1).
 
-###
-
 <h2 id = "chat"> Chat Channel </h2>
-
-###
 
 * All the communication was handled through a private chat channel and online meets. Some screenshots of discussions can be found [here](https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/tree/main/docs/chatChannel/screenshots).
 
-###
-
 <h2 id = "support"> Support </h2>
-
-###
 
 We do our best to answer all tickets in a timely manner, but sometimes we accumulate a backlog and may take awhile to respond. Please be patient—we will get back to you as soon as we can! 
 
@@ -352,28 +300,16 @@ Please do contact any of us:
 * Nitesh Mishra(nmishra4@ncsu.edu)
 * Sumit Singh(ssingh57@ncsu.edu)
 
-###
-
 <h2 id = "licenses"> Licence </h2>
-
-###
 
 * We are using [MIT license](https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/blob/main/LICENSE)
 * Copyright (c) 2022 Group 22
 
-###
-
 <h2 id = "cb"> Contributors </h2>
-
-###
 
 Thanks goes to [these](https://github.com/agupta15k/ncsu_se_fall22_22_pr_2/graphs/contributors) wonderful people.
 
-###
-
 <h2 id = "credits"> Credits </h2>
-
-###
 
 * Thanks goes to the owners of repository [SE-Group-25-WolfCare](https://github.com/divyagiridhar/SE-Group-25-WolfCare) for prompting the idea and laying the groundwork.
 * Thanks also goes to [Mr. Jugu Dannie Sundar](https://github.com/jugu), whose rule builder has helped us significantly in this project.
