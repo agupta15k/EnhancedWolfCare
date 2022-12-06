@@ -6,7 +6,7 @@
 
 ###
 
-<h2 align="center"> Online Doctor Appointment and Symptoms Checker </h1>
+<h2 align="center"> Online Doctor Appointment and Symptoms Checker </h2>
 
 ###
 
